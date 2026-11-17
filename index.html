@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#fff1f7">
+    <meta name="description" content="Yume Manga โลกแห่งมังงะที่คุณชื่นชอบ">
+
+    <title>Yume Manga | Pink Dream</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <style>
+        /* =================================
+           ADVANCED SEARCH
+        ================================= */
+
+        .advanced-filters {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            padding: 18px;
+            border-radius: 18px;
+            background: var(--card-bg, #fff);
+            border: 1px solid #f5dce8;
+            box-sizing: border-box;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-color, #754b60);
+        }
+
+        .filter-select {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 12px 10px;
+            border-radius: 12px;
+            border: 1px solid #f0ccdc;
+            background: var(--card-bg, #fff);
+            color: var(--text-color, #754b60);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .filter-select:focus {
+            border-color: #e98ab5;
+            box-shadow: 0 0 0 3px rgba(233,138,181,0.12);
+        }
+
+        .filter-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .filter-summary {
+            font-size: 13px;
+            color: var(--text-color, #754b60);
+            opacity: 0.75;
+        }
+
+        .clear-filters {
+            padding: 9px 15px;
+            border: none;
+            border-radius: 12px;
+            background: #ffe3ef;
+            color: #d65c91;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .clear-filters:active {
+            transform: scale(0.97);
+        }
+
+        body.dark .advanced-filters {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        body.dark .filter-select {
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        body.dark .clear-filters {
+            background: #593b4b;
+            color: #ffc2dc;
+        }
+
+        @media (max-width: 600px) {
+            .advanced-filters {
+                grid-template-columns: 1fr;
+                gap: 13px;
+                padding: 15px;
+            }
+
+            .filter-select {
+                padding: 13px 12px;
+            }
+
+            .filter-bottom {
+                align-items: center;
+            }
+        }
+
+        /* =================================
+           CUTE PINK MENU BUTTON
+        ================================= */
+
+        .menu-button {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            padding: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+
+            border: 1px solid rgba(236, 151, 190, 0.3);
+            border-radius: 15px;
+
+            background: linear-gradient(
+                145deg,
+                #fff8fc,
+                #ffe8f2
+            );
+
+            box-shadow:
+                0 4px 12px rgba(225, 126, 169, 0.13),
+                inset 0 1px 2px rgba(255,255,255,0.9);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-button span {
+            display: block;
+            width: 19px;
+            height: 2.5px;
+
+            border-radius: 10px;
+            background: #d96f9e;
+
+            transition:
+                width 0.25s ease,
+                transform 0.25s ease,
+                opacity 0.2s ease;
+        }
+
+        .menu-button:active {
+            transform: scale(0.91);
+            box-shadow:
+                0 2px 6px rgba(225, 126, 169, 0.15);
+        }
+
+        @media (hover: hover) {
+            .menu-button:hover {
+                transform: translateY(-2px);
+                box-shadow:
+                    0 6px 15px rgba(225, 126, 169, 0.2);
+            }
+
+            .menu-button:hover span:first-child,
+            .menu-button:hover span:last-child {
+                width: 14px;
+            }
+        }
+
+        /* DARK MODE */
+
+        body.dark .menu-button {
+            background: linear-gradient(
+                145deg,
+                #493344,
+                #382735
+            );
+
+            border-color: rgba(255, 190, 220, 0.15);
+
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.15),
+                inset 0 1px 2px rgba(255,255,255,0.05);
+        }
+
+        body.dark .menu-button span {
+            background: #ffc0dc;
+        }
+
+        /* ACCESSIBILITY */
+
+        .menu-button:focus-visible {
+            outline: 3px solid rgba(233,138,181,0.35);
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .menu-button,
+            .menu-button span {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌸</span>
+                <span>Yume <b>Manga</b></span>
+            </a>
+
+            <nav class="navbar">
+                <a href="#home" class="nav-link active">หน้าแรก</a>
+                <a href="#manga-list" class="nav-link">มังงะทั้งหมด</a>
+                <a href="#favorites" class="nav-link">รายการโปรด</a>
+            </nav>
+
+            <div class="header-actions">
+
+                <button
+                    class="theme-button"
+                    id="theme-toggle"
+                    aria-label="เปลี่ยนธีม"
+                >
+                    🌙
+                </button>
+
+                <!-- NEW MENU BUTTON -->
+                <button
+                    class="menu-button"
+                    id="menu-toggle"
+                    aria-label="เปิดเมนู"
+                    aria-expanded="false"
+                    type="button"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <span class="hero-label">
+                    ✨ WELCOME TO YUME MANGA
+                </span>
+
+                <h1>
+                    โลกแห่งมังงะ<br>
+                    ที่คุณจะตกหลุมรัก
+                </h1>
+
+                <p>
+                    ค้นพบเรื่องราวใหม่ ๆ
+                    และออกเดินทางไปกับโลกแห่งจินตนาการ
+                    ได้ที่ Yume Manga
+                </p>
+
+                <a href="#manga-list" class="primary-button">
+                    เริ่มอ่านมังงะ
+                    <span>♡</span>
+                </a>
+
+            </div>
+
+            <div class="hero-decoration">
+                <div class="hero-circle">
+                    <span>🌸</span>
+                </div>
+                <span class="floating flower-one">✿</span>
+                <span class="floating flower-two">✧</span>
+                <span class="floating flower-three">♡</span>
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH -->
+        <section class="search-section">
+
+            <div class="section-heading">
+                <div>
+                    <span class="small-label">DISCOVER YOUR STORY</span>
+                    <h2>ค้นหามังงะ</h2>
+                </div>
+            </div>
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="search"
+                    id="manga-search"
+                    placeholder="ค้นหาชื่อมังงะ ผู้แต่ง หรือแนวเรื่อง..."
+                    autocomplete="off"
+                >
+
+                <button id="search-button">
+                    ค้นหา
+                </button>
+
+            </div>
+
+            <!-- ADVANCED FILTERS -->
+            <div class="advanced-filters">
+
+                <div class="filter-group">
+                    <label for="genre-filter">📚 แนวเรื่อง</label>
+
+                    <select id="genre-filter" class="filter-select">
+                        <option value="">ทุกแนวเรื่อง</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Romantic Comedy">Romantic Comedy</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Slice of Life">Slice of Life</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="status-filter">🌸 สถานะ</label>
+
+                    <select id="status-filter" class="filter-select">
+                        <option value="">ทุกสถานะ</option>
+                        <option value="แนะนำ">แนะนำ</option>
+                        <option value="ใหม่">ใหม่</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort-filter">✨ เรียงลำดับ</label>
+
+                    <select id="sort-filter" class="filter-select">
+                        <option value="default">ค่าเริ่มต้น</option>
+                        <option value="rating">คะแนนสูงสุด</option>
+                        <option value="name">ชื่อ A–Z</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="filter-bottom">
+
+                <span class="filter-summary" id="filter-summary">
+                    กำลังแสดงมังงะทั้งหมด
+                </span>
+
+                <button
+                    type="button"
+                    class="clear-filters"
+                    id="clear-filters"
+                >
+                    ↻ ล้างตัวกรอง
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- MANGA LIST -->
+        <section class="manga-section" id="manga-list">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="small-label">OUR COLLECTION</span>
+                    <h2>มังงะแนะนำ <span>✧</span></h2>
+                </div>
+
+                <span class="result-count" id="result-count">
+                    4 เรื่อง
+                </span>
+
+            </div>
+
+            <div class="manga-grid" id="manga-grid"></div>
+
+            <p class="empty-message" id="empty-message" hidden>
+                ไม่พบมังงะที่ค้นหา ♡
+            </p>
+
+        </section>
+
+
+        <!-- FAVORITES -->
+        <section class="favorites-section" id="favorites">
+
+            <div class="section-heading">
+                <div>
+                    <span class="small-label">YOUR COLLECTION</span>
+                    <h2>รายการโปรด <span>♡</span></h2>
+                </div>
+            </div>
+
+            <div class="manga-grid" id="favorites-grid"></div>
+
+            <p class="empty-message" id="favorites-empty">
+                ยังไม่มีมังงะในรายการโปรดเลย 🌷
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <a href="#home" class="footer-logo">
+            🌸 Yume Manga
+        </a>
+
+        <p>
+            A little world full of wonderful stories.
+        </p>
+
+        <div class="footer-line"></div>
+
+        <p class="copyright">
+            © 2026 Yume Manga. Made with ♡
+        </p>
+
+    </footer>
+
+
+    <!-- NOTIFICATION -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
