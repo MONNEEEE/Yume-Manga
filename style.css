@@ -1,0 +1,1553 @@
+/* =================================
+   YUME MANGA - PINK DREAM v1.1
+   Original Design + Responsive
+================================= */
+
+:root {
+    --pink: #e879ad;
+    --pink-dark: #d95b98;
+    --pink-light: #fff0f6;
+    --pink-soft: #ffe3ef;
+
+    --bg: #fffafd;
+    --surface: #ffffff;
+    --text: #51414c;
+    --muted: #a18d99;
+    --border: #f5e4ed;
+
+    --shadow: 0 8px 30px rgba(211, 112, 160, 0.09);
+}
+
+/* DARK MODE */
+
+body.dark {
+    --pink: #f18bbd;
+    --pink-dark: #e879ad;
+    --pink-light: #493143;
+    --pink-soft: #57384c;
+
+    --bg: #211b25;
+    --surface: #2c2430;
+    --text: #f9eaf2;
+    --muted: #c0a8b7;
+    --border: #443443;
+
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+
+    overflow-x: hidden;
+    min-height: 100vh;
+
+    transition: background 0.3s, color 0.3s;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+section {
+    width: min(1100px, 90%);
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    width: min(1200px, 92%);
+    min-height: 76px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--pink);
+    white-space: nowrap;
+}
+
+.logo-icon {
+    font-size: 25px;
+}
+
+.logo b {
+    color: var(--text);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    font-size: 14px;
+    color: var(--muted);
+    transition: 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--pink);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.theme-button,
+.menu-button {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: var(--pink-light);
+    color: var(--text);
+
+    font-size: 18px;
+}
+
+.menu-button {
+    display: none;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 370px;
+    margin: 45px auto;
+
+    padding: 55px 7%;
+    border-radius: 28px;
+
+    background:
+        radial-gradient(circle at 85% 20%,
+            #fff 0%, transparent 24%),
+        linear-gradient(120deg,
+            #ffe9f2, #ffd5e8, #fff1f7);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    overflow: hidden;
+    position: relative;
+}
+
+.dark .hero {
+    background:
+        linear-gradient(120deg,
+            #493143, #68415a, #3c293b);
+}
+
+.hero-content {
+    max-width: 580px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-label,
+.small-label {
+    color: var(--pink-dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.35;
+    margin: 17px 0;
+    color: #704b61;
+}
+
+.dark .hero h1 {
+    color: #fff0f6;
+}
+
+.hero p {
+    color: #956f83;
+    max-width: 420px;
+    font-size: 14px;
+    margin-bottom: 27px;
+}
+
+.dark .hero p {
+    color: #f4d5e5;
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+
+    background: var(--pink);
+    color: white;
+
+    padding: 13px 24px;
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 7px 20px rgba(216, 99, 155, 0.25);
+    transition: 0.25s;
+}
+
+.primary-button:hover {
+    background: var(--pink-dark);
+    transform: translateY(-3px);
+}
+
+.hero-decoration {
+    width: 270px;
+    height: 270px;
+    position: relative;
+    flex-shrink: 0;
+    margin-right: 25px;
+}
+
+.hero-circle {
+    width: 210px;
+    height: 210px;
+
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    background: rgba(255,255,255,0.65);
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+}
+
+.hero-circle span {
+    font-size: 100px;
+}
+
+.floating {
+    position: absolute;
+    color: #e879ad;
+}
+
+.flower-one {
+    top: 0;
+    right: 20px;
+    font-size: 40px;
+}
+
+.flower-two {
+    bottom: 5px;
+    left: 0;
+    font-size: 35px;
+}
+
+.flower-three {
+    bottom: 25px;
+    right: 0;
+    font-size: 45px;
+}
+
+/* SECTION HEADING */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 22px;
+    gap: 10px;
+}
+
+.section-heading h2 {
+    font-size: 25px;
+    margin-top: 4px;
+}
+
+.section-heading h2 span {
+    color: var(--pink);
+}
+
+.result-count {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* SEARCH */
+
+.search-section {
+    margin-bottom: 55px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+
+    padding: 9px 12px;
+    box-shadow: var(--shadow);
+
+    width: 100%;
+}
+
+.search-icon {
+    font-size: 25px;
+    color: var(--pink);
+    flex-shrink: 0;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.search-box button {
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+
+    background: var(--pink);
+    color: white;
+    font-weight: 700;
+}
+
+/* MANGA GRID */
+
+.manga-section,
+.favorites-section {
+    margin-bottom: 65px;
+}
+
+.manga-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* MANGA CARD */
+
+.manga-card {
+    min-width: 0;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+
+    overflow: hidden;
+    box-shadow: var(--shadow);
+
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.manga-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(211,112,160,0.16);
+}
+
+.manga-cover {
+    height: 220px;
+    position: relative;
+
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.cover-art {
+    font-size: 70px;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.12));
+    transition: transform 0.3s;
+}
+
+.manga-card:hover .cover-art {
+    transform: scale(1.12) rotate(-4deg);
+}
+
+.cover-1 {
+    background: linear-gradient(140deg, #ffd5e8, #f5b4d1);
+}
+
+.cover-2 {
+    background: linear-gradient(140deg, #d8d4ff, #b9b5f3);
+}
+
+.cover-3 {
+    background: linear-gradient(140deg, #ffe6bc, #f9c78f);
+}
+
+.cover-4 {
+    background: linear-gradient(140deg, #d3f0e5, #a7ddcf);
+}
+
+.manga-status {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+
+    background: rgba(255,255,255,0.9);
+    color: #c65e91;
+
+    border-radius: 20px;
+    padding: 4px 10px;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.9);
+    color: #d8a3bd;
+
+    font-size: 18px;
+}
+
+.favorite-button.selected {
+    color: #e34e8c;
+}
+
+.manga-info {
+    padding: 15px;
+}
+
+.manga-info h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+
+    overflow-wrap: anywhere;
+}
+
+.manga-info p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.manga-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+
+    margin-top: 13px;
+}
+
+.genre {
+    background: var(--pink-light);
+    color: var(--pink-dark);
+
+    padding: 4px 9px;
+    border-radius: 20px;
+
+    font-size: 10px;
+}
+
+.rating {
+    color: #d89b45;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* EMPTY MESSAGE */
+
+.empty-message {
+    color: var(--muted);
+    text-align: center;
+    padding: 35px 10px;
+    font-size: 14px;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    background: var(--surface);
+
+    border-top: 1px solid var(--border);
+    padding: 40px 15px;
+}
+
+.footer-logo {
+    color: var(--pink);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.footer p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.footer-line {
+    width: 80px;
+    height: 2px;
+    background: var(--pink-soft);
+    margin: 22px auto;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: calc(25px + env(safe-area-inset-bottom));
+    left: 50%;
+
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+
+    background: var(--text);
+    color: var(--surface);
+
+    padding: 12px 22px;
+    border-radius: 30px;
+
+    font-size: 13px;
+    z-index: 200;
+
+    transition: 0.3s;
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* MOBILE MENU */
+
+@media (max-width: 700px) {
+
+    section {
+        width: 92%;
+    }
+
+    .header-inner {
+        width: 92%;
+        min-height: 65px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .navbar {
+        display: none;
+
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+
+        padding: 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .navbar.open {
+        display: flex;
+    }
+
+    .hero {
+        min-height: 340px;
+        padding: 35px 25px;
+        margin: 25px auto;
+    }
+
+    .hero-decoration {
+        position: absolute;
+        right: -110px;
+        bottom: -50px;
+        opacity: 0.35;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 33px;
+    }
+
+    .manga-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+    }
+
+    .manga-cover {
+        height: clamp(145px, 43vw, 190px);
+    }
+
+    .cover-art {
+        font-size: 55px;
+    }
+
+    .manga-info {
+        padding: 11px;
+    }
+
+    .manga-info h3 {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .search-section {
+        margin-bottom: 40px;
+    }
+
+}
+
+/* SMALL IPHONE */
+
+@media (max-width: 390px) {
+
+    .hero {
+        padding: 30px 20px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .search-box {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .search-box button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .search-box input {
+        font-size: 13px;
+    }
+
+    .manga-grid {
+        gap: 10px;
+    }
+
+    .manga-cover {
+        height: 145px;
+    }
+
+    .manga-info {
+        padding: 9px;
+    }
+
+    .favorite-button {
+        width: 32px;
+        height: 32px;
+        top: 7px;
+        right: 7px;
+    }
+
+    .manga-status {
+        top: 8px;
+        left: 7px;
+        font-size: 9px;
+        padding: 3px 7px;
+    }
+
+}
+
+/* VERY SMALL SCREEN */
+
+@media (max-width: 340px) {
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .manga-cover {
+        height: 125px;
+    }
+
+    .cover-art {
+        font-size: 43px;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+}
+
+/* IPHONE SAFE AREA */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+
+    .footer {
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    }
+
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+
+}
+/* =================================
+   MOBILE MANGA CARD FIX
+================================= */
+
+.manga-cover {
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* มือถือ */
+@media (max-width: 700px) {
+
+    .manga-grid,
+    #manga-grid,
+    #favorites-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .manga-card {
+        min-width: 0;
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .manga-cover {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        border-radius: 12px;
+    }
+
+    .cover-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .cover-art {
+        font-size: 42px;
+    }
+
+    .manga-info {
+        padding: 9px;
+    }
+
+    .manga-info h3 {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .manga-info p {
+        font-size: 12px;
+    }
+
+    .manga-meta {
+        font-size: 11px;
+        gap: 5px;
+    }
+}
+/* =================================
+   PAGE TRANSITION
+================================= */
+
+body {
+    opacity: 1;
+    transition: opacity 0.45s ease;
+}
+
+body.page-leaving {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        transition: none;
+    }
+}
+
+/* =================================
+   YUME MANGA - HERO BLUR BACKGROUND
+================================= */
+
+.hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background: #ffe3ef;
+}
+
+/* รูปภาพพื้นหลังแบบเบลอ */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -15px;
+    z-index: -2;
+
+    background-image: url("https://i.ibb.co/YFgqMd2Y/IMG-0513.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(9px);
+    transform: scale(1.05);
+}
+
+/* ชั้นสีชมพูโปร่งใส */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: rgba(255, 225, 239, 0.72);
+    pointer-events: none;
+}
+
+/* Dark Mode */
+body.dark .hero::after {
+    background: rgba(55, 35, 51, 0.72);
+}
+
+/* เนื้อหาต้องอยู่ด้านบน */
+.hero-content,
+.hero-decoration {
+    position: relative;
+    z-index: 1;
+}
+
+/* =================================
+   HERO MOBILE LAYOUT FIX
+================================= */
+
+.hero {
+    width: min(1100px, 90%);
+    min-height: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 580px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.hero h1 {
+    word-break: normal;
+    overflow-wrap: normal;
+    line-height: 1.4;
+}
+
+.hero-label {
+    letter-spacing: 2px;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+
+    .hero {
+        width: 92%;
+        min-height: 340px;
+        padding: 35px 25px;
+        display: block;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(27px, 7vw, 33px);
+        line-height: 1.45;
+    }
+
+    .hero p {
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .hero-decoration {
+        position: absolute;
+        right: -110px;
+        bottom: -50px;
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+}
+
+/* SMALL IPHONE */
+@media (max-width: 390px) {
+
+    .hero {
+        padding: 30px 20px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+}
+
+/* =================================
+   HERO BACKGROUND - FINAL FIX
+================================= */
+
+/* ลดความเบลอของภาพพื้นหลัง */
+.hero::before {
+    filter: blur(2px);
+    transform: scale(1.02);
+}
+
+/* ลดความเข้มของสีชมพูที่ทับภาพ */
+.hero::after {
+    background: rgba(255, 225, 239, 0.35);
+}
+
+/* เอาดอกไม้และวงกลมตกแต่งออก */
+.hero-decoration {
+    display: none !important;
+}
+
+/* DARK MODE */
+body.dark .hero::after {
+    background: rgba(55, 35, 51, 0.45);
+}
+
+/* =========================================
+   YUME MANGA — PINK DREAM EFFECTS
+   Global Animation System
+========================================= */
+
+/* -----------------------------------------
+   1. GLOBAL SMOOTH EFFECTS
+----------------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+button,
+a,
+.manga-card,
+.chapter-item {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* -----------------------------------------
+   2. SOFT PAGE TRANSITION
+----------------------------------------- */
+
+body {
+    transition:
+        background-color 0.4s ease,
+        color 0.4s ease,
+        opacity 0.5s ease;
+}
+
+body.page-leaving {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* -----------------------------------------
+   3. FLOATING SPARKLES
+----------------------------------------- */
+
+body::after {
+    content: "✦";
+    position: fixed;
+    top: 18%;
+    right: 7%;
+    z-index: 10;
+    color: var(--pink);
+    font-size: 17px;
+    opacity: 0;
+    pointer-events: none;
+    animation: yumeSparkle 5s ease-in-out infinite;
+}
+
+@keyframes yumeSparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(10px) rotate(0deg) scale(0.7);
+    }
+
+    35%, 65% {
+        opacity: 0.65;
+        transform: translateY(-8px) rotate(45deg) scale(1);
+    }
+}
+
+/* -----------------------------------------
+   4. MANGA CARD REVEAL
+----------------------------------------- */
+
+.manga-card {
+    animation: yumeCardAppear 0.65s ease both;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        opacity 0.35s ease;
+}
+
+@keyframes yumeCardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.manga-card:active {
+    transform: scale(0.97);
+}
+
+.manga-cover {
+    overflow: hidden;
+}
+
+.cover-image {
+    transition:
+        transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1),
+        filter 0.4s ease;
+}
+
+.manga-card:hover .cover-image {
+    transform: scale(1.07);
+    filter: brightness(1.04);
+}
+
+/* -----------------------------------------
+   5. FAVORITE BUTTON
+----------------------------------------- */
+
+.favorite-button {
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.favorite-button:active {
+    transform: scale(0.8);
+}
+
+.favorite-button.selected {
+    animation: yumeHeart 0.35s ease;
+}
+
+@keyframes yumeHeart {
+    0% {
+        transform: scale(0.7);
+    }
+
+    55% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* -----------------------------------------
+   6. BUTTON FEEDBACK
+----------------------------------------- */
+
+button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.nav-link {
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+/* -----------------------------------------
+   7. TOAST ANIMATION
+----------------------------------------- */
+
+#toast {
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+#toast.show {
+    animation: yumeToast 0.4s ease both;
+}
+
+@keyframes yumeToast {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* -----------------------------------------
+   8. DETAIL PAGE EFFECTS
+----------------------------------------- */
+
+.detail-container {
+    animation: yumeDetailAppear 0.7s ease both;
+}
+
+@keyframes yumeDetailAppear {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-box {
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+.detail-box:hover {
+    transform: translateY(-4px);
+}
+
+.detail-cover {
+    transition: transform 0.7s ease;
+}
+
+.detail-box:hover .detail-cover {
+    transform: scale(1.025);
+}
+
+.chapter-item {
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.chapter-item:active {
+    transform: scale(0.98);
+}
+
+/* -----------------------------------------
+   9. READER PAGE EFFECTS
+----------------------------------------- */
+
+.reader-container {
+    animation: yumeReaderAppear 0.65s ease both;
+}
+
+@keyframes yumeReaderAppear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.reader-page {
+    overflow: hidden;
+}
+
+.reader-page img {
+    animation: yumePageImage 0.55s ease both;
+}
+
+@keyframes yumePageImage {
+    from {
+        opacity: 0.65;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.reader-header {
+    transition: background-color 0.3s ease;
+}
+
+/* -----------------------------------------
+   10. MOBILE TOUCH EFFECTS
+----------------------------------------- */
+
+@media (hover: none) {
+    .manga-card:hover {
+        transform: none;
+    }
+
+    .manga-card:hover .cover-image {
+        transform: none;
+    }
+
+    .detail-box:hover {
+        transform: none;
+    }
+
+    .detail-box:hover .detail-cover {
+        transform: none;
+    }
+}
+
+/* -----------------------------------------
+   11. REDUCED MOTION
+----------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body {
+        opacity: 1 !important;
+    }
+
+    body.page-leaving {
+        opacity: 1 !important;
+    }
+}
+
+/* =========================================
+   YUME MANGA - PINK DREAM EFFECTS
+   GLOBAL ANIMATIONS
+========================================= */
+
+/* การ์ดมังงะค่อย ๆ ปรากฏ */
+
+@keyframes mangaCardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.manga-card {
+    animation: mangaCardReveal 0.65s ease both;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* ทำให้การ์ดแต่ละใบปรากฏเหลื่อมเวลากัน */
+
+.manga-card:nth-child(1) { animation-delay: 0.04s; }
+.manga-card:nth-child(2) { animation-delay: 0.09s; }
+.manga-card:nth-child(3) { animation-delay: 0.14s; }
+.manga-card:nth-child(4) { animation-delay: 0.19s; }
+.manga-card:nth-child(5) { animation-delay: 0.24s; }
+.manga-card:nth-child(6) { animation-delay: 0.29s; }
+.manga-card:nth-child(7) { animation-delay: 0.34s; }
+.manga-card:nth-child(8) { animation-delay: 0.39s; }
+
+/* เอฟเฟกต์ตอนชี้การ์ด */
+
+@media (hover: hover) {
+    .manga-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 14px 30px rgba(214, 92, 145, 0.17);
+    }
+
+    .manga-card:hover .cover-image,
+    .manga-card:hover .cover-art {
+        transform: scale(1.06);
+    }
+}
+
+/* ภาพปก */
+
+.cover-image,
+.cover-art {
+    transition: transform 0.45s ease;
+}
+
+/* ปุ่มรายการโปรด */
+
+.favorite-button {
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.favorite-button:active {
+    transform: scale(0.82);
+}
+
+/* ปุ่มทั่วไป */
+
+button,
+.search-button,
+.filter-select,
+.back-button,
+.reader-navigation a {
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease;
+}
+
+button:active,
+.search-button:active,
+.reader-navigation a:active {
+    transform: scale(0.96);
+}
+
+/* ช่องค้นหา */
+
+#manga-search:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 4px rgba(255, 143, 189, 0.15);
+}
+
+/* หัวข้อส่วนต่าง ๆ */
+
+@keyframes pinkTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1,
+.section-title,
+.reader-title {
+    animation: pinkTitleReveal 0.7s ease both;
+}
+
+/* Toast แจ้งเตือน */
+
+#toast {
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* หน้าอ่านมังงะ */
+
+.reader-title {
+    animation-delay: 0.08s;
+}
+
+.reader-navigation a {
+    border: 1px solid rgba(214, 92, 145, 0.12);
+}
+
+@media (hover: hover) {
+    .reader-navigation a:not(.disabled):hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 18px rgba(214, 92, 145, 0.15);
+    }
+}
+
+/* หน้าอ่าน: ให้ภาพแสดงตามปกติ ไม่รอ Animation */
+
+.reader-page img {
+    opacity: 1;
+    animation: none;
+}
+
+/* เอฟเฟกต์ปุ่มหน้ารายละเอียด */
+
+.detail-box .detail-action,
+.back-button,
+.chapter-item {
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+    .detail-box .detail-action:hover:not(.disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(214, 92, 145, 0.18);
+    }
+}
+
+/* ลดการเคลื่อนไหวสำหรับผู้ที่ตั้งค่าไว้ */
+
+@media (prefers-reduced-motion: reduce) {
+    .manga-card,
+    .hero h1,
+    .section-title,
+    .reader-title,
+    .cover-image,
+    .cover-art,
+    button,
+    .search-button,
+    .filter-select,
+    .reader-navigation a,
+    #toast {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
