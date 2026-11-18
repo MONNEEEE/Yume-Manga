@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#fff1f7">
+
+    <title>อ่านมังงะ | Yume Manga</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        body {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.page-ready {
+            opacity: 1;
+        }
+
+        body.page-leaving {
+            opacity: 0;
+        }
+
+
+        /* =================================
+           READER LAYOUT
+        ================================= */
+
+        .reader-container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+            padding-bottom: 40px;
+        }
+
+        .reader-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            padding: 14px 5%;
+
+            background: rgba(255, 235, 244, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .reader-header a {
+            color: #d65c91;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .reader-title {
+            text-align: center;
+            padding: 22px 15px;
+        }
+
+        .reader-title h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+
+        /* =================================
+           MANGA PAGES
+        ================================= */
+
+        .reader-pages {
+            width: 100%;
+            background: #171317;
+            min-height: 300px;
+        }
+
+        .reader-page {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+
+            -webkit-user-select: none;
+            user-select: none;
+
+            -webkit-touch-callout: none;
+        }
+
+        .reader-page img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            margin: 0 auto;
+
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+
+            user-select: none;
+            pointer-events: auto;
+        }
+
+
+        /* =================================
+           WATERMARK
+        ================================= */
+
+        .reader-watermark {
+            position: absolute;
+
+            right: 15px;
+            bottom: 18px;
+
+            color: rgba(255, 255, 255, 0.65);
+
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.5;
+
+            text-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.8),
+                0 0 8px rgba(0, 0, 0, 0.5);
+
+            pointer-events: none;
+
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+
+        /* =================================
+           PLACEHOLDER
+        ================================= */
+
+        .reader-placeholder {
+            padding: 55px 20px;
+            text-align: center;
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        .reader-placeholder p {
+            margin-top: 10px;
+            color: #e7cbd8;
+        }
+
+
+        /* =================================
+           NAVIGATION
+        ================================= */
+
+        .reader-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 25px 15px;
+        }
+
+        .reader-navigation a {
+            display: inline-block;
+
+            padding: 12px 18px;
+
+            border-radius: 12px;
+
+            background: #ffe3ef;
+            color: #d65c91;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .reader-navigation a.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+
+        /* =================================
+           ERROR
+        ================================= */
+
+        .reader-error {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            .reader-header {
+                padding: 13px 15px;
+            }
+
+            .reader-title h1 {
+                font-size: 19px;
+            }
+
+            .reader-navigation {
+                padding: 20px 10px;
+            }
+
+            .reader-navigation a {
+                padding: 11px 13px;
+                font-size: 13px;
+            }
+
+            .reader-watermark {
+                right: 10px;
+                bottom: 12px;
+                font-size: 11px;
+            }
+
+        }
+
+
+        /* =================================
+           REDUCED MOTION
+        ================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            body {
+                transition: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="reader-container">
+
+        <!-- HEADER -->
+
+        <header class="reader-header">
+
+            <a href="#" id="back-detail">
+                ← กลับ
+            </a>
+
+            <a href="index.html">
+                🌸 Yume Manga
+            </a>
+
+        </header>
+
+
+        <!-- TITLE -->
+
+        <section class="reader-title">
+
+            <h1 id="manga-title">
+                กำลังโหลด...
+            </h1>
+
+            <p id="chapter-title"></p>
+
+        </section>
+
+
+        <!-- MANGA PAGES -->
+
+        <section
+            class="reader-pages"
+            id="reader-pages">
+        </section>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="reader-navigation">
+
+            <a href="#" id="previous-chapter">
+                ← ตอนก่อนหน้า
+            </a>
+
+            <a href="#" id="next-chapter">
+                ตอนถัดไป →
+            </a>
+
+        </nav>
+
+    </main>
+
+
+    <!-- LOAD DATA -->
+
+    <script src="script.js"></script>
+
+
+    <script>
+
+        /* =================================
+           GET MANGA DATA
+        ================================= */
+
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
+        const mangaId = params.get("id");
+
+        const chapterIndex = Number(
+            params.get("chapter") || 0
+        );
+
+
+        const manga = window.mangaData?.find(
+            item => String(item.id) === String(mangaId)
+        );
+
+
+        const readerPages =
+            document.getElementById("reader-pages");
+
+        const mangaTitle =
+            document.getElementById("manga-title");
+
+        const chapterTitle =
+            document.getElementById("chapter-title");
+
+        const previousButton =
+            document.getElementById("previous-chapter");
+
+        const nextButton =
+            document.getElementById("next-chapter");
+
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        function navigateWithFade(url) {
+
+            document.body.classList.remove("page-ready");
+
+            document.body.classList.add("page-leaving");
+
+            setTimeout(() => {
+
+                window.location.href = url;
+
+            }, 500);
+
+        }
+
+
+        /* =================================
+           CHECK DATA
+        ================================= */
+
+        if (
+            !manga ||
+            !Array.isArray(manga.chapters) ||
+            !Number.isInteger(chapterIndex) ||
+            !manga.chapters[chapterIndex]
+        ) {
+
+            document.querySelector(
+                ".reader-container"
+            ).innerHTML = `
+
+                <div class="reader-error">
+
+                    <h2>ไม่พบตอนที่ต้องการ 🌸</h2>
+
+                    <p>
+                        ลองกลับไปยังหน้ารายละเอียดมังงะอีกครั้ง
+                    </p>
+
+                    <br>
+
+                    <a href="index.html">
+                        กลับหน้าแรก
+                    </a>
+
+                </div>
+
+            `;
+
+        } else {
+
+
+            /* =================================
+               CURRENT CHAPTER
+            ================================= */
+
+            const chapters = manga.chapters;
+
+            const currentChapter =
+                chapters[chapterIndex];
+/* =================================
+   SAVE READING HISTORY
+================================= */
+
+try {
+    const history = JSON.parse(
+        localStorage.getItem("yumeReadingHistory") || "{}"
+    );
+
+    history[String(manga.id)] = {
+        chapter: chapterIndex,
+        title: currentChapter.title ||
+            `ตอนที่ ${chapterIndex + 1}`,
+        updatedAt: Date.now()
+    };
+
+    localStorage.setItem(
+        "yumeReadingHistory",
+        JSON.stringify(history)
+    );
+
+} catch (error) {
+    console.warn("ไม่สามารถบันทึกประวัติการอ่านได้", error);
+}								
+
+
+            mangaTitle.textContent = manga.title;
+
+            chapterTitle.textContent =
+                currentChapter.title ||
+                `ตอนที่ ${chapterIndex + 1}`;
+
+
+            /* =================================
+               LOAD MANGA PAGES
+            ================================= */
+
+            const pages = Array.isArray(
+                currentChapter.pages
+            )
+                ? currentChapter.pages
+                : [];
+
+
+            const validPages = pages.filter(page =>
+
+                typeof page === "string" &&
+                /^https?:\/\//i.test(page)
+
+            );
+
+
+            if (validPages.length > 0) {
+
+                readerPages.innerHTML =
+
+                    validPages.map((page, index) => `
+
+                        <div class="reader-page">
+
+                            <img
+                                src="${page}"
+                                alt="หน้ามังงะ ${index + 1}"
+
+                                loading="${
+                                    index === 0
+                                    ? "eager"
+                                    : "lazy"
+                                }"
+
+                                draggable="false"
+                                decoding="async"
+                            >
+
+                            <span class="reader-watermark">
+                                
+                            </span>
+
+                        </div>
+
+                    `).join("");
+
+
+            } else {
+
+                readerPages.innerHTML = `
+
+                    <div class="reader-placeholder">
+
+                        <h2>
+                            🌸 ยังไม่มีภาพมังงะในตอนนี้
+                        </h2>
+
+                        <p>
+                            ตอนนี้มีรายชื่อตอนแล้ว
+                            แต่ยังไม่ได้เพิ่ม URL รูปภาพของแต่ละหน้า
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* =================================
+               PREVIOUS CHAPTER
+            ================================= */
+
+            if (chapterIndex > 0) {
+
+                previousButton.href =
+                    `reader.html?id=${
+                        encodeURIComponent(manga.id)
+                    }&chapter=${chapterIndex - 1}`;
+
+            } else {
+
+                previousButton.classList.add("disabled");
+
+            }
+
+
+            /* =================================
+               NEXT CHAPTER
+            ================================= */
+
+            if (chapterIndex < chapters.length - 1) {
+
+                nextButton.href =
+                    `reader.html?id=${
+                        encodeURIComponent(manga.id)
+                    }&chapter=${chapterIndex + 1}`;
+
+            } else {
+
+                nextButton.classList.add("disabled");
+
+            }
+
+
+            /* =================================
+               NAVIGATION EVENTS
+            ================================= */
+
+            previousButton.addEventListener(
+                "click",
+                event => {
+
+                    if (chapterIndex <= 0) {
+
+                        event.preventDefault();
+                        return;
+
+                    }
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        previousButton.href
+                    );
+
+                }
+            );
+
+
+            nextButton.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        chapterIndex >= chapters.length - 1
+                    ) {
+
+                        event.preventDefault();
+                        return;
+
+                    }
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        nextButton.href
+                    );
+
+                }
+            );
+
+
+            /* =================================
+               BACK TO DETAIL
+            ================================= */
+
+            const backDetail =
+                document.getElementById("back-detail");
+
+
+            backDetail.href =
+                `detail.html?id=${
+                    encodeURIComponent(manga.id)
+                }`;
+
+
+            backDetail.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        backDetail.href
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =================================
+           IMAGE PROTECTION
+        ================================= */
+
+
+        // ป้องกันเมนูคลิกขวาบนรูป
+
+        document.addEventListener(
+            "contextmenu",
+            event => {
+
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        // ป้องกันการลากรูปภาพ
+
+        document.addEventListener(
+            "dragstart",
+            event => {
+
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        // ป้องกันการเลือกข้อความบนหน้ารูป
+
+        document.addEventListener(
+            "selectstart",
+            event => {
+
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        /* =================================
+           PAGE READY
+        ================================= */
+
+        window.addEventListener(
+            "pageshow",
+            () => {
+
+                requestAnimationFrame(() => {
+
+                    document.body.classList.add(
+                        "page-ready"
+                    );
+
+                    document.body.classList.remove(
+                        "page-leaving"
+                    );
+
+                });
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
