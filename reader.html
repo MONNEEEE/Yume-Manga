@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="th">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <meta name="theme-color" content="#fff1f7">
 
@@ -20,6 +21,7 @@
         body {
             opacity: 0;
             transition: opacity 0.5s ease;
+            margin: 0;
         }
 
         body.page-ready {
@@ -38,41 +40,104 @@
         .reader-container {
             width: 100%;
             max-width: 850px;
-            margin: auto;
-            padding-bottom: 40px;
+            margin: 0 auto;
+
+            padding-top: calc(
+                env(safe-area-inset-top, 0px) + 78px
+            );
+
+            padding-bottom: 30px;
+
+            box-sizing: border-box;
         }
 
+
+        /* =================================
+           FIXED TOP READER BAR
+        ================================= */
+
         .reader-header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            position: fixed;
 
-            display: flex;
-            justify-content: space-between;
+            top: env(safe-area-inset-top, 0px);
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            width: 100%;
+            min-height: 68px;
+
+            box-sizing: border-box;
+
+            display: grid;
+
+            grid-template-columns:
+                auto
+                minmax(0, 1fr)
+                auto;
+
             align-items: center;
-            gap: 10px;
+            gap: 12px;
 
-            padding: 14px 5%;
+            padding: 10px 15px;
 
-            background: rgba(255, 235, 244, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 235, 244, 0.97);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
         .reader-header a {
             color: #d65c91;
             text-decoration: none;
             font-weight: bold;
+            white-space: nowrap;
         }
 
-        .reader-title {
+        #back-detail {
+            font-size: 15px;
+        }
+
+        .reader-home {
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           MANGA TITLE IN HEADER
+        ================================= */
+
+        .reader-heading {
+            min-width: 0;
             text-align: center;
-            padding: 22px 15px;
+            overflow: hidden;
         }
 
-        .reader-title h1 {
-            font-size: 22px;
-            margin-bottom: 8px;
+        .reader-heading h1 {
+            margin: 0;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .reader-heading p {
+            margin: 4px 0 0;
+
+            font-size: 12px;
+            color: #b75a83;
+
+            white-space: nowrap;
         }
 
 
@@ -82,14 +147,16 @@
 
         .reader-pages {
             width: 100%;
-            background: #171317;
             min-height: 300px;
+            background: #171317;
         }
 
         .reader-page {
             position: relative;
+
             width: 100%;
             overflow: hidden;
+
             line-height: 0;
 
             -webkit-user-select: none;
@@ -110,7 +177,6 @@
             -webkit-touch-callout: none;
 
             user-select: none;
-            pointer-events: auto;
         }
 
 
@@ -142,12 +208,103 @@
 
 
         /* =================================
+           BOTTOM LEFT CHAPTER BUTTONS
+        ================================= */
+
+        .reader-navigation {
+            position: fixed;
+
+            left: 15px;
+
+            bottom: calc(
+                env(safe-area-inset-bottom, 0px) + 18px
+            );
+
+            z-index: 1001;
+
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 0;
+            margin: 0;
+
+            background: transparent;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .reader-navigation a {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            width: 50px;
+            height: 50px;
+
+            box-sizing: border-box;
+
+            padding: 0;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.96);
+            color: #d65c91;
+
+            font-size: 27px;
+            font-weight: normal;
+
+            text-decoration: none;
+
+            box-shadow:
+                0 3px 14px rgba(0, 0, 0, 0.16);
+
+            -webkit-tap-highlight-color: transparent;
+
+            transition: transform 0.2s ease;
+        }
+
+        .reader-navigation a:active {
+            transform: scale(0.9);
+        }
+
+        .reader-navigation a.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+
+        /* =================================
+           HIDE / SHOW CONTROLS
+        ================================= */
+
+        body.controls-hidden .reader-header {
+            opacity: 0;
+            transform: translateY(-110%);
+            pointer-events: none;
+        }
+
+        body.controls-hidden .reader-navigation {
+            opacity: 0;
+            transform: translateY(25px);
+            pointer-events: none;
+        }
+
+
+        /* =================================
            PLACEHOLDER
         ================================= */
 
         .reader-placeholder {
             padding: 55px 20px;
+
             text-align: center;
+
             color: #fff;
             line-height: 1.8;
         }
@@ -155,37 +312,6 @@
         .reader-placeholder p {
             margin-top: 10px;
             color: #e7cbd8;
-        }
-
-
-        /* =================================
-           NAVIGATION
-        ================================= */
-
-        .reader-navigation {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 25px 15px;
-        }
-
-        .reader-navigation a {
-            display: inline-block;
-
-            padding: 12px 18px;
-
-            border-radius: 12px;
-
-            background: #ffe3ef;
-            color: #d65c91;
-
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .reader-navigation a.disabled {
-            opacity: 0.4;
-            pointer-events: none;
         }
 
 
@@ -206,20 +332,47 @@
         @media (max-width: 600px) {
 
             .reader-header {
-                padding: 13px 15px;
+                gap: 8px;
+                padding: 10px 11px;
+                min-height: 64px;
             }
 
-            .reader-title h1 {
-                font-size: 19px;
+            #back-detail {
+                font-size: 13px;
+            }
+
+            .reader-home {
+                font-size: 12px;
+            }
+
+            .reader-heading h1 {
+                font-size: 13px;
+            }
+
+            .reader-heading p {
+                font-size: 11px;
+            }
+
+            .reader-container {
+                padding-top: calc(
+                    env(safe-area-inset-top, 0px) + 74px
+                );
             }
 
             .reader-navigation {
-                padding: 20px 10px;
+                left: 13px;
+
+                bottom: calc(
+                    env(safe-area-inset-bottom, 0px) + 16px
+                );
+
+                gap: 10px;
             }
 
             .reader-navigation a {
-                padding: 11px 13px;
-                font-size: 13px;
+                width: 48px;
+                height: 48px;
+                font-size: 25px;
             }
 
             .reader-watermark {
@@ -237,8 +390,11 @@
 
         @media (prefers-reduced-motion: reduce) {
 
-            body {
-                transition: none;
+            body,
+            .reader-header,
+            .reader-navigation,
+            .reader-navigation a {
+                transition: none !important;
             }
 
         }
@@ -252,7 +408,10 @@
 
     <main class="reader-container">
 
-        <!-- HEADER -->
+
+        <!-- =================================
+             FIXED TOP HEADER
+        ================================= -->
 
         <header class="reader-header">
 
@@ -260,27 +419,26 @@
                 ← กลับ
             </a>
 
-            <a href="index.html">
+            <div class="reader-heading">
+
+                <h1 id="manga-title">
+                    กำลังโหลด...
+                </h1>
+
+                <p id="chapter-title"></p>
+
+            </div>
+
+            <a href="index.html" class="reader-home">
                 🌸 Yume Manga
             </a>
 
         </header>
 
 
-        <!-- TITLE -->
-
-        <section class="reader-title">
-
-            <h1 id="manga-title">
-                กำลังโหลด...
-            </h1>
-
-            <p id="chapter-title"></p>
-
-        </section>
-
-
-        <!-- MANGA PAGES -->
+        <!-- =================================
+             MANGA PAGES
+        ================================= -->
 
         <section
             class="reader-pages"
@@ -288,16 +446,26 @@
         </section>
 
 
-        <!-- NAVIGATION -->
+        <!-- =================================
+             BOTTOM LEFT NAVIGATION
+        ================================= -->
 
         <nav class="reader-navigation">
 
-            <a href="#" id="previous-chapter">
-                ← ตอนก่อนหน้า
+            <a
+                href="#"
+                id="previous-chapter"
+                aria-label="ตอนก่อนหน้า"
+                title="ตอนก่อนหน้า">
+                ←
             </a>
 
-            <a href="#" id="next-chapter">
-                ตอนถัดไป →
+            <a
+                href="#"
+                id="next-chapter"
+                aria-label="ตอนถัดไป"
+                title="ตอนถัดไป">
+                →
             </a>
 
         </nav>
@@ -305,12 +473,36 @@
     </main>
 
 
-    <!-- LOAD DATA -->
+    <!-- =================================
+         LOAD DATA
+    ================================= -->
 
     <script src="script.js"></script>
 
 
     <script>
+
+        /* =================================
+           TAP TO HIDE / SHOW CONTROLS
+        ================================= */
+
+        document.addEventListener("click", event => {
+
+            // ไม่ซ่อนแถบเมื่อแตะปุ่มหรือลิงก์
+            if (
+                event.target.closest(
+                    "a, button, .reader-header"
+                )
+            ) {
+                return;
+            }
+
+            document.body.classList.toggle(
+                "controls-hidden"
+            );
+
+        });
+
 
         /* =================================
            GET MANGA DATA
@@ -326,11 +518,14 @@
             params.get("chapter") || 0
         );
 
-
         const manga = window.mangaData?.find(
             item => String(item.id) === String(mangaId)
         );
 
+
+        /* =================================
+           ELEMENTS
+        ================================= */
 
         const readerPages =
             document.getElementById("reader-pages");
@@ -354,9 +549,13 @@
 
         function navigateWithFade(url) {
 
-            document.body.classList.remove("page-ready");
+            document.body.classList.remove(
+                "page-ready"
+            );
 
-            document.body.classList.add("page-leaving");
+            document.body.classList.add(
+                "page-leaving"
+            );
 
             setTimeout(() => {
 
@@ -411,31 +610,49 @@
 
             const currentChapter =
                 chapters[chapterIndex];
-/* =================================
-   SAVE READING HISTORY
-================================= */
 
-try {
-    const history = JSON.parse(
-        localStorage.getItem("yumeReadingHistory") || "{}"
-    );
 
-    history[String(manga.id)] = {
-        chapter: chapterIndex,
-        title: currentChapter.title ||
-            `ตอนที่ ${chapterIndex + 1}`,
-        updatedAt: Date.now()
-    };
+            /* =================================
+               SAVE READING HISTORY
+            ================================= */
 
-    localStorage.setItem(
-        "yumeReadingHistory",
-        JSON.stringify(history)
-    );
+            try {
 
-} catch (error) {
-    console.warn("ไม่สามารถบันทึกประวัติการอ่านได้", error);
-}								
+                const history = JSON.parse(
+                    localStorage.getItem(
+                        "yumeReadingHistory"
+                    ) || "{}"
+                );
 
+                history[String(manga.id)] = {
+
+                    chapter: chapterIndex,
+
+                    title: currentChapter.title ||
+                        `ตอนที่ ${chapterIndex + 1}`,
+
+                    updatedAt: Date.now()
+
+                };
+
+                localStorage.setItem(
+                    "yumeReadingHistory",
+                    JSON.stringify(history)
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "ไม่สามารถบันทึกประวัติการอ่านได้",
+                    error
+                );
+
+            }
+
+
+            /* =================================
+               SHOW MANGA TITLE
+            ================================= */
 
             mangaTitle.textContent = manga.title;
 
@@ -453,7 +670,6 @@ try {
             )
                 ? currentChapter.pages
                 : [];
-
 
             const validPages = pages.filter(page =>
 
@@ -473,6 +689,7 @@ try {
 
                             <img
                                 src="${page}"
+
                                 alt="หน้ามังงะ ${index + 1}"
 
                                 loading="${
@@ -482,12 +699,11 @@ try {
                                 }"
 
                                 draggable="false"
+
                                 decoding="async"
                             >
 
-                            <span class="reader-watermark">
-                                
-                            </span>
+                            <span class="reader-watermark"></span>
 
                         </div>
 
@@ -531,6 +747,11 @@ try {
 
                 previousButton.classList.add("disabled");
 
+                previousButton.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
             }
 
 
@@ -549,11 +770,16 @@ try {
 
                 nextButton.classList.add("disabled");
 
+                nextButton.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
             }
 
 
             /* =================================
-               NAVIGATION EVENTS
+               PREVIOUS CHAPTER EVENT
             ================================= */
 
             previousButton.addEventListener(
@@ -576,6 +802,10 @@ try {
                 }
             );
 
+
+            /* =================================
+               NEXT CHAPTER EVENT
+            ================================= */
 
             nextButton.addEventListener(
                 "click",
@@ -607,12 +837,10 @@ try {
             const backDetail =
                 document.getElementById("back-detail");
 
-
             backDetail.href =
                 `detail.html?id=${
                     encodeURIComponent(manga.id)
                 }`;
-
 
             backDetail.addEventListener(
                 "click",
@@ -634,9 +862,6 @@ try {
            IMAGE PROTECTION
         ================================= */
 
-
-        // ป้องกันเมนูคลิกขวาบนรูป
-
         document.addEventListener(
             "contextmenu",
             event => {
@@ -653,8 +878,6 @@ try {
         );
 
 
-        // ป้องกันการลากรูปภาพ
-
         document.addEventListener(
             "dragstart",
             event => {
@@ -670,8 +893,6 @@ try {
             }
         );
 
-
-        // ป้องกันการเลือกข้อความบนหน้ารูป
 
         document.addEventListener(
             "selectstart",
