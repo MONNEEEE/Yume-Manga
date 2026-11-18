@@ -1,0 +1,1146 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>รายละเอียดมังงะ | Yume Manga</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        body {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.page-ready {
+            opacity: 1;
+        }
+
+        body.page-leaving {
+            opacity: 0;
+        }
+
+        .detail-container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 12px;
+            background: #ffe3ef;
+            color: #d65c91;
+            text-decoration: none;
+            margin-bottom: 25px;
+            font-weight: bold;
+            transition: transform 0.25s ease,
+                        box-shadow 0.25s ease;
+        }
+
+        .back-button:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 5px 15px rgba(214, 92, 145, 0.15);
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
+
+        /* =================================
+           FULL COVER
+        ================================= */
+
+        .detail-box {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            aspect-ratio: 3 / 4;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 25px;
+            background: #302631;
+            box-shadow: 0 12px 35px rgba(100, 50, 75, 0.18);
+            isolation: isolate;
+
+            animation: detailZoomIn 0.8s ease both;
+        }
+
+        @keyframes detailZoomIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .detail-cover {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+
+            animation: coverReveal 1.2s ease both;
+        }
+
+        @keyframes coverReveal {
+            from {
+                opacity: 0.5;
+                transform: scale(1.06);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .detail-cover-emoji {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 120px;
+            background: linear-gradient(135deg, #ffd6e8, #f6b8d3);
+            z-index: -2;
+        }
+
+        .detail-box::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(20, 10, 20, 0.02) 0%,
+                rgba(20, 10, 20, 0.08) 30%,
+                rgba(20, 10, 20, 0.48) 58%,
+                rgba(20, 10, 20, 0.94) 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* =================================
+           SPARKLE EFFECT
+        ================================= */
+
+        .detail-box::before {
+            content: "✦";
+            position: absolute;
+            top: 9%;
+            right: 8%;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 25px;
+            pointer-events: none;
+            opacity: 0;
+
+            animation: detailSparkle 3.5s ease-in-out 0.8s infinite;
+        }
+
+        @keyframes detailSparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.6) rotate(0deg);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scale(1.15) rotate(45deg);
+            }
+        }
+
+        /* =================================
+           DETAIL INFORMATION
+        ================================= */
+
+        .detail-info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 30px;
+            color: #fff;
+        }
+
+        .detail-tag {
+            display: inline-block;
+            padding: 8px 17px;
+            margin-bottom: 13px;
+            border-radius: 30px;
+            background: #ffb9d8;
+            color: #963d68;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .detail-info h1 {
+            font-size: clamp(24px, 4vw, 35px);
+            line-height: 1.35;
+            margin: 0 0 17px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detail-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 8px 11px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.17);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.5;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .detail-synopsis {
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.92);
+            margin: 0 0 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* =================================
+           INFO REVEAL
+        ================================= */
+
+        .detail-info > * {
+            animation: infoReveal 0.65s ease both;
+        }
+
+        .detail-info > *:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+
+        .detail-info > *:nth-child(2) {
+            animation-delay: 0.25s;
+        }
+
+        .detail-info > *:nth-child(3) {
+            animation-delay: 0.35s;
+        }
+
+        .detail-info > *:nth-child(4) {
+            animation-delay: 0.45s;
+        }
+
+        .detail-info > *:nth-child(5) {
+            animation-delay: 0.55s;
+        }
+
+        @keyframes infoReveal {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =================================
+           ACTION BUTTONS
+        ================================= */
+
+        .detail-box .detail-actions {
+            position: relative !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+            justify-content: flex-start !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .detail-box .detail-action {
+            position: relative !important;
+            inset: auto !important;
+            display: inline-flex !important;
+            flex: 0 1 auto !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+
+            width: auto !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            min-height: 46px !important;
+
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            padding: 11px 17px !important;
+
+            border-radius: 14px !important;
+            font-family: inherit !important;
+            font-size: 14px !important;
+            font-weight: bold !important;
+            line-height: 1.4 !important;
+            text-align: center !important;
+            text-decoration: none !important;
+            white-space: nowrap !important;
+
+            cursor: pointer !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .detail-box .detail-primary-action {
+            background: #ff8fbd !important;
+            color: #fff !important;
+            border: 1px solid #ff8fbd !important;
+            box-shadow: 0 5px 15px rgba(255, 100, 160, 0.25);
+        }
+
+        .detail-box .detail-primary-action:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 22px rgba(255, 100, 160, 0.35);
+        }
+
+        .detail-box .detail-favorite-action {
+            background: rgba(255, 255, 255, 0.19) !important;
+            color: #fff !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .detail-box .detail-favorite-action:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 18px rgba(255, 255, 255, 0.12);
+        }
+
+        .detail-box .detail-favorite-action.selected {
+            background: #fff0f5 !important;
+            color: #e34e88 !important;
+            border: 1px solid #fff0f5 !important;
+        }
+
+        .detail-box .detail-action:active {
+            transform: scale(0.97) !important;
+        }
+
+        .detail-box .detail-primary-action.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* =================================
+           CHAPTER LIST
+        ================================= */
+
+        .detail-section {
+            max-width: 850px;
+            margin: 35px auto 0;
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .detail-section.reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .detail-section h2 {
+            margin-bottom: 18px;
+        }
+
+        .chapter-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--card-bg, #fff);
+            border: 1px solid #f4dce7;
+            text-decoration: none;
+
+            /* FIX: สีข้อความหลักให้อ่านง่ายบนการ์ดสีขาว */
+            color: #754b60 !important;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+
+            animation: chapterAppear 0.55s ease both;
+        }
+
+        /* FIX: ชื่อบทอ่าน */
+
+        .chapter-item span:first-child {
+            color: #754b60 !important;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        /* ปุ่มอ่านตอนนี้ */
+
+        .chapter-item span:last-child {
+            color: #d65c91 !important;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .chapter-item:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .chapter-item:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+
+        .chapter-item:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .chapter-item:nth-child(4) {
+            animation-delay: 0.20s;
+        }
+
+        .chapter-item:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .chapter-item:nth-child(6) {
+            animation-delay: 0.30s;
+        }
+
+        .chapter-item:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .chapter-item:nth-child(8) {
+            animation-delay: 0.40s;
+        }
+
+        @keyframes chapterAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chapter-item:hover {
+            transform: translateX(5px);
+            border-color: var(--pink);
+            box-shadow: 0 7px 20px rgba(211, 112, 160, 0.12);
+        }
+
+        .chapter-item:active {
+            transform: scale(0.98);
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 60px 15px;
+        }
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            .detail-container {
+                width: 94%;
+                margin-top: 22px;
+            }
+
+            .detail-box {
+                max-width: none;
+                aspect-ratio: 3 / 4;
+                border-radius: 22px;
+            }
+
+            .detail-info {
+                padding: 20px;
+            }
+
+            .detail-info h1 {
+                font-size: clamp(21px, 6vw, 28px);
+                margin-bottom: 12px;
+            }
+
+            .detail-meta {
+                gap: 6px;
+                margin-bottom: 12px;
+            }
+
+            .detail-meta-item {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+
+            .detail-synopsis {
+                font-size: 12px;
+                margin-bottom: 14px;
+            }
+
+            .detail-box .detail-actions {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) !important;
+                gap: 9px !important;
+            }
+
+            .detail-box .detail-action {
+                display: flex !important;
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                min-height: 43px !important;
+                padding: 10px 12px !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                font-size: 13px !important;
+            }
+
+            .detail-section {
+                margin-top: 28px;
+            }
+
+            .chapter-item span:first-child {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .detail-info {
+                padding: 16px;
+            }
+
+            .detail-info h1 {
+                font-size: 21px;
+            }
+
+            .detail-meta-item {
+                font-size: 10px;
+            }
+        }
+
+        /* =================================
+           TOUCH DEVICE
+        ================================= */
+
+        @media (hover: none) {
+
+            .detail-box .detail-primary-action:hover,
+            .detail-box .detail-favorite-action:hover,
+            .back-button:hover {
+                transform: none !important;
+                box-shadow: none;
+            }
+
+            .chapter-item:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+        }
+
+        /* =================================
+           REDUCED MOTION
+        ================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            body {
+                transition: none;
+                opacity: 1 !important;
+            }
+
+            body.page-leaving {
+                opacity: 1 !important;
+            }
+
+            .detail-box,
+            .detail-box::before,
+            .detail-cover,
+            .detail-info > *,
+            .detail-section,
+            .chapter-item {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="detail-container">
+
+        <a href="index.html" class="back-button" id="back-home">
+            ← กลับหน้าแรก
+        </a>
+
+        <div id="detail-content"></div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+    <script>
+
+        /* =================================
+           FIND MANGA
+        ================================= */
+
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
+        const mangaId = params.get("id");
+
+        const manga = window.mangaData?.find(
+            item => String(item.id) === String(mangaId)
+        );
+
+        const detailContent = document.getElementById(
+            "detail-content"
+        );
+
+
+        /* =================================
+           READING HISTORY SYSTEM
+        ================================= */
+
+        function getReadingHistory() {
+
+            try {
+
+                const history = JSON.parse(
+                    localStorage.getItem("yumeReadingHistory") || "{}"
+                );
+
+                return history && typeof history === "object"
+                    ? history
+                    : {};
+
+            } catch (error) {
+
+                return {};
+
+            }
+
+        }
+
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        function navigateWithFade(url) {
+
+            if (
+                window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches
+            ) {
+                window.location.href = url;
+                return;
+            }
+
+            document.body.classList.remove("page-ready");
+
+            document.body.classList.add("page-leaving");
+
+            setTimeout(() => {
+
+                window.location.href = url;
+
+            }, 500);
+
+        }
+
+
+        /* =================================
+           FAVORITES SYSTEM
+        ================================= */
+
+        function getFavoriteIds() {
+
+            try {
+
+                const saved = JSON.parse(
+                    localStorage.getItem("yumeFavorites") || "[]"
+                );
+
+                return Array.isArray(saved) ? saved : [];
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        function updateFavoriteButton() {
+
+            const button = document.getElementById(
+                "detail-favorite"
+            );
+
+            if (!button || !manga) return;
+
+            const favoriteIds = getFavoriteIds();
+
+            const isFavorite = favoriteIds.includes(
+                Number(manga.id)
+            );
+
+            button.classList.toggle(
+                "selected",
+                isFavorite
+            );
+
+            button.setAttribute(
+                "aria-pressed",
+                String(isFavorite)
+            );
+
+            button.textContent = isFavorite
+                ? "♥ อยู่ในรายการโปรด"
+                : "♡ เพิ่มรายการโปรด";
+
+        }
+
+
+        function toggleDetailFavorite() {
+
+            if (!manga) return;
+
+            const favoriteIds = getFavoriteIds();
+
+            const id = Number(manga.id);
+
+            const index = favoriteIds.indexOf(id);
+
+            if (index === -1) {
+
+                favoriteIds.push(id);
+
+            } else {
+
+                favoriteIds.splice(index, 1);
+
+            }
+
+            localStorage.setItem(
+                "yumeFavorites",
+                JSON.stringify(favoriteIds)
+            );
+
+            updateFavoriteButton();
+
+        }
+
+
+        /* =================================
+           RENDER DETAIL
+        ================================= */
+
+        if (manga) {
+
+            const isImage =
+                typeof manga.cover === "string" &&
+                /^https?:\/\//i.test(manga.cover);
+
+            const cover = isImage
+
+                ? `
+                    <img
+                        class="detail-cover"
+                        src="${manga.cover}"
+                        alt="${manga.title}"
+                    >
+                `
+
+                : `
+                    <div class="detail-cover-emoji">
+                        ${manga.cover || "🌸"}
+                    </div>
+                `;
+
+
+            const chapters = Array.isArray(manga.chapters)
+                ? manga.chapters
+                : [];
+
+
+            /* =================================
+               RESUME READING
+            ================================= */
+
+            const readingHistory = getReadingHistory();
+
+            const savedProgress =
+                readingHistory[String(manga.id)];
+
+            const hasReadingHistory =
+                savedProgress &&
+                Number.isInteger(savedProgress.chapter) &&
+                savedProgress.chapter >= 0 &&
+                savedProgress.chapter < chapters.length;
+
+            const resumeChapter = hasReadingHistory
+                ? savedProgress.chapter
+                : 0;
+
+            const continueChapterLink = chapters.length > 0
+
+                ? `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${resumeChapter}`
+
+                : "#";
+
+            const continueButtonText = hasReadingHistory
+
+                ? `📖 อ่านต่อ ${savedProgress.title || `ตอนที่ ${resumeChapter + 1}`}`
+
+                : "📖 อ่านตอนแรก";
+
+
+            /* =================================
+               CHAPTER LIST
+            ================================= */
+
+            const chaptersHTML = chapters.length > 0
+
+                ? chapters.map((chapter, index) => {
+
+                    const isLastRead =
+                        hasReadingHistory &&
+                        index === resumeChapter;
+
+                    return `
+                        <a
+                            class="chapter-item"
+                            href="reader.html?id=${encodeURIComponent(manga.id)}&chapter=${index}"
+                        >
+
+                            <span>
+                                ${isLastRead ? "📌 " : "📖 "}
+                                ${chapter.title || `ตอนที่ ${index + 1}`}
+                                ${isLastRead ? " (อ่านล่าสุด)" : ""}
+                            </span>
+
+                            <span>อ่านตอนนี้ →</span>
+
+                        </a>
+                    `;
+
+                }).join("")
+
+                : `
+                    <p>ยังไม่มีตอนให้อ่านในขณะนี้ 🌸</p>
+                `;
+
+
+            /* =================================
+               DETAIL HTML
+            ================================= */
+
+            detailContent.innerHTML = `
+
+                <section class="detail-box">
+
+                    ${cover}
+
+                    <div class="detail-info">
+
+                        <span class="detail-tag">
+                            ${manga.status || "มังงะ"}
+                        </span>
+
+                        <h1>${manga.title}</h1>
+
+                        <div class="detail-meta">
+
+                            <span class="detail-meta-item">
+                                ✍️ ${manga.author || "ไม่ระบุ"}
+                            </span>
+
+                            <span class="detail-meta-item">
+                                📚 ${manga.genre || "ไม่ระบุ"}
+                            </span>
+
+                            <span class="detail-meta-item">
+                                ⭐ ${manga.rating || "ยังไม่มีคะแนน"}
+                            </span>
+
+                        </div>
+
+                        <p class="detail-synopsis">
+                            ${manga.synopsis || "เรื่องราวการผจญภัยที่รอให้คุณค้นพบ 🌸"}
+                        </p>
+
+                        <div class="detail-actions">
+
+                            <a
+                                class="detail-action detail-primary-action ${chapters.length === 0 ? "disabled" : ""}"
+                                href="${continueChapterLink}"
+                                ${chapters.length === 0 ? 'aria-disabled="true"' : ""}
+                            >
+                                ${continueButtonText}
+                            </a>
+
+                            <button
+                                type="button"
+                                class="detail-action detail-favorite-action"
+                                id="detail-favorite"
+                                aria-pressed="false"
+                            >
+                                ♡ เพิ่มรายการโปรด
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section class="detail-section">
+
+                    <h2>📖 รายชื่อตอน</h2>
+
+                    <div class="chapter-list">
+                        ${chaptersHTML}
+                    </div>
+
+                </section>
+
+            `;
+
+
+            /* =================================
+               FAVORITE BUTTON EVENT
+            ================================= */
+
+            updateFavoriteButton();
+
+            document
+                .getElementById("detail-favorite")
+                .addEventListener(
+                    "click",
+                    toggleDetailFavorite
+                );
+
+
+            /* =================================
+               SCROLL REVEAL
+            ================================= */
+
+            const revealSections = document.querySelectorAll(
+                ".detail-section"
+            );
+
+            if ("IntersectionObserver" in window) {
+
+                const revealObserver = new IntersectionObserver(
+                    entries => {
+
+                        entries.forEach(entry => {
+
+                            if (entry.isIntersecting) {
+
+                                entry.target.classList.add(
+                                    "reveal-visible"
+                                );
+
+                                revealObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        });
+
+                    },
+                    {
+                        threshold: 0.12
+                    }
+                );
+
+                revealSections.forEach(section => {
+                    revealObserver.observe(section);
+                });
+
+            } else {
+
+                revealSections.forEach(section => {
+                    section.classList.add("reveal-visible");
+                });
+
+            }
+
+        } else {
+
+            detailContent.innerHTML = `
+
+                <div class="not-found">
+
+                    <h2>ไม่พบมังงะเรื่องนี้ 🌸</h2>
+
+                    <p>ลองกลับไปเลือกเรื่องอื่นดูนะ</p>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =================================
+           CHAPTER CLICK TRANSITION
+        ================================= */
+
+        detailContent.addEventListener(
+            "click",
+            event => {
+
+                const link = event.target.closest(
+                    ".chapter-item, .detail-primary-action"
+                );
+
+                if (!link) return;
+
+                if (link.classList.contains("disabled")) {
+                    event.preventDefault();
+                    return;
+                }
+
+                if (
+                    !link.href ||
+                    link.getAttribute("href") === "#"
+                ) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                navigateWithFade(link.href);
+
+            }
+        );
+
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        window.addEventListener(
+            "pageshow",
+            () => {
+
+                requestAnimationFrame(() => {
+
+                    document.body.classList.add(
+                        "page-ready"
+                    );
+
+                    document.body.classList.remove(
+                        "page-leaving"
+                    );
+
+                });
+
+            }
+        );
+
+
+        /* =================================
+           BACK TO HOME
+        ================================= */
+
+        document
+            .getElementById("back-home")
+            .addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    navigateWithFade("index.html");
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
