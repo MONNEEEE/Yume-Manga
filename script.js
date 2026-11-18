@@ -1,4 +1,3 @@
-
 /* =================================
    YUME MANGA - JAVASCRIPT
    Pink Dream Effects Edition
@@ -13,7 +12,8 @@ const mangaData = [
         author: "Akinoko",
         genre: "Romantic Comedy / Romance",
         status: "แนะนำ",
-        rating: "★ 9.5",
+        rating: "★ 7.91",
+				synopsis: "เพราะแมวเป็นสิ่งมีชีวิตที่ประเสริฐกว่ามนุษย์ไงล่ะ (ว่าแต่เมื่อไหร่มันจะเลิกใช้กรูอัพงานแทนมัน...)",
         cover: "https://i.ibb.co/wNn40xKn/IMG-0654.jpg",
         coverClass: "cover-1",
 
@@ -60,17 +60,43 @@ const mangaData = [
 										"https://cdn.rapidfile.cc/FnFB00McWm/IMG_0723.jpeg",
 										"https://cdn.rapidfile.cc/JcyqZ95vvd/IMG_0724.jpeg",
 										"https://cdn.rapidfile.cc/3w5b6msgXW/IMG_0725.jpeg",
-										"https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png"
+										"https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png",
 										
                 ]
             },
             {
                 title: "ตอนที่ 2",
                 pages: [
+                    "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
+                    "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
+										"https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
+										"https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
+										"https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
+										"https://cdn.rapidfile.cc/7v1tjHRuvl/IMG_0741.jpeg",
+										"https://cdn.rapidfile.cc/M8fiSItVjh/IMG_0742.jpeg",
+										"https://cdn.rapidfile.cc/idTsxRmIEY/IMG_0743.jpeg",
+										"https://cdn.rapidfile.cc/EORIpHQuKw/IMG_0744.jpeg",
+										"https://cdn.rapidfile.cc/zatx3TYx63/IMG_0745.jpeg",
+										"https://cdn.rapidfile.cc/BRHbEHkILm/IMG_0746.jpeg",
+										"https://cdn.rapidfile.cc/HXzmgn2uuh/IMG_0747.jpeg",
+										"https://cdn.rapidfile.cc/pSvZsX2DzW/IMG_0748.jpeg",
+										"https://cdn.rapidfile.cc/LHseLzdZV5/IMG_0749.jpeg",
+										"https://cdn.rapidfile.cc/5m8kuqQX7f/IMG_0750.jpeg",
+										"https://cdn.rapidfile.cc/EHyL5aeBGT/IMG_0751.jpeg",
+										"https://cdn.rapidfile.cc/Sk0PAt5LmW/IMG_0752.jpeg",
+										"https://cdn.rapidfile.cc/EIylQew94b/Untitled%20design.png"
+										
+										
+								]
+						},
+						{
+                title: "ตอนที่ 3",
+                pages: [
                     "https://example.com/page-001.jpg",
-                    "https://example.com/page-002.jpg"
+                    "https://example.com/page-002.jpg"	
                 ]
-            }
+          }
+						
         ]
     },
 
