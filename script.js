@@ -26,7 +26,6 @@ const mangaData = [
                     "https://cdn.rapidfile.cc/BuDLuSwDOZ/IMG_0657.jpeg",
                     "https://cdn.rapidfile.cc/0HLmyKphJQ/IMG_0658.jpeg",
                     "https://cdn.rapidfile.cc/lv3isZLrBi/IMG_0659.jpeg"
-										""
                 ]
             },
             {
