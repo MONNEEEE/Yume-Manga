@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -70,7 +69,6 @@
             background: #302631;
             box-shadow: 0 12px 35px rgba(100, 50, 75, 0.18);
             isolation: isolate;
-
             animation: detailZoomIn 0.8s ease both;
         }
 
@@ -95,7 +93,6 @@
             object-fit: cover;
             object-position: center;
             z-index: -2;
-
             animation: coverReveal 1.2s ease both;
         }
 
@@ -151,7 +148,6 @@
             font-size: 25px;
             pointer-events: none;
             opacity: 0;
-
             animation: detailSparkle 3.5s ease-in-out 0.8s infinite;
         }
 
@@ -228,15 +224,175 @@
             -webkit-backdrop-filter: blur(8px);
         }
 
+        /* =================================
+           SYNOPSIS - CLICK TO READ FULL
+        ================================= */
+
         .detail-synopsis {
+            display: -webkit-box !important;
+            -webkit-box-orient: vertical !important;
+            -webkit-line-clamp: 2 !important;
+
+            width: 100%;
+            max-height: 3.6em;
+            box-sizing: border-box;
+
             font-size: 13px;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.92);
+
             margin: 0 0 18px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+
+            white-space: normal !important;
+            overflow: hidden !important;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            text-overflow: ellipsis;
+
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .detail-synopsis:hover {
+            color: #ffc4df;
+        }
+
+        .synopsis-hint {
+            display: block;
+            margin-top: -12px;
+            margin-bottom: 15px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+
+        /* =================================
+           FULL SYNOPSIS MODAL
+        ================================= */
+
+        .synopsis-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+            box-sizing: border-box;
+
+            background: rgba(25, 15, 25, 0.65);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease;
+        }
+
+        .synopsis-modal.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .synopsis-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            max-height: 80vh;
+            overflow-y: auto;
+
+            padding: 25px;
+            box-sizing: border-box;
+
+            border-radius: 23px;
+            background: linear-gradient(
+                145deg,
+                #fff8fb,
+                #ffeaf3
+            );
+
+            box-shadow: 0 15px 45px rgba(40, 15, 30, 0.3);
+
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.3s ease;
+        }
+
+        .synopsis-modal.open .synopsis-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .synopsis-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+
+            border-bottom: 1px solid #f4d2e1;
+        }
+
+        .synopsis-modal-header h2 {
+            margin: 0;
+            color: #c64f85;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .synopsis-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 50%;
+            background: #ffe0ed;
+            color: #c64f85;
+
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .synopsis-close:hover {
+            background: #ffc8df;
+            transform: rotate(90deg);
+        }
+
+        .synopsis-full-text {
+            margin: 0;
+
+            color: #754b60;
+            font-size: 15px;
+            line-height: 2;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .synopsis-modal-footer {
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid #f4d2e1;
+
+            color: #c77b9e;
+            font-size: 12px;
+            text-align: center;
         }
 
         /* =================================
@@ -381,10 +537,8 @@
         .detail-section {
             max-width: 850px;
             margin: 35px auto 0;
-
             opacity: 0;
             transform: translateY(25px);
-
             transition:
                 opacity 0.7s ease,
                 transform 0.7s ease;
@@ -414,19 +568,13 @@
             background: var(--card-bg, #fff);
             border: 1px solid #f4dce7;
             text-decoration: none;
-
-            /* FIX: สีข้อความหลักให้อ่านง่ายบนการ์ดสีขาว */
             color: #754b60 !important;
-
             transition:
                 transform 0.25s ease,
                 box-shadow 0.25s ease,
                 border-color 0.25s ease;
-
             animation: chapterAppear 0.55s ease both;
         }
-
-        /* FIX: ชื่อบทอ่าน */
 
         .chapter-item span:first-child {
             color: #754b60 !important;
@@ -434,8 +582,6 @@
             font-weight: 600;
             line-height: 1.6;
         }
-
-        /* ปุ่มอ่านตอนนี้ */
 
         .chapter-item span:last-child {
             color: #d65c91 !important;
@@ -541,7 +687,34 @@
 
             .detail-synopsis {
                 font-size: 12px;
+                line-height: 1.8;
+                max-height: 3.6em;
                 margin-bottom: 14px;
+            }
+
+            .synopsis-hint {
+                font-size: 10px;
+                margin-top: -9px;
+                margin-bottom: 13px;
+            }
+
+            .synopsis-modal {
+                padding: 16px;
+            }
+
+            .synopsis-modal-content {
+                max-height: 82vh;
+                padding: 21px;
+                border-radius: 20px;
+            }
+
+            .synopsis-modal-header h2 {
+                font-size: 17px;
+            }
+
+            .synopsis-full-text {
+                font-size: 14px;
+                line-height: 1.9;
             }
 
             .detail-box .detail-actions {
@@ -603,7 +776,6 @@
                 transform: none;
                 box-shadow: none;
             }
-
         }
 
         /* =================================
@@ -633,6 +805,10 @@
                 transform: none !important;
             }
 
+            .synopsis-modal,
+            .synopsis-modal-content {
+                transition: none !important;
+            }
         }
 
     </style>
@@ -692,9 +868,7 @@
             } catch (error) {
 
                 return {};
-
             }
-
         }
 
 
@@ -714,15 +888,11 @@
             }
 
             document.body.classList.remove("page-ready");
-
             document.body.classList.add("page-leaving");
 
             setTimeout(() => {
-
                 window.location.href = url;
-
             }, 500);
-
         }
 
 
@@ -743,9 +913,7 @@
             } catch (error) {
 
                 return [];
-
             }
-
         }
 
 
@@ -776,7 +944,6 @@
             button.textContent = isFavorite
                 ? "♥ อยู่ในรายการโปรด"
                 : "♡ เพิ่มรายการโปรด";
-
         }
 
 
@@ -791,13 +958,9 @@
             const index = favoriteIds.indexOf(id);
 
             if (index === -1) {
-
                 favoriteIds.push(id);
-
             } else {
-
                 favoriteIds.splice(index, 1);
-
             }
 
             localStorage.setItem(
@@ -806,7 +969,42 @@
             );
 
             updateFavoriteButton();
+        }
 
+
+        /* =================================
+           SYNOPSIS MODAL SYSTEM
+        ================================= */
+
+        function openSynopsis() {
+
+            const modal = document.getElementById(
+                "synopsis-modal"
+            );
+
+            if (!modal) return;
+
+            modal.classList.add("open");
+            document.body.style.overflow = "hidden";
+
+            const closeButton = document.getElementById(
+                "synopsis-close"
+            );
+
+            closeButton?.focus();
+        }
+
+
+        function closeSynopsis() {
+
+            const modal = document.getElementById(
+                "synopsis-modal"
+            );
+
+            if (!modal) return;
+
+            modal.classList.remove("open");
+            document.body.style.overflow = "";
         }
 
 
@@ -840,6 +1038,10 @@
             const chapters = Array.isArray(manga.chapters)
                 ? manga.chapters
                 : [];
+
+
+            const synopsisText = manga.synopsis ||
+                "เรื่องราวการผจญภัยที่รอให้คุณค้นพบ 🌸";
 
 
             /* =================================
@@ -944,9 +1146,19 @@
 
                         </div>
 
-                        <p class="detail-synopsis">
-                            ${manga.synopsis || "เรื่องราวการผจญภัยที่รอให้คุณค้นพบ 🌸"}
+                        <p
+                            class="detail-synopsis"
+                            id="detail-synopsis"
+                            role="button"
+                            tabindex="0"
+                            aria-label="แตะเพื่ออ่านเรื่องย่อฉบับเต็ม"
+                        >
+                            ${synopsisText}
                         </p>
+
+                        <span class="synopsis-hint">
+                            แตะเพื่ออ่านเรื่องย่อฉบับเต็ม ✨
+                        </span>
 
                         <div class="detail-actions">
 
@@ -974,6 +1186,48 @@
                 </section>
 
 
+                <!-- FULL SYNOPSIS MODAL -->
+
+                <div
+                    class="synopsis-modal"
+                    id="synopsis-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="synopsis-modal-title"
+                >
+
+                    <div class="synopsis-modal-content">
+
+                        <div class="synopsis-modal-header">
+
+                            <h2 id="synopsis-modal-title">
+                                🌸 เรื่องย่อฉบับเต็ม
+                            </h2>
+
+                            <button
+                                type="button"
+                                class="synopsis-close"
+                                id="synopsis-close"
+                                aria-label="ปิดหน้าต่าง"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                        <p class="synopsis-full-text">
+                            ${synopsisText}
+                        </p>
+
+                        <div class="synopsis-modal-footer">
+                            Yume Manga · อ่านเรื่องย่อ
+                        </div>
+
+                    </div>
+
+                </div>
+
+
                 <section class="detail-section">
 
                     <h2>📖 รายชื่อตอน</h2>
@@ -985,6 +1239,77 @@
                 </section>
 
             `;
+
+
+            /* =================================
+               SYNOPSIS MODAL EVENTS
+            ================================= */
+
+            const synopsisButton = document.getElementById(
+                "detail-synopsis"
+            );
+
+            const synopsisModal = document.getElementById(
+                "synopsis-modal"
+            );
+
+            const synopsisClose = document.getElementById(
+                "synopsis-close"
+            );
+
+
+            synopsisButton.addEventListener(
+                "click",
+                openSynopsis
+            );
+
+            synopsisButton.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+                        event.preventDefault();
+                        openSynopsis();
+                    }
+
+                }
+            );
+
+
+            synopsisClose.addEventListener(
+                "click",
+                closeSynopsis
+            );
+
+
+            synopsisModal.addEventListener(
+                "click",
+                event => {
+
+                    if (event.target === synopsisModal) {
+                        closeSynopsis();
+                    }
+
+                }
+            );
+
+
+            document.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Escape" &&
+                        synopsisModal.classList.contains("open")
+                    ) {
+                        closeSynopsis();
+                    }
+
+                }
+            );
 
 
             /* =================================
@@ -1025,7 +1350,6 @@
                                 revealObserver.unobserve(
                                     entry.target
                                 );
-
                             }
 
                         });
@@ -1045,7 +1369,6 @@
                 revealSections.forEach(section => {
                     section.classList.add("reveal-visible");
                 });
-
             }
 
         } else {
@@ -1061,7 +1384,6 @@
                 </div>
 
             `;
-
         }
 
 
@@ -1094,7 +1416,6 @@
                 event.preventDefault();
 
                 navigateWithFade(link.href);
-
             }
         );
 
