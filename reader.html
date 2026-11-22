@@ -1,53 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <meta name="theme-color" content="#fff1f7">
 
     <title>อ่านมังงะ | Yume Manga</title>
+
     <link rel="stylesheet" href="style.css">
 
     <style>
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
         body {
             opacity: 0;
-            transition: opacity .5s ease;
+            transition: opacity 0.5s ease;
             margin: 0;
-            background: #171317;
         }
 
-        body.page-ready { opacity: 1; }
-        body.page-leaving { opacity: 0; }
+        body.page-ready {
+            opacity: 1;
+        }
+
+        body.page-leaving {
+            opacity: 0;
+        }
+
+
+        /* =================================
+           READER LAYOUT
+        ================================= */
 
         .reader-container {
             width: 100%;
             max-width: 850px;
             margin: 0 auto;
-            padding-top: calc(env(safe-area-inset-top, 0px) + 78px);
+
+            padding-top: calc(
+                env(safe-area-inset-top, 0px) + 78px
+            );
+
             padding-bottom: 30px;
+
             box-sizing: border-box;
         }
 
-        /* TOP BAR */
+
+        /* =================================
+           FIXED TOP READER BAR
+        ================================= */
+
         .reader-header {
             position: fixed;
+
             top: env(safe-area-inset-top, 0px);
             left: 0;
             right: 0;
+
             z-index: 1000;
+
+            width: 100%;
             min-height: 68px;
+
             box-sizing: border-box;
+
             display: grid;
-            grid-template-columns: auto minmax(0, 1fr) auto;
+
+            grid-template-columns:
+                auto
+                minmax(0, 1fr)
+                auto;
+
             align-items: center;
             gap: 12px;
+
             padding: 10px 15px;
-            background: rgba(255, 235, 244, .97);
+
+            background: rgba(255, 235, 244, 0.97);
+
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 3px 15px rgba(0,0,0,.08);
-            transition: opacity .3s ease, transform .3s ease;
+
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
         .reader-header a {
@@ -57,8 +100,18 @@
             white-space: nowrap;
         }
 
-        #back-detail { font-size: 15px; }
-        .reader-home { font-size: 14px; }
+        #back-detail {
+            font-size: 15px;
+        }
+
+        .reader-home {
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           MANGA TITLE IN HEADER
+        ================================= */
 
         .reader-heading {
             min-width: 0;
@@ -68,22 +121,29 @@
 
         .reader-heading h1 {
             margin: 0;
+
             font-size: 15px;
             font-weight: bold;
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: #513342;
         }
 
         .reader-heading p {
             margin: 4px 0 0;
+
             font-size: 12px;
             color: #b75a83;
+
             white-space: nowrap;
         }
 
-        /* PAGES */
+
+        /* =================================
+           MANGA PAGES
+        ================================= */
+
         .reader-pages {
             width: 100%;
             min-height: 300px;
@@ -92,95 +152,136 @@
 
         .reader-page {
             position: relative;
+
             width: 100%;
             overflow: hidden;
+
             line-height: 0;
+
             -webkit-user-select: none;
             user-select: none;
+
             -webkit-touch-callout: none;
         }
 
         .reader-page img {
             display: block;
+
             width: 100%;
             height: auto;
-            min-height: 100px;
+
             margin: 0 auto;
+
             -webkit-user-drag: none;
             -webkit-touch-callout: none;
+
             user-select: none;
         }
 
-        .reader-page.image-error {
-            min-height: 180px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #292129;
-            color: #f4cddd;
-            line-height: 1.7;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
 
-        .reader-page.image-error img {
-            display: none;
-        }
-
-        .reader-error-message {
-            display: none;
-        }
-
-        .reader-page.image-error .reader-error-message {
-            display: block;
-        }
+        /* =================================
+           WATERMARK
+        ================================= */
 
         .reader-watermark {
             position: absolute;
+
             right: 15px;
             bottom: 18px;
-            color: rgba(255,255,255,.65);
+
+            color: rgba(255, 255, 255, 0.65);
+
             font-size: 13px;
             font-weight: bold;
             line-height: 1.5;
-            text-shadow: 0 1px 3px #000, 0 0 8px #000;
+
+            text-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.8),
+                0 0 8px rgba(0, 0, 0, 0.5);
+
             pointer-events: none;
+
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        /* CHAPTER BUTTONS */
+
+        /* =================================
+           BOTTOM LEFT CHAPTER BUTTONS
+        ================================= */
+
         .reader-navigation {
             position: fixed;
+
             left: 15px;
-            bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+
+            bottom: calc(
+                env(safe-area-inset-bottom, 0px) + 18px
+            );
+
             z-index: 1001;
+
             display: flex;
+            justify-content: flex-start;
             align-items: center;
+
             gap: 12px;
-            transition: opacity .3s ease, transform .3s ease;
+
+            padding: 0;
+            margin: 0;
+
+            background: transparent;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
         .reader-navigation a {
             display: flex;
+
             justify-content: center;
             align-items: center;
+
             width: 50px;
             height: 50px;
+
+            box-sizing: border-box;
+
+            padding: 0;
+
             border-radius: 50%;
-            background: rgba(255,255,255,.96);
+
+            background: rgba(255, 255, 255, 0.96);
             color: #d65c91;
+
             font-size: 27px;
+            font-weight: normal;
+
             text-decoration: none;
-            box-shadow: 0 3px 14px rgba(0,0,0,.16);
+
+            box-shadow:
+                0 3px 14px rgba(0, 0, 0, 0.16);
+
             -webkit-tap-highlight-color: transparent;
+
+            transition: transform 0.2s ease;
+        }
+
+        .reader-navigation a:active {
+            transform: scale(0.9);
         }
 
         .reader-navigation a.disabled {
-            opacity: .35;
+            opacity: 0.35;
             pointer-events: none;
         }
 
-        /* HIDE CONTROLS */
+
+        /* =================================
+           HIDE / SHOW CONTROLS
+        ================================= */
+
         body.controls-hidden .reader-header {
             opacity: 0;
             transform: translateY(-110%);
@@ -193,35 +294,77 @@
             pointer-events: none;
         }
 
-        .reader-placeholder,
-        .reader-error {
+
+        /* =================================
+           PLACEHOLDER
+        ================================= */
+
+        .reader-placeholder {
             padding: 55px 20px;
+
             text-align: center;
+
             color: #fff;
             line-height: 1.8;
         }
 
-        .reader-placeholder p { color: #e7cbd8; }
+        .reader-placeholder p {
+            margin-top: 10px;
+            color: #e7cbd8;
+        }
+
+
+        /* =================================
+           ERROR
+        ================================= */
+
+        .reader-error {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
 
         @media (max-width: 600px) {
+
             .reader-header {
                 gap: 8px;
                 padding: 10px 11px;
                 min-height: 64px;
             }
 
-            #back-detail { font-size: 13px; }
-            .reader-home { font-size: 12px; }
-            .reader-heading h1 { font-size: 13px; }
-            .reader-heading p { font-size: 11px; }
+            #back-detail {
+                font-size: 13px;
+            }
+
+            .reader-home {
+                font-size: 12px;
+            }
+
+            .reader-heading h1 {
+                font-size: 13px;
+            }
+
+            .reader-heading p {
+                font-size: 11px;
+            }
 
             .reader-container {
-                padding-top: calc(env(safe-area-inset-top, 0px) + 74px);
+                padding-top: calc(
+                    env(safe-area-inset-top, 0px) + 74px
+                );
             }
 
             .reader-navigation {
                 left: 13px;
-                bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+
+                bottom: calc(
+                    env(safe-area-inset-bottom, 0px) + 16px
+                );
+
                 gap: 10px;
             }
 
@@ -236,71 +379,195 @@
                 bottom: 12px;
                 font-size: 11px;
             }
+
         }
+
+
+        /* =================================
+           REDUCED MOTION
+        ================================= */
 
         @media (prefers-reduced-motion: reduce) {
-            body, .reader-header, .reader-navigation {
+
+            body,
+            .reader-header,
+            .reader-navigation,
+            .reader-navigation a {
                 transition: none !important;
             }
+
         }
+
     </style>
+
 </head>
 
+
 <body>
+
     <main class="reader-container">
 
+
+        <!-- =================================
+             FIXED TOP HEADER
+        ================================= -->
+
         <header class="reader-header">
-            <a href="#" id="back-detail">← กลับ</a>
+
+            <a href="#" id="back-detail">
+                ← กลับ
+            </a>
 
             <div class="reader-heading">
-                <h1 id="manga-title">กำลังโหลด...</h1>
+
+                <h1 id="manga-title">
+                    กำลังโหลด...
+                </h1>
+
                 <p id="chapter-title"></p>
+
             </div>
 
-            <a href="index.html" class="reader-home">🌸 Yume Manga</a>
+            <a href="index.html" class="reader-home">
+                🌸 Yume Manga
+            </a>
+
         </header>
 
-        <section class="reader-pages" id="reader-pages"></section>
+
+        <!-- =================================
+             MANGA PAGES
+        ================================= -->
+
+        <section
+            class="reader-pages"
+            id="reader-pages">
+        </section>
+
+
+        <!-- =================================
+             BOTTOM LEFT NAVIGATION
+        ================================= -->
 
         <nav class="reader-navigation">
-            <a href="#" id="previous-chapter" aria-label="ตอนก่อนหน้า">←</a>
-            <a href="#" id="next-chapter" aria-label="ตอนถัดไป">→</a>
+
+            <a
+                href="#"
+                id="previous-chapter"
+                aria-label="ตอนก่อนหน้า"
+                title="ตอนก่อนหน้า">
+                ←
+            </a>
+
+            <a
+                href="#"
+                id="next-chapter"
+                aria-label="ตอนถัดไป"
+                title="ตอนถัดไป">
+                →
+            </a>
+
         </nav>
+
     </main>
+
+
+    <!-- =================================
+         LOAD DATA
+    ================================= -->
 
     <script src="script.js"></script>
 
+
     <script>
-        const params = new URLSearchParams(location.search);
-        const mangaId = params.get("id");
-        const chapterIndex = Number(params.get("chapter") || 0);
 
-        const readerPages = document.getElementById("reader-pages");
-        const mangaTitle = document.getElementById("manga-title");
-        const chapterTitle = document.getElementById("chapter-title");
-        const previousButton = document.getElementById("previous-chapter");
-        const nextButton = document.getElementById("next-chapter");
-        const backDetail = document.getElementById("back-detail");
+        /* =================================
+           TAP TO HIDE / SHOW CONTROLS
+        ================================= */
 
-        function navigateWithFade(url) {
-            document.body.classList.remove("page-ready");
-            document.body.classList.add("page-leaving");
-
-            setTimeout(() => {
-                location.href = url;
-            }, 500);
-        }
-
-        // TAP TO HIDE / SHOW
         document.addEventListener("click", event => {
-            if (event.target.closest("a, button, .reader-header")) return;
-            document.body.classList.toggle("controls-hidden");
+
+            // ไม่ซ่อนแถบเมื่อแตะปุ่มหรือลิงก์
+            if (
+                event.target.closest(
+                    "a, button, .reader-header"
+                )
+            ) {
+                return;
+            }
+
+            document.body.classList.toggle(
+                "controls-hidden"
+            );
+
         });
 
-        // FIND MANGA
+
+        /* =================================
+           GET MANGA DATA
+        ================================= */
+
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
+        const mangaId = params.get("id");
+
+        const chapterIndex = Number(
+            params.get("chapter") || 0
+        );
+
         const manga = window.mangaData?.find(
             item => String(item.id) === String(mangaId)
         );
+
+
+        /* =================================
+           ELEMENTS
+        ================================= */
+
+        const readerPages =
+            document.getElementById("reader-pages");
+
+        const mangaTitle =
+            document.getElementById("manga-title");
+
+        const chapterTitle =
+            document.getElementById("chapter-title");
+
+        const previousButton =
+            document.getElementById("previous-chapter");
+
+        const nextButton =
+            document.getElementById("next-chapter");
+
+
+        /* =================================
+           PAGE TRANSITION
+        ================================= */
+
+        function navigateWithFade(url) {
+
+            document.body.classList.remove(
+                "page-ready"
+            );
+
+            document.body.classList.add(
+                "page-leaving"
+            );
+
+            setTimeout(() => {
+
+                window.location.href = url;
+
+            }, 500);
+
+        }
+
+
+        /* =================================
+           CHECK DATA
+        ================================= */
 
         if (
             !manga ||
@@ -308,159 +575,365 @@
             !Number.isInteger(chapterIndex) ||
             !manga.chapters[chapterIndex]
         ) {
-            readerPages.innerHTML = `
+
+            document.querySelector(
+                ".reader-container"
+            ).innerHTML = `
+
                 <div class="reader-error">
+
                     <h2>ไม่พบตอนที่ต้องการ 🌸</h2>
-                    <p>ตรวจสอบลิงก์หรือลองกลับไปหน้ารายละเอียดมังงะ</p>
-                    <a href="index.html">กลับหน้าแรก</a>
+
+                    <p>
+                        ลองกลับไปยังหน้ารายละเอียดมังงะอีกครั้ง
+                    </p>
+
+                    <br>
+
+                    <a href="index.html">
+                        กลับหน้าแรก
+                    </a>
+
                 </div>
+
             `;
+
         } else {
+
+
+            /* =================================
+               CURRENT CHAPTER
+            ================================= */
+
             const chapters = manga.chapters;
-            const currentChapter = chapters[chapterIndex];
 
-            mangaTitle.textContent = manga.title;
-            chapterTitle.textContent =
-                currentChapter.title || `ตอนที่ ${chapterIndex + 1}`;
+            const currentChapter =
+                chapters[chapterIndex];
 
-            // SAVE HISTORY
+
+            /* =================================
+               SAVE READING HISTORY
+            ================================= */
+
             try {
+
                 const history = JSON.parse(
-                    localStorage.getItem("yumeReadingHistory") || "{}"
+                    localStorage.getItem(
+                        "yumeReadingHistory"
+                    ) || "{}"
                 );
 
                 history[String(manga.id)] = {
+
                     chapter: chapterIndex,
-                    title: currentChapter.title || `ตอนที่ ${chapterIndex + 1}`,
+
+                    title: currentChapter.title ||
+                        `ตอนที่ ${chapterIndex + 1}`,
+
                     updatedAt: Date.now()
+
                 };
 
                 localStorage.setItem(
                     "yumeReadingHistory",
                     JSON.stringify(history)
                 );
+
             } catch (error) {
-                console.warn("บันทึกประวัติไม่ได้", error);
+
+                console.warn(
+                    "ไม่สามารถบันทึกประวัติการอ่านได้",
+                    error
+                );
+
             }
 
-            // LOAD PAGES
-            const pages = Array.isArray(currentChapter.pages)
+
+            /* =================================
+               SHOW MANGA TITLE
+            ================================= */
+
+            mangaTitle.textContent = manga.title;
+
+            chapterTitle.textContent =
+                currentChapter.title ||
+                `ตอนที่ ${chapterIndex + 1}`;
+
+
+            /* =================================
+               LOAD MANGA PAGES
+            ================================= */
+
+            const pages = Array.isArray(
+                currentChapter.pages
+            )
                 ? currentChapter.pages
                 : [];
 
             const validPages = pages.filter(page =>
+
                 typeof page === "string" &&
-                /^https?:\/\//i.test(page.trim())
+                /^https?:\/\//i.test(page)
+
             );
 
-            if (validPages.length) {
-                readerPages.innerHTML = validPages.map((page, index) => `
-                    <div class="reader-page">
-                        <img
-                            src="${page}"
-                            alt="หน้ามังงะ ${index + 1}"
-                            loading="${index < 2 ? "eager" : "lazy"}"
-                            decoding="async"
-                            referrerpolicy="no-referrer"
-                            draggable="false"
-                        >
-                        <div class="reader-error-message">
-                            <strong>โหลดรูปหน้านี้ไม่สำเร็จ</strong><br>
-                            <span>ลองรีเฟรชหน้าเว็บอีกครั้ง</span>
+
+            if (validPages.length > 0) {
+
+                readerPages.innerHTML =
+
+                    validPages.map((page, index) => `
+
+                        <div class="reader-page">
+
+                            <img
+                                src="${page}"
+
+                                alt="หน้ามังงะ ${index + 1}"
+
+                                loading="${
+                                    index === 0
+                                    ? "eager"
+                                    : "lazy"
+                                }"
+
+                                draggable="false"
+
+                                decoding="async"
+                            >
+
+                            <span class="reader-watermark"></span>
+
                         </div>
-                        <span class="reader-watermark"></span>
-                    </div>
-                `).join("");
 
-                // CHECK IMAGE LOAD
-                readerPages.querySelectorAll("img").forEach((img, index) => {
-                    img.addEventListener("error", () => {
-                        img.parentElement.classList.add("image-error");
-                        console.error(
-                            "โหลดรูปไม่สำเร็จ หน้าที่:",
-                            index + 1,
-                            img.src
-                        );
-                    });
+                    `).join("");
 
-                    img.addEventListener("load", () => {
-                        img.parentElement.classList.remove("image-error");
-                    });
-                });
+
             } else {
+
                 readerPages.innerHTML = `
+
                     <div class="reader-placeholder">
-                        <h2>🌸 ยังไม่มีภาพมังงะในตอนนี้</h2>
-                        <p>ยังไม่ได้เพิ่ม URL รูปภาพของตอนนี้</p>
+
+                        <h2>
+                            🌸 ยังไม่มีภาพมังงะในตอนนี้
+                        </h2>
+
+                        <p>
+                            ตอนนี้มีรายชื่อตอนแล้ว
+                            แต่ยังไม่ได้เพิ่ม URL รูปภาพของแต่ละหน้า
+                        </p>
+
                     </div>
+
                 `;
+
             }
 
-            // PREVIOUS CHAPTER
+
+            /* =================================
+               PREVIOUS CHAPTER
+            ================================= */
+
             if (chapterIndex > 0) {
+
                 previousButton.href =
-                    `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${chapterIndex - 1}`;
+                    `reader.html?id=${
+                        encodeURIComponent(manga.id)
+                    }&chapter=${chapterIndex - 1}`;
+
             } else {
+
                 previousButton.classList.add("disabled");
-                previousButton.setAttribute("aria-disabled", "true");
+
+                previousButton.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
             }
 
-            // NEXT CHAPTER
+
+            /* =================================
+               NEXT CHAPTER
+            ================================= */
+
             if (chapterIndex < chapters.length - 1) {
+
                 nextButton.href =
-                    `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${chapterIndex + 1}`;
+                    `reader.html?id=${
+                        encodeURIComponent(manga.id)
+                    }&chapter=${chapterIndex + 1}`;
+
             } else {
+
                 nextButton.classList.add("disabled");
-                nextButton.setAttribute("aria-disabled", "true");
+
+                nextButton.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
             }
 
-            previousButton.addEventListener("click", event => {
-                if (chapterIndex <= 0) {
-                    event.preventDefault();
-                    return;
-                }
-                event.preventDefault();
-                navigateWithFade(previousButton.href);
-            });
 
-            nextButton.addEventListener("click", event => {
-                if (chapterIndex >= chapters.length - 1) {
+            /* =================================
+               PREVIOUS CHAPTER EVENT
+            ================================= */
+
+            previousButton.addEventListener(
+                "click",
+                event => {
+
+                    if (chapterIndex <= 0) {
+
+                        event.preventDefault();
+                        return;
+
+                    }
+
                     event.preventDefault();
-                    return;
+
+                    navigateWithFade(
+                        previousButton.href
+                    );
+
                 }
-                event.preventDefault();
-                navigateWithFade(nextButton.href);
-            });
+            );
+
+
+            /* =================================
+               NEXT CHAPTER EVENT
+            ================================= */
+
+            nextButton.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        chapterIndex >= chapters.length - 1
+                    ) {
+
+                        event.preventDefault();
+                        return;
+
+                    }
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        nextButton.href
+                    );
+
+                }
+            );
+
+
+            /* =================================
+               BACK TO DETAIL
+            ================================= */
+
+            const backDetail =
+                document.getElementById("back-detail");
 
             backDetail.href =
-                `detail.html?id=${encodeURIComponent(manga.id)}`;
+                `detail.html?id=${
+                    encodeURIComponent(manga.id)
+                }`;
 
-            backDetail.addEventListener("click", event => {
-                event.preventDefault();
-                navigateWithFade(backDetail.href);
-            });
+            backDetail.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        backDetail.href
+                    );
+
+                }
+            );
+
         }
 
-        // IMAGE PROTECTION
-        document.addEventListener("contextmenu", event => {
-            if (event.target.closest(".reader-page")) event.preventDefault();
-        });
 
-        document.addEventListener("dragstart", event => {
-            if (event.target.closest(".reader-page")) event.preventDefault();
-        });
+        /* =================================
+           IMAGE PROTECTION
+        ================================= */
 
-        document.addEventListener("selectstart", event => {
-            if (event.target.closest(".reader-page")) event.preventDefault();
-        });
+        document.addEventListener(
+            "contextmenu",
+            event => {
 
-        // PAGE READY
-        window.addEventListener("pageshow", () => {
-            requestAnimationFrame(() => {
-                document.body.classList.add("page-ready");
-                document.body.classList.remove("page-leaving");
-            });
-        });
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "dragstart",
+            event => {
+
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "selectstart",
+            event => {
+
+                if (
+                    event.target.closest(".reader-page")
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        /* =================================
+           PAGE READY
+        ================================= */
+
+        window.addEventListener(
+            "pageshow",
+            () => {
+
+                requestAnimationFrame(() => {
+
+                    document.body.classList.add(
+                        "page-ready"
+                    );
+
+                    document.body.classList.remove(
+                        "page-leaving"
+                    );
+
+                });
+
+            }
+        );
+
     </script>
+
 </body>
+
 </html>
