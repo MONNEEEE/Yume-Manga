@@ -13,7 +13,7 @@ const mangaData = [
         genre: "Romantic Comedy / Romance",
         status: "แนะนำ",
         rating: "★ 7.91",
-				synopsis: "เพราะแมวเป็นสิ่งมีชีวิตที่ประเสริฐกว่ามนุษย์ไงล่ะ (ว่าแต่เมื่อไหร่มันจะเลิกใช้กรูอัพงานแทนมัน...)",
+				synopsis: "ชีวิตมัธยมปลายของ มินาโตะ เซโน่ เพิ่งจะเริ่มต้นขึ้น ครูประจำชั้นก็ขอให้เขาช่วยดูแล เนะโกะเซเนะ สาวน้อยที่ดูเหมือนแมว ชอบหลับตลอดเวลา ซึ่งนั่งอยู่แถวถัดไปในห้องเรียนมินาโตะเป็นเด็กขี้อายและไม่กล้าสู้คน เขาไม่เคยคุยกับเธอเลย แถมแทบไม่เคยเห็นหน้าเธอชัดๆ ด้วยซ้ำ แต่เมื่อเขาสะดุ้งกล้าพอที่จะไปปลุกเนะโกะเซเนะ เธอกลับกอดเขาไว้ทันทีโดยที่เขาไม่ได้ตั้งตัว!",
         cover: "https://i.ibb.co/wNn40xKn/IMG-0654.jpg",
         coverClass: "cover-1",
 
@@ -67,6 +67,7 @@ const mangaData = [
             {
                 title: "ตอนที่ 2",
                 pages: [
+								    "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
                     "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
                     "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
 										"https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
