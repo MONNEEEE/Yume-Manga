@@ -1551,3 +1551,284 @@ button:active,
         transform: none !important;
     }
 }
+/* =========================================
+   YUME MANGA - DESKTOP LAYOUT
+   หน้าจอคอมพิวเตอร์
+========================================= */
+
+@media (min-width: 701px) {
+
+    /* ความกว้างเนื้อหาหลัก */
+    section {
+        width: min(1200px, 92%);
+    }
+
+    /* แถบเมนูด้านบน */
+    .header-inner {
+        width: min(1300px, 92%);
+    }
+
+    /* แบนเนอร์หน้าแรก */
+    .hero {
+        width: min(1200px, 92%);
+    }
+
+    /* ระยะห่างระหว่างการ์ด */
+    .manga-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    /* การ์ดมังงะ */
+    .manga-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* รูปปก */
+    .manga-cover {
+        width: 100%;
+        height: 240px;
+    }
+
+}
+/* =========================================
+   DESKTOP HEADER
+========================================= */
+
+@media (min-width: 701px) {
+
+    .header-inner {
+        min-height: 82px;
+        gap: 35px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .logo-icon {
+        font-size: 27px;
+    }
+
+    .navbar {
+        gap: 38px;
+    }
+
+    .nav-link {
+        font-size: 15px;
+    }
+
+    .header-actions {
+        gap: 12px;
+    }
+
+    .theme-button,
+    .menu-button {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+    }
+
+}
+/* =========================================
+   DESKTOP MANGA CARD
+========================================= */
+
+@media (min-width: 701px) {
+
+    .manga-grid {
+        gap: 26px;
+    }
+
+    .manga-card {
+        border-radius: 20px;
+    }
+
+    .manga-cover {
+        height: 250px;
+    }
+
+    .cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .manga-info {
+        padding: 18px;
+    }
+
+    .manga-info h3 {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 7px;
+    }
+
+    .manga-info p {
+        font-size: 13px;
+    }
+
+    .manga-meta {
+        margin-top: 15px;
+        gap: 8px;
+    }
+
+    .genre {
+        font-size: 11px;
+        padding: 5px 11px;
+    }
+
+    .rating {
+        font-size: 13px;
+    }
+
+}
+/* =========================================
+   DESKTOP HERO BANNER
+========================================= */
+
+@media (min-width: 701px) {
+
+    .hero {
+        min-height: 420px;
+        padding: 65px 8%;
+        margin: 50px auto;
+        border-radius: 30px;
+    }
+
+    .hero-content {
+        max-width: 650px;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 4vw, 52px);
+        line-height: 1.4;
+        margin: 20px 0;
+    }
+
+    .hero p {
+        max-width: 520px;
+        font-size: 16px;
+        line-height: 1.9;
+        margin-bottom: 30px;
+    }
+
+    .primary-button {
+        padding: 15px 28px;
+        font-size: 15px;
+    }
+
+}
+/* =========================================
+   DESKTOP SEARCH
+========================================= */
+
+@media (min-width: 701px) {
+    .search-section {
+        width: min(900px, 90%);
+        margin: 0 auto 65px;
+    }
+
+    .search-box {
+        gap: 15px;
+        padding: 12px 15px;
+        border-radius: 20px;
+    }
+
+    .search-icon {
+        font-size: 27px;
+    }
+
+    .search-box input {
+        font-size: 15px;
+        padding: 5px;
+    }
+
+    .search-box button {
+        padding: 12px 26px;
+        border-radius: 14px;
+        font-size: 14px;
+    }
+}
+/* =========================================
+   DESKTOP SECTION HEADINGS
+========================================= */
+
+@media (min-width: 701px) {
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+}
+/* =========================================
+   DESKTOP FOOTER
+========================================= */
+
+@media (min-width: 701px) {
+    .footer {
+        padding: 45px 0 30px;
+        margin-top: 80px;
+    }
+
+    .footer-inner {
+        width: min(1200px, 92%);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .footer p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+}
+/* =========================================
+   DESKTOP HOVER EFFECTS
+========================================= */
+
+@media (min-width: 701px) and (hover: hover) {
+    .manga-card {
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .manga-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 14px 35px rgba(217, 91, 152, 0.16);
+    }
+
+    .nav-link {
+        transition: color 0.25s ease;
+    }
+
+    .nav-link:hover {
+        color: var(--pink-dark);
+    }
+
+    .primary-button,
+    .search-box button {
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+    .primary-button:hover,
+    .search-box button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(217, 91, 152, 0.2);
+    }
+}
