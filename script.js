@@ -183,6 +183,12 @@ const mangaData = [
 window.mangaData = mangaData;
 
 
+
+/* =================================
+   YUME MANGA - JAVASCRIPT
+   PINK DREAM DESKTOP EDITION
+================================= */
+
 // =================================
 // ELEMENTS
 // =================================
@@ -200,6 +206,7 @@ const favoritesEmpty = document.getElementById("favorites-empty");
 const genreFilter = document.getElementById("genre-filter");
 const statusFilter = document.getElementById("status-filter");
 const sortFilter = document.getElementById("sort-filter");
+
 const clearFiltersButton = document.getElementById("clear-filters");
 const filterSummary = document.getElementById("filter-summary");
 
@@ -211,17 +218,30 @@ const toast = document.getElementById("toast");
 
 
 // =================================
-// STORAGE
+// SAFE STORAGE
 // =================================
 
 function readStorage(key, fallback) {
     try {
         const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : fallback;
+        return value !== null ? JSON.parse(value) : fallback;
     } catch (error) {
         return fallback;
     }
 }
+
+function writeStorage(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        console.warn("ไม่สามารถบันทึกข้อมูลได้", error);
+    }
+}
+
+
+// =================================
+// FAVORITES DATA
+// =================================
 
 let favorites = readStorage("yumeFavorites", []);
 
@@ -229,23 +249,15 @@ if (!Array.isArray(favorites)) {
     favorites = [];
 }
 
+favorites = favorites
+    .map(Number)
+    .filter(id => mangaData.some(manga => manga.id === id));
+
 let savedTheme = readStorage("yumeTheme", "light");
 
 
 // =================================
-// SAVE FAVORITES
-// =================================
-
-function saveFavorites() {
-    localStorage.setItem(
-        "yumeFavorites",
-        JSON.stringify(favorites)
-    );
-}
-
-
-// =================================
-// TOAST
+// TOAST NOTIFICATION
 // =================================
 
 let toastTimer;
@@ -260,26 +272,38 @@ function showToast(message) {
 
     toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-    }, 2200);
+    }, 2400);
 }
 
 
 // =================================
-// CARD STAGGER EFFECT
+// PAGE TRANSITION
 // =================================
 
-function animateCards(container) {
+function navigateWithFade(url) {
 
-    if (!container) return;
+    if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+        location.href = url;
+        return;
+    }
 
-    const cards = container.querySelectorAll(".manga-card");
+    document.body.classList.add("page-leaving");
 
-    cards.forEach((card, index) => {
+    setTimeout(() => {
+        location.href = url;
+    }, 350);
+}
 
-        card.style.animationDelay = `${Math.min(index * 65, 390)}ms`;
 
-    });
+// =================================
+// IMAGE CHECK
+// =================================
 
+function isImageURL(value) {
+    return typeof value === "string" &&
+        /^https?:\/\//i.test(value);
 }
 
 
@@ -289,42 +313,46 @@ function animateCards(container) {
 
 function createMangaCard(manga) {
 
-    const isFavorite = favorites.includes(manga.id);
-    const isImage = /^https?:\/\//i.test(manga.cover);
+    const isFavorite = favorites.includes(Number(manga.id));
+    const hasImage = isImageURL(manga.cover);
 
-    const coverContent = isImage
+    const coverContent = hasImage
         ? `
             <img
                 class="cover-image"
                 src="${manga.cover}"
                 alt="${manga.title}"
                 loading="lazy"
-                onerror="this.style.display='none'"
+                decoding="async"
             >
         `
         : `
             <span class="cover-art">
-                ${manga.cover}
+                ${manga.cover || "🌸"}
             </span>
         `;
 
     return `
-        <article class="manga-card"
+        <article
+            class="manga-card"
             data-manga="${manga.id}"
-            style="cursor:pointer;">
+            role="link"
+            tabindex="0"
+            aria-label="เปิดเรื่อง ${manga.title}"
+        >
 
-            <div class="manga-cover ${manga.coverClass}">
+            <div class="manga-cover ${manga.coverClass || ""}">
 
                 ${coverContent}
 
                 <span class="manga-status">
-                    ${manga.status}
+                    ${manga.status || "มังงะ"}
                 </span>
 
                 <button
                     class="favorite-button ${isFavorite ? "selected" : ""}"
                     data-favorite="${manga.id}"
-                    aria-label="เพิ่มหรือลบรายการโปรด"
+                    aria-label="${isFavorite ? "นำออกจากรายการโปรด" : "เพิ่มในรายการโปรด"}"
                     aria-pressed="${isFavorite}"
                     type="button"
                 >
@@ -337,11 +365,18 @@ function createMangaCard(manga) {
 
                 <h3>${manga.title}</h3>
 
-                <p>${manga.author}</p>
+                <p>${manga.author || "ไม่ระบุผู้แต่ง"}</p>
 
                 <div class="manga-meta">
-                    <span class="genre">${manga.genre}</span>
-                    <span class="rating">${manga.rating}</span>
+
+                    <span class="genre">
+                        ${manga.genre || "ไม่ระบุแนว"}
+                    </span>
+
+                    <span class="rating">
+                        ${manga.rating || "ยังไม่มีคะแนน"}
+                    </span>
+
                 </div>
 
             </div>
@@ -352,43 +387,23 @@ function createMangaCard(manga) {
 
 
 // =================================
-// PAGE TRANSITION
+// CARD ANIMATION
 // =================================
 
-function navigateWithFade(url) {
+function animateCards(container) {
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        location.href = url;
-        return;
-    }
+    if (!container) return;
 
-    document.body.classList.add("page-leaving");
+    const cards = container.querySelectorAll(".manga-card");
 
-    setTimeout(() => {
-        location.href = url;
-    }, 450);
+    cards.forEach((card, index) => {
+
+        card.style.animationDelay =
+            `${Math.min(index * 45, 350)}ms`;
+
+    });
+
 }
-
-
-// =================================
-// OPEN DETAIL PAGE
-// =================================
-
-document.addEventListener("click", event => {
-
-    if (event.target.closest("[data-favorite]")) return;
-
-    const card = event.target.closest("[data-manga]");
-
-    if (!card) return;
-
-    const id = card.dataset.manga;
-
-    navigateWithFade(
-        `detail.html?id=${encodeURIComponent(id)}`
-    );
-
-});
 
 
 // =================================
@@ -410,8 +425,9 @@ function renderManga(list) {
     }
 
     if (emptyMessage) {
-        emptyMessage.hidden = list.length !== 0;
+        emptyMessage.hidden = list.length > 0;
     }
+
 }
 
 
@@ -424,7 +440,7 @@ function renderFavorites() {
     if (!favoritesGrid) return;
 
     const favoriteManga = mangaData.filter(manga =>
-        favorites.includes(manga.id)
+        favorites.includes(Number(manga.id))
     );
 
     favoritesGrid.innerHTML = favoriteManga
@@ -434,41 +450,41 @@ function renderFavorites() {
     animateCards(favoritesGrid);
 
     if (favoritesEmpty) {
-        favoritesEmpty.hidden = favoriteManga.length !== 0;
+        favoritesEmpty.hidden = favoriteManga.length > 0;
     }
+
 }
 
 
 // =================================
-// GET RATING NUMBER
+// RATING
 // =================================
 
 function getRatingNumber(manga) {
 
-    const match = String(manga.rating || "").match(/\d+(\.\d+)?/);
+    const match = String(manga.rating || "")
+        .match(/\d+(\.\d+)?/);
 
     return match ? Number(match[0]) : 0;
+
 }
 
 
 // =================================
-// ADVANCED SEARCH
+// SEARCH AND FILTER
 // =================================
 
 function searchManga() {
 
-    if (!searchInput) return;
+    if (!mangaGrid) return;
 
-    const keyword = searchInput.value
+    const keyword = (searchInput?.value || "")
         .trim()
         .toLowerCase();
 
     const selectedGenre = genreFilter?.value || "";
     const selectedStatus = statusFilter?.value || "";
     const selectedSort = sortFilter?.value || "default";
-
-
-    // FILTER
 
     let results = mangaData.filter(manga => {
 
@@ -477,6 +493,7 @@ function searchManga() {
         const genre = String(manga.genre || "").toLowerCase();
 
         const matchesKeyword =
+            !keyword ||
             title.includes(keyword) ||
             author.includes(keyword) ||
             genre.includes(keyword);
@@ -502,40 +519,39 @@ function searchManga() {
 
     if (selectedSort === "rating") {
 
-        results.sort((a, b) => {
-            return getRatingNumber(b) - getRatingNumber(a);
-        });
+        results.sort((a, b) =>
+            getRatingNumber(b) - getRatingNumber(a)
+        );
 
-    }
+    } else if (selectedSort === "name") {
 
-    else if (selectedSort === "name") {
-
-        results.sort((a, b) => {
-            return String(a.title).localeCompare(
-                String(b.title),
+        results.sort((a, b) =>
+            String(a.title || "").localeCompare(
+                String(b.title || ""),
                 "en"
-            );
-        });
+            )
+        );
 
     }
 
 
-    // RENDER
+    // UPDATE DISPLAY
 
     renderManga(results);
 
 
-    // FILTER SUMMARY
+    // UPDATE SUMMARY
 
     if (filterSummary) {
 
-        if (!keyword && !selectedGenre && !selectedStatus) {
-            filterSummary.textContent =
-                `กำลังแสดงมังงะ ${results.length} เรื่อง`;
-        } else {
-            filterSummary.textContent =
-                `พบมังงะ ${results.length} เรื่องจากการค้นหา`;
-        }
+        const hasFilter =
+            keyword ||
+            selectedGenre ||
+            selectedStatus;
+
+        filterSummary.textContent = hasFilter
+            ? `พบมังงะ ${results.length} เรื่องจากการค้นหา`
+            : `กำลังแสดงมังงะทั้งหมด ${results.length} เรื่อง`;
 
     }
 
@@ -549,11 +565,8 @@ function searchManga() {
 function clearFilters() {
 
     if (searchInput) searchInput.value = "";
-
     if (genreFilter) genreFilter.value = "";
-
     if (statusFilter) statusFilter.value = "";
-
     if (sortFilter) sortFilter.value = "default";
 
     searchManga();
@@ -567,7 +580,17 @@ function clearFilters() {
 // FAVORITES
 // =================================
 
+function saveFavorites() {
+    writeStorage("yumeFavorites", favorites);
+}
+
 function toggleFavorite(id) {
+
+    id = Number(id);
+
+    if (!mangaData.some(manga => manga.id === id)) {
+        return;
+    }
 
     if (favorites.includes(id)) {
 
@@ -587,23 +610,62 @@ function toggleFavorite(id) {
 
     searchManga();
     renderFavorites();
+
 }
 
 
 // =================================
-// FAVORITE BUTTON
+// CARD CLICK
 // =================================
 
 document.addEventListener("click", event => {
 
-    const button = event.target.closest("[data-favorite]");
+    const favoriteButton = event.target.closest("[data-favorite]");
 
-    if (!button) return;
+    if (favoriteButton) {
 
-    event.preventDefault();
-    event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
 
-    toggleFavorite(Number(button.dataset.favorite));
+        toggleFavorite(favoriteButton.dataset.favorite);
+
+        return;
+    }
+
+    const card = event.target.closest("[data-manga]");
+
+    if (!card) return;
+
+    navigateWithFade(
+        `detail.html?id=${encodeURIComponent(card.dataset.manga)}`
+    );
+
+});
+
+
+// =================================
+// KEYBOARD CARD CONTROL
+// =================================
+
+document.addEventListener("keydown", event => {
+
+    if (event.target.closest("button, input, select, textarea, a")) {
+        return;
+    }
+
+    const card = event.target.closest("[data-manga]");
+
+    if (!card) return;
+
+    if (event.key === "Enter" || event.key === " ") {
+
+        event.preventDefault();
+
+        navigateWithFade(
+            `detail.html?id=${encodeURIComponent(card.dataset.manga)}`
+        );
+
+    }
 
 });
 
@@ -635,21 +697,11 @@ if (searchButton) {
 // FILTER EVENTS
 // =================================
 
-if (genreFilter) {
-    genreFilter.addEventListener("change", searchManga);
-}
+genreFilter?.addEventListener("change", searchManga);
+statusFilter?.addEventListener("change", searchManga);
+sortFilter?.addEventListener("change", searchManga);
 
-if (statusFilter) {
-    statusFilter.addEventListener("change", searchManga);
-}
-
-if (sortFilter) {
-    sortFilter.addEventListener("change", searchManga);
-}
-
-if (clearFiltersButton) {
-    clearFiltersButton.addEventListener("click", clearFilters);
-}
+clearFiltersButton?.addEventListener("click", clearFilters);
 
 
 // =================================
@@ -658,77 +710,213 @@ if (clearFiltersButton) {
 
 function applyTheme(theme) {
 
-    document.body.classList.toggle(
-        "dark",
-        theme === "dark"
-    );
+    const isDark = theme === "dark";
+
+    document.body.classList.toggle("dark", isDark);
 
     if (themeButton) {
-        themeButton.textContent =
-            theme === "dark" ? "☀️" : "🌙";
+
+        themeButton.textContent = isDark ? "☀️" : "🌙";
+
+        themeButton.setAttribute(
+            "aria-label",
+            isDark ? "เปลี่ยนเป็นโหมดสว่าง" : "เปลี่ยนเป็นโหมดมืด"
+        );
+
+        themeButton.setAttribute(
+            "aria-pressed",
+            String(isDark)
+        );
+
     }
 
-    localStorage.setItem(
-        "yumeTheme",
-        JSON.stringify(theme)
-    );
+    writeStorage("yumeTheme", isDark ? "dark" : "light");
 
 }
 
 applyTheme(savedTheme);
 
-if (themeButton) {
+themeButton?.addEventListener("click", () => {
 
-    themeButton.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("dark")
+        ? "light"
+        : "dark";
 
-        const nextTheme = document.body.classList.contains("dark")
-            ? "light"
-            : "dark";
+    applyTheme(nextTheme);
 
-        applyTheme(nextTheme);
+    showToast(
+        nextTheme === "dark"
+            ? "เปิด Dark Mode แล้ว 🌙"
+            : "กลับสู่โหมดสว่างแล้ว ☀️"
+    );
 
-        showToast(
-            nextTheme === "dark"
-                ? "เปิด Dark Mode แล้ว 🌙"
-                : "กลับสู่โหมดสว่างแล้ว ☀️"
-        );
+});
 
-    });
+
+// =================================
+// MENU CONTROL
+// =================================
+
+function closeMenu() {
+
+    if (!navbar || !menuButton) return;
+
+    navbar.classList.remove("open");
+    menuButton.classList.remove("active");
+
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "เปิดเมนู");
 
 }
 
+function toggleMenu() {
 
-// =================================
-// MOBILE MENU
-// =================================
+    if (!navbar || !menuButton) return;
 
-if (menuButton && navbar) {
+    const isOpen = navbar.classList.toggle("open");
 
-    menuButton.addEventListener("click", () => {
+    menuButton.classList.toggle("active", isOpen);
 
-        navbar.classList.toggle("open");
+    menuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
 
-        menuButton.textContent =
-            navbar.classList.contains("open") ? "✕" : "☰";
-
-    });
+    menuButton.setAttribute(
+        "aria-label",
+        isOpen ? "ปิดเมนู" : "เปิดเมนู"
+    );
 
 }
 
+menuButton?.addEventListener("click", toggleMenu);
+
 
 // =================================
-// CLOSE MENU
+// CLOSE MENU ON NAVIGATION
 // =================================
 
 document.querySelectorAll(".nav-link").forEach(link => {
 
-    link.addEventListener("click", () => {
+    link.addEventListener("click", closeMenu);
 
-        if (navbar) navbar.classList.remove("open");
+});
 
-        if (menuButton) menuButton.textContent = "☰";
 
+// =================================
+// CLOSE MENU OUTSIDE
+// =================================
+
+document.addEventListener("click", event => {
+
+    if (!navbar || !menuButton) return;
+
+    const clickedInside =
+        navbar.contains(event.target) ||
+        menuButton.contains(event.target);
+
+    if (!clickedInside) {
+        closeMenu();
+    }
+
+});
+
+
+// =================================
+// CLOSE MENU WITH ESCAPE
+// =================================
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+        closeMenu();
+    }
+
+});
+
+
+// =================================
+// ACTIVE NAVIGATION
+// =================================
+
+const navLinks = document.querySelectorAll(".nav-link");
+
+const sections = document.querySelectorAll(
+    "#home, #manga-list, #favorites"
+);
+
+if ("IntersectionObserver" in window) {
+
+    const navObserver = new IntersectionObserver(entries => {
+
+        entries.forEach(entry => {
+
+            if (!entry.isIntersecting) return;
+
+            navLinks.forEach(link => {
+
+                const isActive =
+                    link.getAttribute("href") === `#${entry.target.id}`;
+
+                link.classList.toggle("active", isActive);
+
+            });
+
+        });
+
+    }, {
+        rootMargin: "-25% 0px -60% 0px"
     });
+
+    sections.forEach(section => {
+        navObserver.observe(section);
+    });
+
+}
+
+
+// =================================
+// IMAGE FALLBACK
+// =================================
+
+document.addEventListener("error", event => {
+
+    if (!event.target.matches(".cover-image")) return;
+
+    event.target.style.display = "none";
+
+}, true);
+
+
+// =================================
+// UPDATE WHEN STORAGE CHANGES
+// =================================
+
+window.addEventListener("storage", event => {
+
+    if (event.key === "yumeFavorites") {
+
+        favorites = readStorage("yumeFavorites", []);
+
+        if (!Array.isArray(favorites)) {
+            favorites = [];
+        }
+
+        searchManga();
+        renderFavorites();
+
+    }
+
+    if (event.key === "yumeTheme") {
+
+        savedTheme = readStorage("yumeTheme", "light");
+
+        document.body.classList.toggle(
+            "dark",
+            savedTheme === "dark"
+        );
+
+    }
 
 });
 
@@ -740,4 +928,4 @@ document.querySelectorAll(".nav-link").forEach(link => {
 searchManga();
 renderFavorites();
 
-console.log("🌸 Yume Manga Pink Dream is ready!");
+console.log("🌸 Yume Manga Desktop Edition Ready!");
