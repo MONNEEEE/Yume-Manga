@@ -123,629 +123,897 @@
     font-size: 11px;
 }
 
-        /* =================================
-           PAGE TRANSITION
-        ================================= */
 
-        body {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            margin: 0;
-            background: #171317;
-        }
+/* =================================
+   PAGE TRANSITION
+================================= */
 
-        body.page-ready {
-            opacity: 1;
-        }
+body {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    margin: 0;
+    background: #171317;
+}
 
-        body.page-leaving {
-            opacity: 0;
-        }
+body.page-ready {
+    opacity: 1;
+}
 
-
-        /* =================================
-           READER LAYOUT
-        ================================= */
-
-        .reader-container {
-            width: 100%;
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 0 0 100px;
-            box-sizing: border-box;
-        }
+body.page-leaving {
+    opacity: 0;
+}
 
 
-        /* =================================
-           BOTTOM READER BAR
-        ================================= */
+/* =================================
+   READER LAYOUT
+================================= */
 
-        .reader-header {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            z-index: 1000;
-
-            width: 100%;
-            min-height: 82px;
-
-            padding:
-                10px 12px
-                calc(10px + env(safe-area-inset-bottom, 0px));
-
-            box-sizing: border-box;
-
-            display: grid;
-
-            grid-template-columns:
-                minmax(0, 1fr)
-                42px
-                42px
-                46px
-                42px
-                46px;
-
-            align-items: center;
-            gap: 9px;
-
-            background: rgba(255, 239, 247, 0.88);
-
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-
-            border-top: 1px solid rgba(255,255,255,0.9);
-
-            box-shadow:
-                0 -5px 25px rgba(190, 105, 145, 0.16);
-
-            transition:
-                opacity 0.3s ease,
-                transform 0.3s ease;
-        }
+.reader-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 0 100px;
+    box-sizing: border-box;
+}
 
 
-        /* =================================
-           MANGA INFO
-        ================================= */
+/* =================================
+   BOTTOM READER BAR
+================================= */
 
-        .reader-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+.reader-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-            min-width: 0;
+    z-index: 1000;
 
-            color: #75405c;
-            text-decoration: none;
+    width: 100%;
+    min-height: 82px;
 
-            -webkit-tap-highlight-color: transparent;
-        }
+    padding:
+        10px 12px
+        calc(10px + env(safe-area-inset-bottom, 0px));
 
-        .reader-cover {
-            width: 43px;
-            height: 56px;
+    box-sizing: border-box;
 
-            flex-shrink: 0;
+    display: grid;
 
-            object-fit: cover;
+    grid-template-columns:
+        minmax(0, 1fr)
+        42px
+        42px
+        46px
+        42px
+        46px;
 
-            border-radius: 8px;
+    align-items: center;
+    gap: 9px;
 
-            background: #f5d9e7;
+    background: rgba(255, 239, 247, 0.88);
 
-            box-shadow:
-                0 2px 8px rgba(180, 90, 130, 0.16);
-        }
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
 
-        .reader-info-text {
-            min-width: 0;
-            overflow: hidden;
-        }
+    border-top: 1px solid rgba(255,255,255,0.9);
 
-        .reader-info-text h1 {
-            margin: 0;
+    box-shadow:
+        0 -5px 25px rgba(190, 105, 145, 0.16);
 
-            font-size: 13px;
-            font-weight: 700;
-            color: #75405c;
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .reader-info-text p {
-            margin: 4px 0 0;
-
-            font-size: 11px;
-            color: #ad7892;
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
 
 
-        /* =================================
-           TOOL BUTTONS
-        ================================= */
+/* =================================
+   MANGA INFO
+================================= */
 
-        .reader-tool-button {
-            width: 42px;
-            height: 42px;
+.reader-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    min-width: 0;
 
-            padding: 0;
+    color: #75405c;
+    text-decoration: none;
 
-            border: 1px solid rgba(204, 143, 174, 0.28);
-            border-radius: 14px;
+    -webkit-tap-highlight-color: transparent;
+}
 
-            background: rgba(255, 255, 255, 0.55);
+.reader-cover {
+    width: 43px;
+    height: 56px;
 
-            color: #d65c91;
+    flex-shrink: 0;
 
-            -webkit-tap-highlight-color: transparent;
+    object-fit: cover;
 
-            transition:
-                background 0.2s ease,
-                transform 0.2s ease;
-        }
+    border-radius: 8px;
 
-        .reader-tool-button svg {
-            width: 23px;
-            height: 23px;
+    background: #f5d9e7;
 
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+    box-shadow:
+        0 2px 8px rgba(180, 90, 130, 0.16);
+}
 
-        .reader-tool-button:active {
-            transform: scale(0.9);
+.reader-info-text {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.reader-info-text h1 {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: #75405c;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reader-info-text p {
+    margin: 4px 0 0;
+
+    font-size: 11px;
+    color: #ad7892;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =================================
+   TOOL BUTTONS
+================================= */
+
+.reader-tool-button {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(204, 143, 174, 0.28);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    color: #d65c91;
+
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.reader-tool-button svg {
+    width: 23px;
+    height: 23px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.reader-tool-button:active {
+    transform: scale(0.9);
+    background: #ffe0ed;
+}
+
+
+/* =================================
+   CHAPTER BUTTONS
+================================= */
+
+.reader-page-button {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #e987b3;
+    color: white;
+
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 3px 10px rgba(208, 105, 151, 0.22);
+
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.reader-page-button:active {
+    transform: scale(0.9);
+    background: #d65c91;
+}
+
+.reader-page-button.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+
+/* =================================
+   SETTINGS PANEL
+================================= */
+
+.reader-settings {
+    position: fixed;
+
+    right: 12px;
+    bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+
+    z-index: 1002;
+
+    width: 220px;
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 18px;
+
+    background: rgba(255, 241, 247, 0.96);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 5px 25px rgba(170, 90, 130, 0.18);
+
+    display: none;
+}
+
+.reader-settings.active {
+    display: block;
+}
+
+.reader-settings h3 {
+    margin: 0 0 12px;
+
+    font-size: 14px;
+    color: #a04470;
+}
+
+.reader-settings button {
+    width: 100%;
+    margin-top: 7px;
+    padding: 10px;
+
+    border: 1px solid #f0c4d8;
+    border-radius: 10px;
+
+    background: white;
+    color: #a04470;
+
+    font-size: 12px;
+}
+
+.reader-settings button:active {
+    background: #ffe3ef;
+}
+
+
+/* =================================
+   CHAPTER LIST PANEL
+================================= */
+
+.reader-chapter-panel {
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+    bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+
+    z-index: 1002;
+
+    max-height: 55vh;
+    overflow-y: auto;
+
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 18px;
+
+    background: rgba(255, 241, 247, 0.97);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 5px 25px rgba(170, 90, 130, 0.18);
+
+    display: none;
+}
+
+.reader-chapter-panel.active {
+    display: block;
+}
+
+.reader-chapter-panel h3 {
+    margin: 0 0 12px;
+
+    color: #a04470;
+    font-size: 15px;
+}
+
+.chapter-list-item {
+    display: block;
+
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 7px;
+
+    border: 1px solid #f0d1df;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.8);
+
+    color: #89516d;
+    font-size: 13px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.chapter-list-item.current {
+    background: #f9d7e6;
+    border-color: #e9a4c3;
+    font-weight: 700;
+}
+
+
+/* =================================
+   MANGA PAGES
+================================= */
+
+.reader-pages {
+    width: 100%;
+    min-height: 300px;
+    background: #171317;
+
+    transition: width 0.25s ease;
+}
+
+.reader-page {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.reader-page img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+
+    transition: filter 0.2s ease;
+}
+
+.reader-container.reader-narrow .reader-pages {
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+/* =================================
+   WATERMARK
+================================= */
+
+.reader-watermark {
+    position: absolute;
+
+    right: 15px;
+    bottom: 18px;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.5;
+
+    text-shadow:
+        0 1px 3px rgba(0,0,0,0.8),
+        0 0 8px rgba(0,0,0,0.5);
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* =================================
+   PLACEHOLDER
+================================= */
+
+.reader-placeholder {
+    padding: 55px 20px;
+    text-align: center;
+    color: white;
+    line-height: 1.8;
+}
+
+.reader-placeholder p {
+    margin-top: 10px;
+    color: #e7cbd8;
+}
+
+
+/* =================================
+   ERROR
+================================= */
+
+.reader-error {
+    text-align: center;
+    padding: 70px 20px;
+    color: white;
+}
+
+
+/* =================================
+   HIDE / SHOW CONTROLS
+================================= */
+
+body.controls-hidden .reader-header {
+    opacity: 0;
+    transform: translateY(110%);
+    pointer-events: none;
+}
+
+body.controls-hidden .reader-settings,
+body.controls-hidden .reader-chapter-panel {
+    display: none;
+}
+
+
+/* =================================
+   DESKTOP READER
+================================= */
+
+@media (min-width: 701px) {
+
+    /* READER WIDTH */
+
+    .reader-container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-bottom: 130px;
+    }
+
+    .reader-pages {
+        width: 100%;
+        max-width: 1050px;
+        margin: 0 auto;
+    }
+
+    .reader-page img {
+        width: 100%;
+        max-width: 1050px;
+    }
+
+    .reader-container.reader-narrow .reader-pages {
+        width: 75%;
+        max-width: 850px;
+    }
+
+    .reader-container.reader-narrow .reader-page img {
+        max-width: 850px;
+    }
+
+
+    /* FLOATING BOTTOM BAR */
+
+    .reader-header {
+        left: 50%;
+        right: auto;
+        bottom: 20px;
+
+        transform: translateX(-50%);
+
+        width: min(1100px, 94%);
+        min-height: 86px;
+
+        padding: 12px 22px;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            48px
+            48px
+            54px
+            48px
+            54px;
+
+        gap: 13px;
+
+        border: 1px solid rgba(255,255,255,0.9);
+        border-radius: 22px;
+
+        background: rgba(255, 239, 247, 0.94);
+
+        box-shadow:
+            0 8px 35px rgba(190, 105, 145, 0.2);
+    }
+
+
+    /* MANGA INFO */
+
+    .reader-info {
+        gap: 14px;
+    }
+
+    .reader-cover {
+        width: 48px;
+        height: 63px;
+        border-radius: 10px;
+    }
+
+    .reader-info-text h1 {
+        font-size: 15px;
+    }
+
+    .reader-info-text p {
+        margin-top: 6px;
+        font-size: 12px;
+    }
+
+
+    /* TOOL BUTTONS */
+
+    .reader-tool-button {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .reader-tool-button svg {
+        width: 24px;
+        height: 24px;
+    }
+
+
+    /* CHAPTER BUTTONS */
+
+    .reader-page-button {
+        width: 54px;
+        height: 54px;
+        font-size: 36px;
+    }
+
+
+    /* SETTINGS PANEL */
+
+    .reader-settings {
+        right: max(3%, calc((100vw - 1100px) / 2));
+        bottom: 125px;
+
+        width: 260px;
+        padding: 20px;
+
+        border-radius: 20px;
+    }
+
+    .reader-settings h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .reader-settings button {
+        padding: 12px;
+        font-size: 13px;
+        cursor: pointer;
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .reader-settings button:hover {
+        background: #ffe3ef;
+        transform: translateY(-2px);
+    }
+
+
+    /* CHAPTER LIST PANEL */
+
+    .reader-chapter-panel {
+        left: 50%;
+        right: auto;
+        bottom: 125px;
+
+        transform: translateX(-50%);
+
+        width: min(520px, 90%);
+        max-height: 65vh;
+
+        padding: 22px;
+        border-radius: 22px;
+    }
+
+    .reader-chapter-panel h3 {
+        font-size: 17px;
+        margin-bottom: 16px;
+    }
+
+    .chapter-list-item {
+        padding: 13px 16px;
+        margin-bottom: 9px;
+
+        border-radius: 12px;
+        font-size: 14px;
+
+        transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .chapter-list-item:hover {
+        background: #ffe8f1;
+        border-color: #e9a4c3;
+        transform: translateX(4px);
+    }
+
+
+    /* WATERMARK */
+
+    .reader-watermark {
+        right: 20px;
+        bottom: 22px;
+        font-size: 14px;
+    }
+
+
+    /* HIDE CONTROLS */
+
+    body.controls-hidden .reader-header {
+        transform: translate(-50%, 130%);
+    }
+
+
+    /* DESKTOP HOVER */
+
+    @media (hover: hover) {
+
+        .reader-tool-button:hover {
             background: #ffe0ed;
+            transform: translateY(-2px);
         }
 
-
-        /* =================================
-           CHAPTER BUTTONS
-        ================================= */
-
-        .reader-page-button {
-            width: 46px;
-            height: 46px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border: none;
-            border-radius: 50%;
-
-            background: #e987b3;
-            color: white;
-
-            font-size: 32px;
-            font-weight: 400;
-            line-height: 1;
-
-            text-decoration: none;
-
-            box-shadow:
-                0 3px 10px rgba(208, 105, 151, 0.22);
-
-            -webkit-tap-highlight-color: transparent;
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease;
-        }
-
-        .reader-page-button:active {
-            transform: scale(0.9);
+        .reader-page-button:hover {
             background: #d65c91;
+            transform: translateY(-2px);
         }
 
-        .reader-page-button.disabled {
-            opacity: 0.35;
-            pointer-events: none;
-        }
+    }
 
+}
 
-        /* =================================
-           SETTINGS PANEL
-        ================================= */
 
-        .reader-settings {
-            position: fixed;
+/* =================================
+   SMALL DESKTOP / LAPTOP
+================================= */
 
-            right: 12px;
-            bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+@media (min-width: 701px) and (max-width: 1000px) {
 
-            z-index: 1002;
+    .reader-container {
+        max-width: 900px;
+    }
 
-            width: 220px;
-            padding: 16px;
+    .reader-pages {
+        max-width: 900px;
+    }
 
-            box-sizing: border-box;
+    .reader-page img {
+        max-width: 900px;
+    }
 
-            border: 1px solid rgba(255,255,255,0.9);
-            border-radius: 18px;
+    .reader-header {
+        width: 96%;
+        padding: 10px 16px;
+        gap: 9px;
+    }
+
+    .reader-info {
+        gap: 9px;
+    }
 
-            background: rgba(255, 241, 247, 0.96);
+    .reader-info-text h1 {
+        font-size: 13px;
+    }
 
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+    .reader-info-text p {
+        font-size: 11px;
+    }
 
-            box-shadow:
-                0 5px 25px rgba(170, 90, 130, 0.18);
-
-            display: none;
-        }
-
-        .reader-settings.active {
-            display: block;
-        }
-
-        .reader-settings h3 {
-            margin: 0 0 12px;
-
-            font-size: 14px;
-            color: #a04470;
-        }
-
-        .reader-settings button {
-            width: 100%;
-            margin-top: 7px;
-            padding: 10px;
-
-            border: 1px solid #f0c4d8;
-            border-radius: 10px;
-
-            background: white;
-            color: #a04470;
-
-            font-size: 12px;
-        }
-
-        .reader-settings button:active {
-            background: #ffe3ef;
-        }
-
-
-        /* =================================
-           CHAPTER LIST PANEL
-        ================================= */
-
-        .reader-chapter-panel {
-            position: fixed;
-
-            left: 12px;
-            right: 12px;
-            bottom: calc(94px + env(safe-area-inset-bottom, 0px));
-
-            z-index: 1002;
-
-            max-height: 55vh;
-            overflow-y: auto;
-
-            padding: 16px;
-
-            box-sizing: border-box;
-
-            border: 1px solid rgba(255,255,255,0.9);
-            border-radius: 18px;
-
-            background: rgba(255, 241, 247, 0.97);
-
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            box-shadow:
-                0 5px 25px rgba(170, 90, 130, 0.18);
-
-            display: none;
-        }
-
-        .reader-chapter-panel.active {
-            display: block;
-        }
-
-        .reader-chapter-panel h3 {
-            margin: 0 0 12px;
-
-            color: #a04470;
-            font-size: 15px;
-        }
-
-        .chapter-list-item {
-            display: block;
-
-            width: 100%;
-            padding: 11px 12px;
-            margin-bottom: 7px;
-
-            border: 1px solid #f0d1df;
-            border-radius: 10px;
-
-            background: rgba(255,255,255,0.8);
-
-            color: #89516d;
-            font-size: 13px;
-            text-align: left;
-            text-decoration: none;
-        }
-
-        .chapter-list-item.current {
-            background: #f9d7e6;
-            border-color: #e9a4c3;
-            font-weight: 700;
-        }
-
-
-        /* =================================
-           MANGA PAGES
-        ================================= */
-
-        .reader-pages {
-            width: 100%;
-            min-height: 300px;
-            background: #171317;
-
-            transition: width 0.25s ease;
-        }
-
-        .reader-page {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        .reader-page img {
-            display: block;
-
-            width: 100%;
-            height: auto;
-            margin: 0 auto;
-
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
-            user-select: none;
-
-            transition: filter 0.2s ease;
-        }
-
-        .reader-container.reader-narrow .reader-pages {
-            width: 90%;
-            margin: 0 auto;
-        }
-
-
-        /* =================================
-           WATERMARK
-        ================================= */
-
-        .reader-watermark {
-            position: absolute;
-
-            right: 15px;
-            bottom: 18px;
-
-            color: rgba(255,255,255,0.65);
-
-            font-size: 13px;
-            font-weight: bold;
-            line-height: 1.5;
-
-            text-shadow:
-                0 1px 3px rgba(0,0,0,0.8),
-                0 0 8px rgba(0,0,0,0.5);
-
-            pointer-events: none;
-            user-select: none;
-        }
-
-
-        /* =================================
-           PLACEHOLDER
-        ================================= */
-
-        .reader-placeholder {
-            padding: 55px 20px;
-            text-align: center;
-            color: white;
-            line-height: 1.8;
-        }
-
-        .reader-placeholder p {
-            margin-top: 10px;
-            color: #e7cbd8;
-        }
-
-
-        /* =================================
-           ERROR
-        ================================= */
-
-        .reader-error {
-            text-align: center;
-            padding: 70px 20px;
-            color: white;
-        }
-
-
-        /* =================================
-           HIDE / SHOW CONTROLS
-        ================================= */
-
-        body.controls-hidden .reader-header {
-            opacity: 0;
-            transform: translateY(110%);
-            pointer-events: none;
-        }
-
-        body.controls-hidden .reader-settings,
-        body.controls-hidden .reader-chapter-panel {
-            display: none;
-        }
-
-
-        /* =================================
-           MOBILE
-        ================================= */
-
-        @media (max-width: 600px) {
-
-            .reader-header {
-                grid-template-columns:
-                    minmax(0, 1fr)
-                    36px
-                    36px
-                    40px
-                    36px
-                    40px;
-
-                gap: 6px;
-
-                padding:
-                    8px 8px
-                    calc(8px + env(safe-area-inset-bottom, 0px));
-
-                min-height: 76px;
-            }
-
-            .reader-cover {
-                width: 38px;
-                height: 50px;
-                border-radius: 7px;
-            }
-
-            .reader-info {
-                gap: 7px;
-            }
-
-            .reader-info-text h1 {
-                font-size: 11px;
-            }
-
-            .reader-info-text p {
-                font-size: 10px;
-            }
-
-            .reader-tool-button {
-                width: 36px;
-                height: 36px;
-                border-radius: 12px;
-            }
-
-            .reader-tool-button svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .reader-page-button {
-                width: 40px;
-                height: 40px;
-                font-size: 29px;
-            }
-
-            .reader-container {
-                padding-bottom: 90px;
-            }
-
-            .reader-watermark {
-                right: 10px;
-                bottom: 12px;
-                font-size: 11px;
-            }
-
-            .reader-settings {
-                right: 8px;
-                bottom: calc(88px + env(safe-area-inset-bottom, 0px));
-            }
-
-            .reader-chapter-panel {
-                left: 8px;
-                right: 8px;
-                bottom: calc(88px + env(safe-area-inset-bottom, 0px));
-            }
-        }
-
-
-        /* =================================
-           SMALL MOBILE
-        ================================= */
-
-        @media (max-width: 370px) {
-
-            .reader-header {
-                grid-template-columns:
-                    minmax(0, 1fr)
-                    32px
-                    32px
-                    36px
-                    32px
-                    36px;
-
-                gap: 4px;
-                padding-left: 6px;
-                padding-right: 6px;
-            }
-
-            .reader-cover {
-                width: 33px;
-                height: 45px;
-            }
-
-            .reader-info {
-                gap: 5px;
-            }
-
-            .reader-info-text h1 {
-                font-size: 10px;
-            }
-
-            .reader-info-text p {
-                font-size: 9px;
-            }
-
-            .reader-tool-button {
-                width: 32px;
-                height: 32px;
-            }
-
-            .reader-page-button {
-                width: 36px;
-                height: 36px;
-                font-size: 26px;
-            }
-        }
-
-
-        /* =================================
-           REDUCED MOTION
-        ================================= */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            body,
-            .reader-header,
-            .reader-page-button,
-            .reader-tool-button {
-                transition: none !important;
-            }
-        }
+    .reader-container.reader-narrow .reader-pages {
+        width: 82%;
+    }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .reader-header {
+        grid-template-columns:
+            minmax(0, 1fr)
+            36px
+            36px
+            40px
+            36px
+            40px;
+
+        gap: 6px;
+
+        padding:
+            8px 8px
+            calc(8px + env(safe-area-inset-bottom, 0px));
+
+        min-height: 76px;
+    }
+
+    .reader-cover {
+        width: 38px;
+        height: 50px;
+        border-radius: 7px;
+    }
+
+    .reader-info {
+        gap: 7px;
+    }
+
+    .reader-info-text h1 {
+        font-size: 11px;
+    }
+
+    .reader-info-text p {
+        font-size: 10px;
+    }
+
+    .reader-tool-button {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+    }
+
+    .reader-tool-button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .reader-page-button {
+        width: 40px;
+        height: 40px;
+        font-size: 29px;
+    }
+
+    .reader-container {
+        padding-bottom: 90px;
+    }
+
+    .reader-watermark {
+        right: 10px;
+        bottom: 12px;
+        font-size: 11px;
+    }
+
+    .reader-settings {
+        right: 8px;
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .reader-chapter-panel {
+        left: 8px;
+        right: 8px;
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 370px) {
+
+    .reader-header {
+        grid-template-columns:
+            minmax(0, 1fr)
+            32px
+            32px
+            36px
+            32px
+            36px;
+
+        gap: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .reader-cover {
+        width: 33px;
+        height: 45px;
+    }
+
+    .reader-info {
+        gap: 5px;
+    }
+
+    .reader-info-text h1 {
+        font-size: 10px;
+    }
+
+    .reader-info-text p {
+        font-size: 9px;
+    }
+
+    .reader-tool-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .reader-page-button {
+        width: 36px;
+        height: 36px;
+        font-size: 26px;
+    }
+}
+
+
+/* =================================
+   REDUCED MOTION
+================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body,
+    .reader-header,
+    .reader-page-button,
+    .reader-tool-button {
+        transition: none !important;
+    }
+}
 
     </style>
 </head>
