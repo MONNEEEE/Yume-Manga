@@ -13,7 +13,7 @@ const mangaData = [
         genre: "Romantic Comedy / Romance",
         status: "แนะนำ",
         rating: "★ 7.91",
-				synopsis: "ชีวิตมัธยมปลายของ มินาโตะ เซโน่ เพิ่งจะเริ่มต้นขึ้น ครูประจำชั้นก็ขอให้เขาช่วยดูแล เนะโกะเซเนะ สาวน้อยที่ดูเหมือนแมว ชอบหลับตลอดเวลา ซึ่งนั่งอยู่แถวถัดไปในห้องเรียนมินาโตะเป็นเด็กขี้อายและไม่กล้าสู้คน เขาไม่เคยคุยกับเธอเลย แถมแทบไม่เคยเห็นหน้าเธอชัดๆ ด้วยซ้ำ แต่เมื่อเขาสะดุ้งกล้าพอที่จะไปปลุกเนะโกะเซเนะ เธอกลับกอดเขาไว้ทันทีโดยที่เขาไม่ได้ตั้งตัว!",
+        synopsis: "ชีวิตมัธยมปลายของ มินาโตะ เซโน่ เพิ่งจะเริ่มต้นขึ้น ครูประจำชั้นก็ขอให้เขาช่วยดูแล เนะโกะเซเนะ สาวน้อยที่ดูเหมือนแมว ชอบหลับตลอดเวลา ซึ่งนั่งอยู่แถวถัดไปในห้องเรียนมินาโตะเป็นเด็กขี้อายและไม่กล้าสู้คน เขาไม่เคยคุยกับเธอเลย แถมแทบไม่เคยเห็นหน้าเธอชัดๆ ด้วยซ้ำ แต่เมื่อเขาสะดุ้งกล้าพอที่จะไปปลุกเนะโกะเซเนะ เธอกลับกอดเขาไว้ทันทีโดยที่เขาไม่ได้ตั้งตัว!",
         cover: "https://i.ibb.co/wNn40xKn/IMG-0654.jpg",
         coverClass: "cover-1",
 
@@ -26,78 +26,74 @@ const mangaData = [
                     "https://cdn.rapidfile.cc/ohxqbGyFfb/IMG_0657.jpeg",
                     "https://cdn.rapidfile.cc/3MzPB7iiVK/IMG_0658.jpeg",
                     "https://cdn.rapidfile.cc/xI4EBJ5DFv/IMG_0659.jpeg",
-										"https://cdn.rapidfile.cc/hsLfxq50Wr/IMG_0660.jpeg",
-										"https://cdn.rapidfile.cc/s4HtSXJ60N/IMG_0692.jpeg",
-										"https://cdn.rapidfile.cc/YdxpkOSrNz/IMG_0693.jpeg",
-										"https://cdn.rapidfile.cc/99pBcD1lBZ/IMG_0694.jpeg",
-										"https://cdn.rapidfile.cc/0XoDh57NKx/IMG_0696.jpeg",
-										"https://cdn.rapidfile.cc/k7EdoXAvVU/IMG_0697.jpeg",
-										"https://cdn.rapidfile.cc/VJq6FcyUWR/IMG_0698.jpeg",
-										"https://cdn.rapidfile.cc/UtzGFmLYmY/IMG_0699.jpeg",
-										"https://cdn.rapidfile.cc/AF6mXaEmyT/IMG_0700.jpeg",
-										"https://cdn.rapidfile.cc/UvXrc3q27A/IMG_0701.jpeg",
-										"https://cdn.rapidfile.cc/q01TeXDHQ6/IMG_0702.jpeg",
-										"https://cdn.rapidfile.cc/qQVhAWU6gG/IMG_0703.jpeg",
-										"https://cdn.rapidfile.cc/FhuF9JRvkw/IMG_0704.jpeg",
-										"https://cdn.rapidfile.cc/sQ7JiNUowK/IMG_0705.jpeg",
-										"https://cdn.rapidfile.cc/tp8iwVl5Ip/IMG_0706.jpeg",
-										"https://cdn.rapidfile.cc/YZu2BgIi9u/IMG_0707.jpeg",
-										"https://cdn.rapidfile.cc/1wlc2I1fgO/IMG_0708.jpeg",
-										"https://cdn.rapidfile.cc/JNfympHIq8/IMG_0709.jpeg",
-										"https://cdn.rapidfile.cc/fJXoqwmuVn/IMG_0710.jpeg",
-										"https://cdn.rapidfile.cc/EYvstRmcHF/IMG_0711.jpeg",
-										"https://cdn.rapidfile.cc/elcqvfMPjE/IMG_0712.jpeg",
-										"https://cdn.rapidfile.cc/Bp7emPtGi1/IMG_0713.jpeg",
-										"https://cdn.rapidfile.cc/tXdE7HLc7p/IMG_0714.jpeg",
-										"https://cdn.rapidfile.cc/ZsJVE5KE7d/IMG_0715.jpeg",
-										"https://cdn.rapidfile.cc/jizfyOfMZK/IMG_0716.jpeg",
-										"https://cdn.rapidfile.cc/6rytmWsIuG/IMG_0717.jpeg",
-										"https://cdn.rapidfile.cc/c37yvxj8tY/IMG_0718.jpeg",
-										"https://cdn.rapidfile.cc/ZTKkE5yKsL/IMG_0719.jpeg",
-										"https://cdn.rapidfile.cc/FK17bsSFHm/IMG_0720.jpeg",
-										"https://cdn.rapidfile.cc/rWD7Trtz2N/IMG_0721.jpeg",
-										"https://cdn.rapidfile.cc/coCqAZUDQC/IMG_0722.jpeg",
-										"https://cdn.rapidfile.cc/FnFB00McWm/IMG_0723.jpeg",
-										"https://cdn.rapidfile.cc/JcyqZ95vvd/IMG_0724.jpeg",
-										"https://cdn.rapidfile.cc/3w5b6msgXW/IMG_0725.jpeg",
-										"https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png",
-										
+                    "https://cdn.rapidfile.cc/hsLfxq50Wr/IMG_0660.jpeg",
+                    "https://cdn.rapidfile.cc/s4HtSXJ60N/IMG_0692.jpeg",
+                    "https://cdn.rapidfile.cc/YdxpkOSrNz/IMG_0693.jpeg",
+                    "https://cdn.rapidfile.cc/99pBcD1lBZ/IMG_0694.jpeg",
+                    "https://cdn.rapidfile.cc/0XoDh57NKx/IMG_0696.jpeg",
+                    "https://cdn.rapidfile.cc/k7EdoXAvVU/IMG_0697.jpeg",
+                    "https://cdn.rapidfile.cc/VJq6FcyUWR/IMG_0698.jpeg",
+                    "https://cdn.rapidfile.cc/UtzGFmLYmY/IMG_0699.jpeg",
+                    "https://cdn.rapidfile.cc/AF6mXaEmyT/IMG_0700.jpeg",
+                    "https://cdn.rapidfile.cc/UvXrc3q27A/IMG_0701.jpeg",
+                    "https://cdn.rapidfile.cc/q01TeXDHQ6/IMG_0702.jpeg",
+                    "https://cdn.rapidfile.cc/qQVhAWU6gG/IMG_0703.jpeg",
+                    "https://cdn.rapidfile.cc/FhuF9JRvkw/IMG_0704.jpeg",
+                    "https://cdn.rapidfile.cc/sQ7JiNUowK/IMG_0705.jpeg",
+                    "https://cdn.rapidfile.cc/tp8iwVl5Ip/IMG_0706.jpeg",
+                    "https://cdn.rapidfile.cc/YZu2BgIi9u/IMG_0707.jpeg",
+                    "https://cdn.rapidfile.cc/1wlc2I1fgO/IMG_0708.jpeg",
+                    "https://cdn.rapidfile.cc/JNfympHIq8/IMG_0709.jpeg",
+                    "https://cdn.rapidfile.cc/fJXoqwmuVn/IMG_0710.jpeg",
+                    "https://cdn.rapidfile.cc/EYvstRmcHF/IMG_0711.jpeg",
+                    "https://cdn.rapidfile.cc/elcqvfMPjE/IMG_0712.jpeg",
+                    "https://cdn.rapidfile.cc/Bp7emPtGi1/IMG_0713.jpeg",
+                    "https://cdn.rapidfile.cc/tXdE7HLc7p/IMG_0714.jpeg",
+                    "https://cdn.rapidfile.cc/ZsJVE5KE7d/IMG_0715.jpeg",
+                    "https://cdn.rapidfile.cc/jizfyOfMZK/IMG_0716.jpeg",
+                    "https://cdn.rapidfile.cc/6rytmWsIuG/IMG_0717.jpeg",
+                    "https://cdn.rapidfile.cc/c37yvxj8tY/IMG_0718.jpeg",
+                    "https://cdn.rapidfile.cc/ZTKkE5yKsL/IMG_0719.jpeg",
+                    "https://cdn.rapidfile.cc/FK17bsSFHm/IMG_0720.jpeg",
+                    "https://cdn.rapidfile.cc/rWD7Trtz2N/IMG_0721.jpeg",
+                    "https://cdn.rapidfile.cc/coCqAZUDQC/IMG_0722.jpeg",
+                    "https://cdn.rapidfile.cc/FnFB00McWm/IMG_0723.jpeg",
+                    "https://cdn.rapidfile.cc/JcyqZ95vvd/IMG_0724.jpeg",
+                    "https://cdn.rapidfile.cc/3w5b6msgXW/IMG_0725.jpeg",
+                    "https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png"
                 ]
             },
             {
                 title: "ตอนที่ 2",
                 pages: [
-								    "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
+                    "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
                     "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
                     "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
-										"https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
-										"https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
-										"https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
-										"https://cdn.rapidfile.cc/7v1tjHRuvl/IMG_0741.jpeg",
-										"https://cdn.rapidfile.cc/M8fiSItVjh/IMG_0742.jpeg",
-										"https://cdn.rapidfile.cc/idTsxRmIEY/IMG_0743.jpeg",
-										"https://cdn.rapidfile.cc/EORIpHQuKw/IMG_0744.jpeg",
-										"https://cdn.rapidfile.cc/zatx3TYx63/IMG_0745.jpeg",
-										"https://cdn.rapidfile.cc/BRHbEHkILm/IMG_0746.jpeg",
-										"https://cdn.rapidfile.cc/HXzmgn2uuh/IMG_0747.jpeg",
-										"https://cdn.rapidfile.cc/pSvZsX2DzW/IMG_0748.jpeg",
-										"https://cdn.rapidfile.cc/LHseLzdZV5/IMG_0749.jpeg",
-										"https://cdn.rapidfile.cc/5m8kuqQX7f/IMG_0750.jpeg",
-										"https://cdn.rapidfile.cc/EHyL5aeBGT/IMG_0751.jpeg",
-										"https://cdn.rapidfile.cc/Sk0PAt5LmW/IMG_0752.jpeg",
-										"https://cdn.rapidfile.cc/EIylQew94b/Untitled%20design.png"
-										
-										
-								]
-						},
-						{
+                    "https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
+                    "https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
+                    "https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
+                    "https://cdn.rapidfile.cc/7v1tjHRuvl/IMG_0741.jpeg",
+                    "https://cdn.rapidfile.cc/M8fiSItVjh/IMG_0742.jpeg",
+                    "https://cdn.rapidfile.cc/idTsxRmIEY/IMG_0743.jpeg",
+                    "https://cdn.rapidfile.cc/EORIpHQuKw/IMG_0744.jpeg",
+                    "https://cdn.rapidfile.cc/zatx3TYx63/IMG_0745.jpeg",
+                    "https://cdn.rapidfile.cc/BRHbEHkILm/IMG_0746.jpeg",
+                    "https://cdn.rapidfile.cc/HXzmgn2uuh/IMG_0747.jpeg",
+                    "https://cdn.rapidfile.cc/pSvZsX2DzW/IMG_0748.jpeg",
+                    "https://cdn.rapidfile.cc/LHseLzdZV5/IMG_0749.jpeg",
+                    "https://cdn.rapidfile.cc/5m8kuqQX7f/IMG_0750.jpeg",
+                    "https://cdn.rapidfile.cc/EHyL5aeBGT/IMG_0751.jpeg",
+                    "https://cdn.rapidfile.cc/Sk0PAt5LmW/IMG_0752.jpeg",
+                    "https://cdn.rapidfile.cc/EIylQew94b/Untitled%20design.png"
+                ]
+            },
+            {
                 title: "ตอนที่ 3",
                 pages: [
                     "https://example.com/page-001.jpg",
-                    "https://example.com/page-002.jpg"	
+                    "https://example.com/page-002.jpg"
                 ]
-          }
-						
+            }
         ]
     },
 
@@ -183,11 +179,11 @@ const mangaData = [
 window.mangaData = mangaData;
 
 
-
 /* =================================
    YUME MANGA - JAVASCRIPT
-   PINK DREAM DESKTOP EDITION
+   PINK DREAM INTERACTION EDITION
 ================================= */
+
 
 // =================================
 // ELEMENTS
@@ -255,6 +251,23 @@ favorites = favorites
 
 let savedTheme = readStorage("yumeTheme", "light");
 
+if (savedTheme !== "dark" && savedTheme !== "light") {
+    savedTheme = "light";
+}
+
+
+// =================================
+// MOTION SETTINGS
+// =================================
+
+const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+);
+
+function canAnimate() {
+    return !reduceMotion.matches;
+}
+
 
 // =================================
 // TOAST NOTIFICATION
@@ -266,13 +279,17 @@ function showToast(message) {
     if (!toast) return;
 
     toast.textContent = message;
+    toast.classList.remove("show");
+
+    void toast.offsetWidth;
+
     toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
     toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-    }, 2400);
+    }, 2600);
 }
 
 
@@ -282,9 +299,7 @@ function showToast(message) {
 
 function navigateWithFade(url) {
 
-    if (
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    if (!canAnimate()) {
         location.href = url;
         return;
     }
@@ -308,79 +323,86 @@ function isImageURL(value) {
 
 
 // =================================
+// ESCAPE HTML
+// =================================
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+
+// =================================
 // CREATE MANGA CARD
 // =================================
 
 function createMangaCard(manga) {
 
-    const isFavorite = favorites.includes(Number(manga.id));
+    const mangaId = Number(manga.id);
+    const isFavorite = favorites.includes(mangaId);
     const hasImage = isImageURL(manga.cover);
+
+    const title = escapeHTML(manga.title || "ไม่มีชื่อเรื่อง");
+    const author = escapeHTML(manga.author || "ไม่ระบุผู้แต่ง");
+    const genre = escapeHTML(manga.genre || "ไม่ระบุแนว");
+    const status = escapeHTML(manga.status || "มังงะ");
+    const rating = escapeHTML(manga.rating || "ยังไม่มีคะแนน");
+    const coverClass = escapeHTML(manga.coverClass || "");
 
     const coverContent = hasImage
         ? `
             <img
                 class="cover-image"
-                src="${manga.cover}"
-                alt="${manga.title}"
+                src="${escapeHTML(manga.cover)}"
+                alt="ปก ${title}"
                 loading="lazy"
                 decoding="async"
             >
         `
         : `
-            <span class="cover-art">
-                ${manga.cover || "🌸"}
+            <span class="cover-art" aria-hidden="true">
+                ${escapeHTML(manga.cover || "🌸")}
             </span>
         `;
 
     return `
         <article
             class="manga-card"
-            data-manga="${manga.id}"
+            data-manga="${escapeHTML(mangaId)}"
             role="link"
             tabindex="0"
-            aria-label="เปิดเรื่อง ${manga.title}"
+            aria-label="เปิดเรื่อง ${title}"
         >
-
-            <div class="manga-cover ${manga.coverClass || ""}">
-
+            <div class="manga-cover ${coverClass}">
                 ${coverContent}
 
-                <span class="manga-status">
-                    ${manga.status || "มังงะ"}
-                </span>
+                <span class="manga-status">${status}</span>
 
                 <button
                     class="favorite-button ${isFavorite ? "selected" : ""}"
-                    data-favorite="${manga.id}"
-                    aria-label="${isFavorite ? "นำออกจากรายการโปรด" : "เพิ่มในรายการโปรด"}"
+                    data-favorite="${escapeHTML(mangaId)}"
+                    aria-label="${isFavorite ? "นำออกจากรายการโปรด" : "เพิ่มในรายการโปรด"} ${title}"
                     aria-pressed="${isFavorite}"
                     type="button"
                 >
-                    ${isFavorite ? "♥" : "♡"}
+                    <span aria-hidden="true">${isFavorite ? "♥" : "♡"}</span>
                 </button>
-
             </div>
 
             <div class="manga-info">
-
-                <h3>${manga.title}</h3>
-
-                <p>${manga.author || "ไม่ระบุผู้แต่ง"}</p>
+                <h3>${title}</h3>
+                <p>${author}</p>
 
                 <div class="manga-meta">
-
-                    <span class="genre">
-                        ${manga.genre || "ไม่ระบุแนว"}
-                    </span>
-
-                    <span class="rating">
-                        ${manga.rating || "ยังไม่มีคะแนน"}
-                    </span>
-
+                    <span class="genre">${genre}</span>
+                    <span class="rating">${rating}</span>
                 </div>
-
             </div>
-
         </article>
     `;
 }
@@ -392,17 +414,34 @@ function createMangaCard(manga) {
 
 function animateCards(container) {
 
-    if (!container) return;
+    if (!container || !canAnimate()) return;
 
     const cards = container.querySelectorAll(".manga-card");
 
     cards.forEach((card, index) => {
 
-        card.style.animationDelay =
-            `${Math.min(index * 45, 350)}ms`;
+        if (typeof card.animate !== "function") return;
+
+        card.animate(
+            [
+                {
+                    opacity: 0,
+                    transform: "translateY(14px) scale(.985)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(0) scale(1)"
+                }
+            ],
+            {
+                duration: 360,
+                delay: Math.min(index * 45, 270),
+                easing: "cubic-bezier(.2,.75,.25,1)",
+                fill: "both"
+            }
+        );
 
     });
-
 }
 
 
@@ -491,12 +530,14 @@ function searchManga() {
         const title = String(manga.title || "").toLowerCase();
         const author = String(manga.author || "").toLowerCase();
         const genre = String(manga.genre || "").toLowerCase();
+        const synopsis = String(manga.synopsis || "").toLowerCase();
 
         const matchesKeyword =
             !keyword ||
             title.includes(keyword) ||
             author.includes(keyword) ||
-            genre.includes(keyword);
+            genre.includes(keyword) ||
+            synopsis.includes(keyword);
 
         const matchesGenre =
             !selectedGenre ||
@@ -547,7 +588,8 @@ function searchManga() {
         const hasFilter =
             keyword ||
             selectedGenre ||
-            selectedStatus;
+            selectedStatus ||
+            selectedSort !== "default";
 
         filterSummary.textContent = hasFilter
             ? `พบมังงะ ${results.length} เรื่องจากการค้นหา`
@@ -567,7 +609,7 @@ function clearFilters() {
     if (searchInput) searchInput.value = "";
     if (genreFilter) genreFilter.value = "";
     if (statusFilter) statusFilter.value = "";
-    if (sortFilter) sortFilter.value = "default";
+    if (sortFilter) sortFilter.value = "";
 
     searchManga();
 
@@ -588,11 +630,13 @@ function toggleFavorite(id) {
 
     id = Number(id);
 
-    if (!mangaData.some(manga => manga.id === id)) {
+    if (!mangaData.some(manga => Number(manga.id) === id)) {
         return;
     }
 
-    if (favorites.includes(id)) {
+    const isRemoving = favorites.includes(id);
+
+    if (isRemoving) {
 
         favorites = favorites.filter(item => item !== id);
 
@@ -611,6 +655,33 @@ function toggleFavorite(id) {
     searchManga();
     renderFavorites();
 
+
+    // HEART ANIMATION
+
+    if (!isRemoving && canAnimate()) {
+
+        document.querySelectorAll(
+            `[data-favorite="${id}"]`
+        ).forEach(button => {
+
+            if (typeof button.animate !== "function") return;
+
+            button.animate(
+                [
+                    { transform: "scale(.75)" },
+                    { transform: "scale(1.22)" },
+                    { transform: "scale(1)" }
+                ],
+                {
+                    duration: 420,
+                    easing: "cubic-bezier(.2,.8,.25,1)"
+                }
+            );
+
+        });
+
+    }
+
 }
 
 
@@ -620,7 +691,13 @@ function toggleFavorite(id) {
 
 document.addEventListener("click", event => {
 
-    const favoriteButton = event.target.closest("[data-favorite]");
+    const target = event.target instanceof Element
+        ? event.target
+        : null;
+
+    if (!target) return;
+
+    const favoriteButton = target.closest("[data-favorite]");
 
     if (favoriteButton) {
 
@@ -632,7 +709,7 @@ document.addEventListener("click", event => {
         return;
     }
 
-    const card = event.target.closest("[data-manga]");
+    const card = target.closest("[data-manga]");
 
     if (!card) return;
 
@@ -649,11 +726,17 @@ document.addEventListener("click", event => {
 
 document.addEventListener("keydown", event => {
 
-    if (event.target.closest("button, input, select, textarea, a")) {
+    const target = event.target instanceof Element
+        ? event.target
+        : null;
+
+    if (!target) return;
+
+    if (target.closest("button, input, select, textarea, a")) {
         return;
     }
 
-    const card = event.target.closest("[data-manga]");
+    const card = target.closest("[data-manga]");
 
     if (!card) return;
 
@@ -689,8 +772,32 @@ if (searchInput) {
 }
 
 if (searchButton) {
-    searchButton.addEventListener("click", searchManga);
+
+    searchButton.addEventListener("click", () => {
+
+        searchManga();
+
+        if (searchInput && searchInput.value.trim()) {
+            showToast("ค้นหามังงะเรียบร้อยแล้ว 🔎");
+        }
+
+    });
+
 }
+
+searchInput?.addEventListener("keydown", event => {
+
+    if (event.key === "Escape" && searchInput.value) {
+
+        searchInput.value = "";
+
+        searchManga();
+
+        showToast("ล้างคำค้นหาแล้ว 🌷");
+
+    }
+
+});
 
 
 // =================================
@@ -757,9 +864,11 @@ themeButton?.addEventListener("click", () => {
 // MENU CONTROL
 // =================================
 
-function closeMenu() {
+function closeMenu(restoreFocus = false) {
 
     if (!navbar || !menuButton) return;
+
+    const wasOpen = navbar.classList.contains("open");
 
     navbar.classList.remove("open");
     menuButton.classList.remove("active");
@@ -767,14 +876,19 @@ function closeMenu() {
     menuButton.setAttribute("aria-expanded", "false");
     menuButton.setAttribute("aria-label", "เปิดเมนู");
 
+    if (restoreFocus && wasOpen) {
+        menuButton.focus();
+    }
+
 }
 
 function toggleMenu() {
 
     if (!navbar || !menuButton) return;
 
-    const isOpen = navbar.classList.toggle("open");
+    const isOpen = !navbar.classList.contains("open");
 
+    navbar.classList.toggle("open", isOpen);
     menuButton.classList.toggle("active", isOpen);
 
     menuButton.setAttribute(
@@ -829,7 +943,7 @@ document.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
 
     if (event.key === "Escape") {
-        closeMenu();
+        closeMenu(true);
     }
 
 });
@@ -881,6 +995,8 @@ if ("IntersectionObserver" in window) {
 
 document.addEventListener("error", event => {
 
+    if (!(event.target instanceof HTMLImageElement)) return;
+
     if (!event.target.matches(".cover-image")) return;
 
     event.target.style.display = "none";
@@ -902,6 +1018,10 @@ window.addEventListener("storage", event => {
             favorites = [];
         }
 
+        favorites = favorites
+            .map(Number)
+            .filter(id => mangaData.some(manga => manga.id === id));
+
         searchManga();
         renderFavorites();
 
@@ -911,10 +1031,25 @@ window.addEventListener("storage", event => {
 
         savedTheme = readStorage("yumeTheme", "light");
 
-        document.body.classList.toggle(
-            "dark",
-            savedTheme === "dark"
-        );
+        const isDark = savedTheme === "dark";
+
+        document.body.classList.toggle("dark", isDark);
+
+        if (themeButton) {
+
+            themeButton.textContent = isDark ? "☀️" : "🌙";
+
+            themeButton.setAttribute(
+                "aria-label",
+                isDark ? "เปลี่ยนเป็นโหมดสว่าง" : "เปลี่ยนเป็นโหมดมืด"
+            );
+
+            themeButton.setAttribute(
+                "aria-pressed",
+                String(isDark)
+            );
+
+        }
 
     }
 
@@ -928,4 +1063,4 @@ window.addEventListener("storage", event => {
 searchManga();
 renderFavorites();
 
-console.log("🌸 Yume Manga Desktop Edition Ready!");
+console.log("🌸 Yume Manga Pink Dream Interaction Edition Ready!");
