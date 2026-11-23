@@ -1,7 +1,14 @@
-/* =================================
-   YUME MANGA - PINK DREAM v1.1
-   Original Design + Responsive
-================================= */
+
+/* =========================================
+   YUME MANGA
+   PINK DREAM v2.1
+   DESKTOP ENHANCED EDITION
+========================================= */
+
+
+/* =========================================
+   01. ROOT VARIABLES
+========================================= */
 
 :root {
     --pink: #e879ad;
@@ -11,14 +18,26 @@
 
     --bg: #fffafd;
     --surface: #ffffff;
+    --surface-soft: #fff7fb;
+
     --text: #51414c;
     --muted: #a18d99;
     --border: #f5e4ed;
 
-    --shadow: 0 8px 30px rgba(211, 112, 160, 0.09);
+    --shadow:
+        0 8px 30px rgba(211,112,160,0.09);
+
+    --shadow-hover:
+        0 20px 45px rgba(211,112,160,0.18);
+
+    --content-width: 1280px;
+    --header-height: 76px;
 }
 
-/* DARK MODE */
+
+/* =========================================
+   02. DARK MODE
+========================================= */
 
 body.dark {
     --pink: #f18bbd;
@@ -28,14 +47,23 @@ body.dark {
 
     --bg: #211b25;
     --surface: #2c2430;
+    --surface-soft: #342a38;
+
     --text: #f9eaf2;
     --muted: #c0a8b7;
     --border: #443443;
 
-    --shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    --shadow:
+        0 8px 30px rgba(0,0,0,0.2);
+
+    --shadow-hover:
+        0 20px 45px rgba(0,0,0,0.35);
 }
 
-/* RESET */
+
+/* =========================================
+   03. RESET
+========================================= */
 
 * {
     margin: 0;
@@ -45,25 +73,34 @@ body.dark {
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 100px;
     -webkit-text-size-adjust: 100%;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
     background: var(--bg);
     color: var(--text);
+
     line-height: 1.7;
-
     overflow-x: hidden;
-    min-height: 100vh;
 
-    transition: background 0.3s, color 0.3s;
+    transition:
+        background-color .35s ease,
+        color .35s ease,
+        opacity .45s ease;
 }
 
-button, input {
+button,
+input,
+select {
     font: inherit;
 }
 
@@ -78,65 +115,128 @@ a {
 }
 
 img {
+    display: block;
     max-width: 100%;
 }
 
 section {
-    width: min(1100px, 90%);
-    margin: auto;
+    width: min(var(--content-width), 92%);
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* HEADER */
+[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   04. PAGE TRANSITION
+========================================= */
+
+body.page-leaving {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   05. HEADER
+========================================= */
 
 .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-
     position: sticky;
     top: 0;
     z-index: 100;
+
+    width: 100%;
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+
+    box-shadow:
+        0 3px 18px rgba(190,120,155,.045);
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
 }
 
 .header-inner {
-    width: min(1200px, 92%);
-    min-height: 76px;
+    width: min(1380px, 92%);
+    min-height: var(--header-height);
+
     margin: auto;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 25px;
+
+    gap: 35px;
 }
+
+
+/* LOGO */
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
 
-    font-size: 23px;
-    font-weight: 800;
     color: var(--pink);
+
+    font-size: 24px;
+    font-weight: 800;
+
     white-space: nowrap;
 }
 
 .logo-icon {
-    font-size: 25px;
+    font-size: 27px;
 }
 
 .logo b {
     color: var(--text);
 }
 
+
+/* NAVIGATION */
+
 .navbar {
     display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: center;
+
+    gap: clamp(22px, 3vw, 42px);
 }
 
 .nav-link {
-    font-size: 14px;
+    position: relative;
+
+    padding: 10px 0;
+
     color: var(--muted);
-    transition: 0.2s;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    transition: color .25s ease;
+}
+
+.nav-link::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+
+    width: 0;
+    height: 2px;
+
+    border-radius: 10px;
+    background: var(--pink);
+
+    transition: width .25s ease;
 }
 
 .nav-link:hover,
@@ -144,181 +244,307 @@ section {
     color: var(--pink);
 }
 
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+
+/* HEADER ACTIONS */
+
 .header-actions {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 11px;
 }
 
 .theme-button,
 .menu-button {
-    width: 40px;
-    height: 40px;
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border: 1px solid var(--border);
-    border-radius: 13px;
+    border-radius: 14px;
 
     background: var(--pink-light);
     color: var(--text);
 
     font-size: 18px;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
 }
 
 .menu-button {
     display: none;
 }
 
-/* HERO */
+.theme-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+
+/* =========================================
+   06. HERO
+========================================= */
 
 .hero {
-    min-height: 370px;
-    margin: 45px auto;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
 
-    padding: 55px 7%;
-    border-radius: 28px;
+    width: min(var(--content-width), 92%);
+    min-height: 455px;
 
-    background:
-        radial-gradient(circle at 85% 20%,
-            #fff 0%, transparent 24%),
-        linear-gradient(120deg,
-            #ffe9f2, #ffd5e8, #fff1f7);
+    margin: 48px auto 65px;
+    padding: 70px clamp(55px, 8vw, 115px);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    overflow: hidden;
-    position: relative;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 32px;
+
+    background: #ffe3ef;
+
+    box-shadow:
+        0 16px 45px rgba(211,112,160,.12);
 }
 
-.dark .hero {
-    background:
-        linear-gradient(120deg,
-            #493143, #68415a, #3c293b);
+.hero::before {
+    content: "";
+
+    position: absolute;
+    inset: -8px;
+    z-index: -2;
+
+    background-image:
+        url("https://i.ibb.co/YFgqMd2Y/IMG-0513.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(2px);
+    transform: scale(1.02);
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: rgba(255,225,239,.40);
+    pointer-events: none;
+}
+
+body.dark .hero::after {
+    background: rgba(55,35,51,.65);
 }
 
 .hero-content {
-    max-width: 580px;
     position: relative;
     z-index: 2;
+
+    width: 100%;
+    max-width: 680px;
 }
 
-.hero-label,
-.small-label {
+.hero-label {
+    display: inline-block;
+
     color: var(--pink-dark);
-    font-size: 11px;
+
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 2px;
 }
 
 .hero h1 {
-    font-size: clamp(32px, 5vw, 48px);
-    line-height: 1.35;
-    margin: 17px 0;
+    margin: 20px 0;
+
     color: #704b61;
+
+    font-size: clamp(40px, 4.2vw, 58px);
+    font-weight: 800;
+    line-height: 1.35;
 }
 
-.dark .hero h1 {
+body.dark .hero h1 {
     color: #fff0f6;
 }
 
 .hero p {
+    max-width: 540px;
+    margin-bottom: 32px;
+
     color: #956f83;
-    max-width: 420px;
-    font-size: 14px;
-    margin-bottom: 27px;
+
+    font-size: 16px;
+    line-height: 1.9;
 }
 
-.dark .hero p {
+body.dark .hero p {
     color: #f4d5e5;
 }
+
+
+/* HERO BUTTON */
 
 .primary-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 15px;
 
-    background: var(--pink);
-    color: white;
+    padding: 15px 30px;
 
-    padding: 13px 24px;
+    border: none;
     border-radius: 30px;
 
-    font-size: 14px;
+    background: var(--pink);
+    color: #ffffff;
+
+    font-size: 15px;
     font-weight: 700;
 
-    box-shadow: 0 7px 20px rgba(216, 99, 155, 0.25);
-    transition: 0.25s;
+    box-shadow:
+        0 7px 20px rgba(216,99,155,.25);
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
 }
 
 .primary-button:hover {
     background: var(--pink-dark);
     transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(216,99,155,.3);
 }
+
+
+/* =========================================
+   07. HERO DECORATION
+========================================= */
 
 .hero-decoration {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+
     width: 270px;
     height: 270px;
-    position: relative;
-    flex-shrink: 0;
-    margin-right: 25px;
-}
 
-.hero-circle {
-    width: 210px;
-    height: 210px;
-
-    position: absolute;
-    top: 30px;
-    left: 30px;
-
-    background: rgba(255,255,255,0.65);
-    border: 2px solid rgba(255,255,255,0.8);
-    border-radius: 50%;
+    transform: translateY(-50%);
 
     display: grid;
     place-items: center;
+
+    pointer-events: none;
+}
+
+.hero-circle {
+    width: 190px;
+    height: 190px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.30);
+    border: 1px solid rgba(255,255,255,.65);
+
+    backdrop-filter: blur(5px);
+
+    box-shadow:
+        0 15px 45px rgba(170,100,135,.12);
 }
 
 .hero-circle span {
-    font-size: 100px;
+    font-size: 90px;
 }
 
 .floating {
     position: absolute;
-    color: #e879ad;
+    color: #d96f9e;
+    animation: floatFlower 4s ease-in-out infinite;
 }
 
 .flower-one {
-    top: 0;
-    right: 20px;
+    top: 15px;
+    left: 10px;
     font-size: 40px;
 }
 
 .flower-two {
-    bottom: 5px;
-    left: 0;
-    font-size: 35px;
+    right: 5px;
+    top: 45px;
+    font-size: 32px;
+    animation-delay: .7s;
 }
 
 .flower-three {
-    bottom: 25px;
-    right: 0;
-    font-size: 45px;
+    bottom: 10px;
+    left: 35px;
+    font-size: 35px;
+    animation-delay: 1.2s;
 }
 
-/* SECTION HEADING */
+@keyframes floatFlower {
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-13px) rotate(10deg);
+    }
+}
+
+
+/* =========================================
+   08. SECTION HEADINGS
+========================================= */
 
 .section-heading {
     display: flex;
-    justify-content: space-between;
     align-items: end;
-    margin-bottom: 22px;
-    gap: 10px;
+    justify-content: space-between;
+
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.small-label {
+    display: inline-block;
+
+    color: var(--pink-dark);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .section-heading h2 {
-    font-size: 25px;
-    margin-top: 4px;
+    margin-top: 5px;
+
+    color: var(--text);
+
+    font-size: 28px;
+    font-weight: 800;
 }
 
 .section-heading h2 span {
@@ -327,275 +553,721 @@ section {
 
 .result-count {
     color: var(--muted);
+
     font-size: 13px;
+    font-weight: 600;
 }
 
-/* SEARCH */
+
+/* =========================================
+   09. SEARCH SECTION
+========================================= */
 
 .search-section {
-    margin-bottom: 55px;
+    width: min(1000px, 90%);
+    margin: 0 auto 70px;
 }
 
 .search-box {
+    width: 100%;
+
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
+
+    padding: 13px 16px;
 
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 17px;
 
-    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 19px;
+
     box-shadow: var(--shadow);
 
-    width: 100%;
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.search-box:focus-within {
+    border-color: var(--pink);
+
+    box-shadow:
+        0 0 0 4px rgba(233,138,181,.12);
 }
 
 .search-icon {
-    font-size: 25px;
-    color: var(--pink);
     flex-shrink: 0;
+
+    color: var(--pink);
+    font-size: 27px;
 }
 
 .search-box input {
     flex: 1;
-    min-width: 0;
+
     width: 100%;
+    min-width: 0;
+
+    padding: 5px;
 
     border: none;
     outline: none;
 
     background: transparent;
     color: var(--text);
-    font-size: 14px;
+
+    font-size: 15px;
+}
+
+.search-box input::placeholder {
+    color: var(--muted);
 }
 
 .search-box button {
     flex-shrink: 0;
 
+    padding: 12px 27px;
+
     border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
+    border-radius: 14px;
 
     background: var(--pink);
-    color: white;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.search-box button:hover {
+    background: var(--pink-dark);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   10. ADVANCED FILTERS
+========================================= */
+
+.advanced-filters {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+
+    gap: 16px;
+
+    margin-top: 16px;
+    padding: 21px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 19px;
+
+    box-shadow: var(--shadow);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    min-width: 0;
+}
+
+.filter-group label {
+    color: var(--text);
+    font-size: 13px;
     font-weight: 700;
 }
 
-/* MANGA GRID */
+.filter-select {
+    width: 100%;
+    min-width: 0;
+
+    padding: 12px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    outline: none;
+
+    background: var(--surface-soft);
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.filter-select:focus {
+    border-color: var(--pink);
+
+    box-shadow:
+        0 0 0 3px rgba(233,138,181,.12);
+}
+
+.filter-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.filter-summary {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.clear-filters {
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: var(--pink-light);
+    color: var(--pink-dark);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.clear-filters:hover {
+    background: var(--pink-soft);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   11. MANGA SECTIONS
+========================================= */
 
 .manga-section,
 .favorites-section {
-    margin-bottom: 65px;
+    margin-bottom: 78px;
 }
+
+
+/* =========================================
+   12. MANGA GRID
+========================================= */
 
 .manga-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 22px;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap: 26px;
+
+    align-items: start;
 }
 
-/* MANGA CARD */
+
+/* =========================================
+   13. MANGA CARD
+========================================= */
 
 .manga-card {
-    min-width: 0;
+    position: relative;
 
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 17px;
+    min-width: 0;
+    width: 100%;
 
     overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
     box-shadow: var(--shadow);
 
-    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+
+    animation: yumeCardAppear .55s ease both;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
 }
 
-.manga-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(211,112,160,0.16);
+@keyframes yumeCardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+.manga-card:focus-visible {
+    outline: 3px solid var(--pink);
+    outline-offset: 4px;
+}
+
+
+/* =========================================
+   14. MANGA COVER
+========================================= */
 
 .manga-cover {
-    height: 220px;
     position: relative;
+
+    width: 100%;
+    height: 260px;
 
     display: grid;
     place-items: center;
+
     overflow: hidden;
+
+    background: var(--pink-light);
+}
+
+.cover-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition:
+        transform .6s ease,
+        filter .4s ease;
 }
 
 .cover-art {
-    font-size: 70px;
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.12));
-    transition: transform 0.3s;
+    display: block;
+
+    font-size: 75px;
+
+    filter:
+        drop-shadow(0 8px 10px rgba(0,0,0,.12));
+
+    transition: transform .45s ease;
 }
 
-.manga-card:hover .cover-art {
-    transform: scale(1.12) rotate(-4deg);
-}
+
+/* COVER COLORS */
 
 .cover-1 {
-    background: linear-gradient(140deg, #ffd5e8, #f5b4d1);
+    background: linear-gradient(140deg,#ffd5e8,#f5b4d1);
 }
 
 .cover-2 {
-    background: linear-gradient(140deg, #d8d4ff, #b9b5f3);
+    background: linear-gradient(140deg,#d8d4ff,#b9b5f3);
 }
 
 .cover-3 {
-    background: linear-gradient(140deg, #ffe6bc, #f9c78f);
+    background: linear-gradient(140deg,#ffe6bc,#f9c78f);
 }
 
 .cover-4 {
-    background: linear-gradient(140deg, #d3f0e5, #a7ddcf);
+    background: linear-gradient(140deg,#d3f0e5,#a7ddcf);
 }
+
+
+/* =========================================
+   15. MANGA STATUS
+========================================= */
 
 .manga-status {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 13px;
+    left: 13px;
 
-    background: rgba(255,255,255,0.9);
-    color: #c65e91;
+    z-index: 2;
+
+    padding: 5px 11px;
 
     border-radius: 20px;
-    padding: 4px 10px;
 
-    font-size: 10px;
+    background: rgba(255,255,255,.92);
+    color: #c65e91;
+
+    font-size: 11px;
     font-weight: 800;
+
+    backdrop-filter: blur(8px);
 }
+
+
+/* =========================================
+   16. FAVORITE BUTTON
+========================================= */
 
 .favorite-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 11px;
+    right: 11px;
 
-    width: 34px;
-    height: 34px;
+    z-index: 3;
 
-    border: none;
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(255,255,255,.75);
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.9);
-    color: #d8a3bd;
+    background: rgba(255,255,255,.93);
 
-    font-size: 18px;
+    color: #d8a3bd;
+    font-size: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform .25s ease,
+        color .25s ease,
+        background .25s ease;
 }
 
 .favorite-button.selected {
     color: #e34e8c;
 }
 
+.favorite-button:active {
+    transform: scale(.82);
+}
+
+
+/* =========================================
+   17. MANGA INFORMATION
+========================================= */
+
 .manga-info {
-    padding: 15px;
+    padding: 18px;
 }
 
 .manga-info h3 {
-    font-size: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
+
+    color: var(--text);
+
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.5;
 
     overflow-wrap: anywhere;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
 }
 
 .manga-info p {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 13px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .manga-meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 5px;
 
-    margin-top: 13px;
+    gap: 8px;
+    margin-top: 15px;
 }
 
 .genre {
+    max-width: 75%;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
     background: var(--pink-light);
     color: var(--pink-dark);
 
-    padding: 4px 9px;
-    border-radius: 20px;
+    font-size: 11px;
 
-    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .rating {
     color: #d89b45;
-    font-size: 12px;
+
+    font-size: 13px;
+    font-weight: 700;
+
     white-space: nowrap;
 }
 
-/* EMPTY MESSAGE */
+
+/* =========================================
+   18. EMPTY MESSAGE
+========================================= */
 
 .empty-message {
+    padding: 45px 15px;
+
     color: var(--muted);
-    text-align: center;
-    padding: 35px 10px;
+
     font-size: 14px;
+    text-align: center;
 }
 
-/* FOOTER */
+
+/* =========================================
+   19. FOOTER
+========================================= */
 
 .footer {
-    text-align: center;
-    background: var(--surface);
+    margin-top: 80px;
+    padding: 45px 20px 30px;
 
+    text-align: center;
+
+    background: var(--surface);
     border-top: 1px solid var(--border);
-    padding: 40px 15px;
 }
 
 .footer-logo {
+    display: inline-block;
+
     color: var(--pink);
+
+    font-size: 24px;
     font-weight: 800;
-    font-size: 22px;
 }
 
 .footer p {
-    color: var(--muted);
-    font-size: 12px;
     margin-top: 8px;
+
+    color: var(--muted);
+    font-size: 13px;
 }
 
 .footer-line {
-    width: 80px;
+    width: 85px;
     height: 2px;
-    background: var(--pink-soft);
+
     margin: 22px auto;
+
+    border-radius: 5px;
+    background: var(--pink-soft);
 }
 
-/* TOAST */
+.copyright {
+    font-size: 11px !important;
+}
+
+
+/* =========================================
+   20. TOAST
+========================================= */
 
 .toast {
     position: fixed;
-    bottom: calc(25px + env(safe-area-inset-bottom));
-    left: 50%;
 
-    transform: translate(-50%, 20px);
-    opacity: 0;
-    pointer-events: none;
+    left: 50%;
+    bottom: calc(25px + env(safe-area-inset-bottom));
+
+    z-index: 200;
+
+    max-width: 90%;
+
+    padding: 12px 22px;
+
+    border-radius: 30px;
 
     background: var(--text);
     color: var(--surface);
 
-    padding: 12px 22px;
-    border-radius: 30px;
-
     font-size: 13px;
-    z-index: 200;
-
-    transition: 0.3s;
-    max-width: 90%;
     text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translate(-50%,20px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
 }
 
 .toast.show {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%,0);
 }
 
-/* MOBILE MENU */
+
+/* =========================================
+   21. DESKTOP HOVER
+========================================= */
+
+@media (min-width: 701px) and (hover: hover) {
+
+    .manga-card:hover {
+        transform: translateY(-8px);
+
+        border-color: rgba(232,121,173,.4);
+
+        box-shadow: var(--shadow-hover);
+    }
+
+    .manga-card:hover .cover-image {
+        transform: scale(1.07);
+        filter: brightness(1.04);
+    }
+
+    .manga-card:hover .cover-art {
+        transform: scale(1.1) rotate(-4deg);
+    }
+
+    .favorite-button:hover {
+        transform: scale(1.1);
+        background: #fff;
+        color: #e34e8c;
+    }
+
+    .theme-button:hover {
+        background: var(--pink-soft);
+    }
+
+}
+
+
+/* =========================================
+   22. LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1500px) {
+
+    :root {
+        --content-width: 1360px;
+    }
+
+    .manga-grid {
+        grid-template-columns:
+            repeat(5,minmax(0,1fr));
+
+        gap: 28px;
+    }
+
+    .manga-cover {
+        height: 285px;
+    }
+
+    .hero {
+        min-height: 480px;
+    }
+
+}
+
+
+/* =========================================
+   23. LAPTOP
+========================================= */
+
+@media (min-width: 1101px) and (max-width: 1499px) {
+
+    .manga-grid {
+        grid-template-columns:
+            repeat(4,minmax(0,1fr));
+
+        gap: 23px;
+    }
+
+    .manga-cover {
+        height: 250px;
+    }
+
+}
+
+
+/* =========================================
+   24. SMALL DESKTOP / TABLET
+========================================= */
+
+@media (min-width: 701px) and (max-width: 1100px) {
+
+    .header-inner {
+        gap: 18px;
+    }
+
+    .navbar {
+        gap: 19px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .manga-grid {
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+
+        gap: 18px;
+    }
+
+    .manga-cover {
+        height: 230px;
+    }
+
+    .hero {
+        min-height: 390px;
+        padding: 45px 6%;
+    }
+
+    .hero-decoration {
+        right: 4%;
+        transform: translateY(-50%) scale(.8);
+    }
+
+    .hero-content {
+        max-width: 570px;
+    }
+
+}
+
+
+/* =========================================
+   25. MOBILE
+========================================= */
 
 @media (max-width: 700px) {
 
@@ -603,18 +1275,97 @@ section {
         width: 92%;
     }
 
+
+    /* HEADER */
+
     .header-inner {
         width: 92%;
         min-height: 65px;
+        gap: 12px;
     }
 
     .logo {
         font-size: 20px;
     }
 
-    .menu-button {
-        display: block;
+    .logo-icon {
+        font-size: 23px;
     }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .theme-button,
+    .menu-button {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    /* MENU BUTTON */
+
+    .menu-button {
+        display: flex;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 5px;
+        padding: 0;
+
+        border: 1px solid rgba(236,151,190,.3);
+
+        background:
+            linear-gradient(145deg,#fff8fc,#ffe8f2);
+
+        box-shadow:
+            0 4px 12px rgba(225,126,169,.13);
+    }
+
+    .menu-button span {
+        display: block;
+
+        width: 19px;
+        height: 2.5px;
+
+        border-radius: 10px;
+        background: #d96f9e;
+
+        transition:
+            transform .25s ease,
+            opacity .2s ease;
+    }
+
+    body.dark .menu-button {
+        background:
+            linear-gradient(145deg,#493344,#382735);
+
+        border-color: rgba(255,190,220,.15);
+    }
+
+    body.dark .menu-button span {
+        background: #ffc0dc;
+    }
+
+
+    /* MENU OPEN */
+
+    .menu-button.active span:first-child {
+        transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .menu-button.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-button.active span:last-child {
+        transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+
+    /* MOBILE NAV */
 
     .navbar {
         display: none;
@@ -622,74 +1373,286 @@ section {
         position: absolute;
         top: 65px;
         left: 0;
+
         width: 100%;
+        padding: 20px;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
 
         background: var(--surface);
         border-bottom: 1px solid var(--border);
 
-        padding: 20px;
-        flex-direction: column;
-        gap: 20px;
+        box-shadow:
+            0 12px 25px rgba(0,0,0,.06);
     }
 
     .navbar.open {
         display: flex;
+        animation: menuAppear .25s ease both;
     }
+
+    @keyframes menuAppear {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-link {
+        display: block;
+
+        padding: 12px 15px;
+        border-radius: 12px;
+
+        font-size: 14px;
+    }
+
+    .nav-link.active {
+        background: var(--pink-light);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+
+    /* HERO */
 
     .hero {
+        width: 92%;
         min-height: 340px;
-        padding: 35px 25px;
-        margin: 25px auto;
-    }
 
-    .hero-decoration {
-        position: absolute;
-        right: -110px;
-        bottom: -50px;
-        opacity: 0.35;
+        display: block;
+
+        margin: 25px auto 40px;
+        padding: 35px 25px;
+
+        border-radius: 23px;
     }
 
     .hero-content {
-        max-width: 100%;
+        width: 100%;
+        max-width: none;
+    }
+
+    .hero-decoration {
+        display: none;
+    }
+
+    .hero-label {
+        font-size: 10px;
+        letter-spacing: 1.5px;
     }
 
     .hero h1 {
-        font-size: 33px;
+        margin: 16px 0;
+
+        font-size: clamp(27px,7vw,33px);
+        line-height: 1.45;
     }
 
-    .manga-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 13px;
+    .hero p {
+        max-width: 100%;
+
+        font-size: 14px;
+        line-height: 1.8;
+
+        margin-bottom: 22px;
     }
 
-    .manga-cover {
-        height: clamp(145px, 43vw, 190px);
-    }
-
-    .cover-art {
-        font-size: 55px;
-    }
-
-    .manga-info {
-        padding: 11px;
-    }
-
-    .manga-info h3 {
+    .primary-button {
+        padding: 12px 21px;
         font-size: 13px;
-        line-height: 1.5;
+    }
+
+
+    /* SEARCH */
+
+    .search-section {
+        width: 92%;
+        margin-bottom: 45px;
+    }
+
+    .search-box {
+        gap: 8px;
+        padding: 8px;
+        border-radius: 15px;
+    }
+
+    .search-icon {
+        font-size: 23px;
+    }
+
+    .search-box input {
+        font-size: 13px;
+    }
+
+    .search-box button {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+
+    /* FILTERS */
+
+    .advanced-filters {
+        grid-template-columns: 1fr;
+        gap: 13px;
+
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .filter-select {
+        padding: 13px 12px;
+    }
+
+    .filter-group label {
+        font-size: 12px;
+    }
+
+    .filter-bottom {
+        align-items: center;
+    }
+
+    .filter-summary {
+        font-size: 11px;
+    }
+
+    .clear-filters {
+        flex-shrink: 0;
+
+        padding: 9px 12px;
+        font-size: 11px;
+    }
+
+
+    /* SECTION HEADING */
+
+    .section-heading {
+        margin-bottom: 17px;
     }
 
     .section-heading h2 {
         font-size: 21px;
     }
 
-    .search-section {
-        margin-bottom: 40px;
+    .small-label {
+        font-size: 9px;
+    }
+
+    .result-count {
+        font-size: 11px;
+    }
+
+
+    /* MANGA GRID */
+
+    .manga-section,
+    .favorites-section {
+        margin-bottom: 50px;
+    }
+
+    .manga-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 12px;
+    }
+
+
+    /* CARD */
+
+    .manga-card {
+        border-radius: 13px;
+    }
+
+    .manga-cover {
+        height: auto;
+        aspect-ratio: 3 / 4;
+    }
+
+    .cover-image {
+        position: absolute;
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    .cover-art {
+        font-size: 48px;
+    }
+
+    .manga-info {
+        padding: 10px;
+    }
+
+    .manga-info h3 {
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .manga-info p {
+        font-size: 11px;
+    }
+
+    .manga-meta {
+        margin-top: 10px;
+        gap: 5px;
+    }
+
+    .genre {
+        max-width: 70%;
+        padding: 4px 7px;
+        font-size: 9px;
+    }
+
+    .rating {
+        font-size: 10px;
+    }
+
+    .manga-status {
+        top: 8px;
+        left: 8px;
+
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+
+    .favorite-button {
+        top: 7px;
+        right: 7px;
+
+        width: 32px;
+        height: 32px;
+
+        font-size: 17px;
+    }
+
+
+    /* FOOTER */
+
+    .footer {
+        margin-top: 55px;
+        padding: 35px 15px;
     }
 
 }
 
-/* SMALL IPHONE */
+
+/* =========================================
+   26. SMALL IPHONE
+========================================= */
 
 @media (max-width: 390px) {
 
@@ -702,48 +1665,27 @@ section {
     }
 
     .search-box {
-        gap: 8px;
-        padding: 8px;
+        gap: 6px;
     }
 
     .search-box button {
-        padding: 9px 12px;
-        font-size: 12px;
-    }
-
-    .search-box input {
-        font-size: 13px;
+        padding: 9px 11px;
     }
 
     .manga-grid {
         gap: 10px;
     }
 
-    .manga-cover {
-        height: 145px;
-    }
-
     .manga-info {
         padding: 9px;
     }
 
-    .favorite-button {
-        width: 32px;
-        height: 32px;
-        top: 7px;
-        right: 7px;
-    }
-
-    .manga-status {
-        top: 8px;
-        left: 7px;
-        font-size: 9px;
-        padding: 3px 7px;
-    }
-
 }
 
-/* VERY SMALL SCREEN */
+
+/* =========================================
+   27. VERY SMALL SCREEN
+========================================= */
 
 @media (max-width: 340px) {
 
@@ -751,578 +1693,44 @@ section {
         font-size: 26px;
     }
 
-    .manga-cover {
-        height: 125px;
-    }
-
-    .cover-art {
-        font-size: 43px;
-    }
-
     .section-heading h2 {
         font-size: 18px;
     }
 
-}
-
-/* IPHONE SAFE AREA */
-
-@supports (padding: env(safe-area-inset-bottom)) {
-
-    .footer {
-        padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    }
-
-}
-
-/* REDUCED MOTION */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-    }
-
-}
-/* =================================
-   MOBILE MANGA CARD FIX
-================================= */
-
-.manga-cover {
-    position: relative;
-    overflow: hidden;
-}
-
-.cover-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-/* มือถือ */
-@media (max-width: 700px) {
-
-    .manga-grid,
-    #manga-grid,
-    #favorites-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-    .manga-card {
-        min-width: 0;
-        width: 100%;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    .manga-cover {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        border-radius: 12px;
-    }
-
-    .cover-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
     .cover-art {
-        font-size: 42px;
-    }
-
-    .manga-info {
-        padding: 9px;
+        font-size: 40px;
     }
 
     .manga-info h3 {
-        font-size: 14px;
-        line-height: 1.4;
-    }
-
-    .manga-info p {
         font-size: 12px;
     }
 
     .manga-meta {
-        font-size: 11px;
-        gap: 5px;
-    }
-}
-/* =================================
-   PAGE TRANSITION
-================================= */
-
-body {
-    opacity: 1;
-    transition: opacity 0.45s ease;
-}
-
-body.page-leaving {
-    opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    body {
-        transition: none;
-    }
-}
-
-/* =================================
-   YUME MANGA - HERO BLUR BACKGROUND
-================================= */
-
-.hero {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-
-    background: #ffe3ef;
-}
-
-/* รูปภาพพื้นหลังแบบเบลอ */
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: -15px;
-    z-index: -2;
-
-    background-image: url("https://i.ibb.co/YFgqMd2Y/IMG-0513.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    filter: blur(9px);
-    transform: scale(1.05);
-}
-
-/* ชั้นสีชมพูโปร่งใส */
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    background: rgba(255, 225, 239, 0.72);
-    pointer-events: none;
-}
-
-/* Dark Mode */
-body.dark .hero::after {
-    background: rgba(55, 35, 51, 0.72);
-}
-
-/* เนื้อหาต้องอยู่ด้านบน */
-.hero-content,
-.hero-decoration {
-    position: relative;
-    z-index: 1;
-}
-
-/* =================================
-   HERO MOBILE LAYOUT FIX
-================================= */
-
-.hero {
-    width: min(1100px, 90%);
-    min-height: 370px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.hero-content {
-    width: 100%;
-    max-width: 580px;
-    min-width: 0;
-    flex: 1 1 auto;
-}
-
-.hero h1 {
-    word-break: normal;
-    overflow-wrap: normal;
-    line-height: 1.4;
-}
-
-.hero-label {
-    letter-spacing: 2px;
-}
-
-/* MOBILE */
-@media (max-width: 700px) {
-
-    .hero {
-        width: 92%;
-        min-height: 340px;
-        padding: 35px 25px;
-        display: block;
-    }
-
-    .hero-content {
-        width: 100%;
-        max-width: none;
-        min-width: 0;
-    }
-
-    .hero h1 {
-        font-size: clamp(27px, 7vw, 33px);
-        line-height: 1.45;
-    }
-
-    .hero p {
-        max-width: 100%;
-        font-size: 14px;
-        line-height: 1.8;
-    }
-
-    .hero-decoration {
-        position: absolute;
-        right: -110px;
-        bottom: -50px;
-        opacity: 0.35;
-        pointer-events: none;
+        flex-wrap: wrap;
     }
 
 }
 
-/* SMALL IPHONE */
-@media (max-width: 390px) {
-
-    .hero {
-        padding: 30px 20px;
-    }
-
-    .hero-content {
-        width: 100%;
-    }
-
-    .hero h1 {
-        font-size: 29px;
-    }
-
-}
-
-/* =================================
-   HERO BACKGROUND - FINAL FIX
-================================= */
-
-/* ลดความเบลอของภาพพื้นหลัง */
-.hero::before {
-    filter: blur(2px);
-    transform: scale(1.02);
-}
-
-/* ลดความเข้มของสีชมพูที่ทับภาพ */
-.hero::after {
-    background: rgba(255, 225, 239, 0.35);
-}
-
-/* เอาดอกไม้และวงกลมตกแต่งออก */
-.hero-decoration {
-    display: none !important;
-}
-
-/* DARK MODE */
-body.dark .hero::after {
-    background: rgba(55, 35, 51, 0.45);
-}
 
 /* =========================================
-   YUME MANGA — PINK DREAM EFFECTS
-   Global Animation System
+   28. ACCESSIBILITY
 ========================================= */
 
-/* -----------------------------------------
-   1. GLOBAL SMOOTH EFFECTS
------------------------------------------ */
-
-html {
-    scroll-behavior: smooth;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(233,138,181,.45);
+    outline-offset: 3px;
 }
 
-body {
-    overflow-x: hidden;
-}
 
-button,
-a,
-.manga-card,
-.chapter-item {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* -----------------------------------------
-   2. SOFT PAGE TRANSITION
------------------------------------------ */
-
-body {
-    transition:
-        background-color 0.4s ease,
-        color 0.4s ease,
-        opacity 0.5s ease;
-}
-
-body.page-leaving {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* -----------------------------------------
-   3. FLOATING SPARKLES
------------------------------------------ */
-
-body::after {
-    content: "✦";
-    position: fixed;
-    top: 18%;
-    right: 7%;
-    z-index: 10;
-    color: var(--pink);
-    font-size: 17px;
-    opacity: 0;
-    pointer-events: none;
-    animation: yumeSparkle 5s ease-in-out infinite;
-}
-
-@keyframes yumeSparkle {
-    0%, 100% {
-        opacity: 0;
-        transform: translateY(10px) rotate(0deg) scale(0.7);
-    }
-
-    35%, 65% {
-        opacity: 0.65;
-        transform: translateY(-8px) rotate(45deg) scale(1);
-    }
-}
-
-/* -----------------------------------------
-   4. MANGA CARD REVEAL
------------------------------------------ */
-
-.manga-card {
-    animation: yumeCardAppear 0.65s ease both;
-    transition:
-        transform 0.35s ease,
-        box-shadow 0.35s ease,
-        opacity 0.35s ease;
-}
-
-@keyframes yumeCardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(18px) scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.manga-card:active {
-    transform: scale(0.97);
-}
-
-.manga-cover {
-    overflow: hidden;
-}
-
-.cover-image {
-    transition:
-        transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1),
-        filter 0.4s ease;
-}
-
-.manga-card:hover .cover-image {
-    transform: scale(1.07);
-    filter: brightness(1.04);
-}
-
-/* -----------------------------------------
-   5. FAVORITE BUTTON
------------------------------------------ */
-
-.favorite-button {
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        color 0.25s ease;
-}
-
-.favorite-button:active {
-    transform: scale(0.8);
-}
-
-.favorite-button.selected {
-    animation: yumeHeart 0.35s ease;
-}
-
-@keyframes yumeHeart {
-    0% {
-        transform: scale(0.7);
-    }
-
-    55% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* -----------------------------------------
-   6. BUTTON FEEDBACK
------------------------------------------ */
-
-button {
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background-color 0.25s ease;
-}
-
-button:active {
-    transform: scale(0.96);
-}
-
-.nav-link {
-    transition:
-        color 0.25s ease,
-        transform 0.25s ease;
-}
-
-/* -----------------------------------------
-   7. TOAST ANIMATION
------------------------------------------ */
-
-#toast {
-    transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
-}
-
-#toast.show {
-    animation: yumeToast 0.4s ease both;
-}
-
-@keyframes yumeToast {
-    from {
-        opacity: 0;
-        transform: translate(-50%, 15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
-}
-
-/* -----------------------------------------
-   8. DETAIL PAGE EFFECTS
------------------------------------------ */
-
-.detail-container {
-    animation: yumeDetailAppear 0.7s ease both;
-}
-
-@keyframes yumeDetailAppear {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.detail-box {
-    transition:
-        transform 0.5s ease,
-        box-shadow 0.5s ease;
-}
-
-.detail-box:hover {
-    transform: translateY(-4px);
-}
-
-.detail-cover {
-    transition: transform 0.7s ease;
-}
-
-.detail-box:hover .detail-cover {
-    transform: scale(1.025);
-}
-
-.chapter-item {
-    transition:
-        transform 0.25s ease,
-        background-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.chapter-item:active {
-    transform: scale(0.98);
-}
-
-/* -----------------------------------------
-   9. READER PAGE EFFECTS
------------------------------------------ */
-
-.reader-container {
-    animation: yumeReaderAppear 0.65s ease both;
-}
-
-@keyframes yumeReaderAppear {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.reader-page {
-    overflow: hidden;
-}
-
-.reader-page img {
-    animation: yumePageImage 0.55s ease both;
-}
-
-@keyframes yumePageImage {
-    from {
-        opacity: 0.65;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.reader-header {
-    transition: background-color 0.3s ease;
-}
-
-/* -----------------------------------------
-   10. MOBILE TOUCH EFFECTS
------------------------------------------ */
+/* =========================================
+   29. TOUCH DEVICES
+========================================= */
 
 @media (hover: none) {
+
     .manga-card:hover {
         transform: none;
     }
@@ -1331,20 +1739,33 @@ button:active {
         transform: none;
     }
 
-    .detail-box:hover {
+    .manga-card:hover .cover-art {
         transform: none;
     }
 
-    .detail-box:hover .detail-cover {
-        transform: none;
-    }
 }
 
-/* -----------------------------------------
-   11. REDUCED MOTION
------------------------------------------ */
+
+/* =========================================
+   30. SAFE AREA
+========================================= */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+
+    .footer {
+        padding-bottom:
+            calc(35px + env(safe-area-inset-bottom));
+    }
+
+}
+
+
+/* =========================================
+   31. REDUCED MOTION
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     html {
         scroll-behavior: auto;
     }
@@ -1352,483 +1773,14 @@ button:active {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
+        animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: .01ms !important;
     }
 
-    body {
-        opacity: 1 !important;
-    }
-
+    body,
     body.page-leaving {
         opacity: 1 !important;
     }
-}
 
-/* =========================================
-   YUME MANGA - PINK DREAM EFFECTS
-   GLOBAL ANIMATIONS
-========================================= */
-
-/* การ์ดมังงะค่อย ๆ ปรากฏ */
-
-@keyframes mangaCardReveal {
-    from {
-        opacity: 0;
-        transform: translateY(22px) scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.manga-card {
-    animation: mangaCardReveal 0.65s ease both;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-/* ทำให้การ์ดแต่ละใบปรากฏเหลื่อมเวลากัน */
-
-.manga-card:nth-child(1) { animation-delay: 0.04s; }
-.manga-card:nth-child(2) { animation-delay: 0.09s; }
-.manga-card:nth-child(3) { animation-delay: 0.14s; }
-.manga-card:nth-child(4) { animation-delay: 0.19s; }
-.manga-card:nth-child(5) { animation-delay: 0.24s; }
-.manga-card:nth-child(6) { animation-delay: 0.29s; }
-.manga-card:nth-child(7) { animation-delay: 0.34s; }
-.manga-card:nth-child(8) { animation-delay: 0.39s; }
-
-/* เอฟเฟกต์ตอนชี้การ์ด */
-
-@media (hover: hover) {
-    .manga-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 14px 30px rgba(214, 92, 145, 0.17);
-    }
-
-    .manga-card:hover .cover-image,
-    .manga-card:hover .cover-art {
-        transform: scale(1.06);
-    }
-}
-
-/* ภาพปก */
-
-.cover-image,
-.cover-art {
-    transition: transform 0.45s ease;
-}
-
-/* ปุ่มรายการโปรด */
-
-.favorite-button {
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        color 0.25s ease;
-}
-
-.favorite-button:active {
-    transform: scale(0.82);
-}
-
-/* ปุ่มทั่วไป */
-
-button,
-.search-button,
-.filter-select,
-.back-button,
-.reader-navigation a {
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        background 0.22s ease;
-}
-
-button:active,
-.search-button:active,
-.reader-navigation a:active {
-    transform: scale(0.96);
-}
-
-/* ช่องค้นหา */
-
-#manga-search:focus,
-.filter-select:focus {
-    outline: none;
-    border-color: var(--pink);
-    box-shadow: 0 0 0 4px rgba(255, 143, 189, 0.15);
-}
-
-/* หัวข้อส่วนต่าง ๆ */
-
-@keyframes pinkTitleReveal {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero h1,
-.section-title,
-.reader-title {
-    animation: pinkTitleReveal 0.7s ease both;
-}
-
-/* Toast แจ้งเตือน */
-
-#toast {
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-/* หน้าอ่านมังงะ */
-
-.reader-title {
-    animation-delay: 0.08s;
-}
-
-.reader-navigation a {
-    border: 1px solid rgba(214, 92, 145, 0.12);
-}
-
-@media (hover: hover) {
-    .reader-navigation a:not(.disabled):hover {
-        transform: translateY(-3px);
-        box-shadow: 0 7px 18px rgba(214, 92, 145, 0.15);
-    }
-}
-
-/* หน้าอ่าน: ให้ภาพแสดงตามปกติ ไม่รอ Animation */
-
-.reader-page img {
-    opacity: 1;
-    animation: none;
-}
-
-/* เอฟเฟกต์ปุ่มหน้ารายละเอียด */
-
-.detail-box .detail-action,
-.back-button,
-.chapter-item {
-    -webkit-tap-highlight-color: transparent;
-}
-
-@media (hover: hover) {
-    .detail-box .detail-action:hover:not(.disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 7px 18px rgba(214, 92, 145, 0.18);
-    }
-}
-
-/* ลดการเคลื่อนไหวสำหรับผู้ที่ตั้งค่าไว้ */
-
-@media (prefers-reduced-motion: reduce) {
-    .manga-card,
-    .hero h1,
-    .section-title,
-    .reader-title,
-    .cover-image,
-    .cover-art,
-    button,
-    .search-button,
-    .filter-select,
-    .reader-navigation a,
-    #toast {
-        animation: none !important;
-        transition: none !important;
-        transform: none !important;
-    }
-}
-/* =========================================
-   YUME MANGA - DESKTOP LAYOUT
-   หน้าจอคอมพิวเตอร์
-========================================= */
-
-@media (min-width: 701px) {
-
-    /* ความกว้างเนื้อหาหลัก */
-    section {
-        width: min(1200px, 92%);
-    }
-
-    /* แถบเมนูด้านบน */
-    .header-inner {
-        width: min(1300px, 92%);
-    }
-
-    /* แบนเนอร์หน้าแรก */
-    .hero {
-        width: min(1200px, 92%);
-    }
-
-    /* ระยะห่างระหว่างการ์ด */
-    .manga-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 24px;
-    }
-
-    /* การ์ดมังงะ */
-    .manga-card {
-        width: 100%;
-        min-width: 0;
-    }
-
-    /* รูปปก */
-    .manga-cover {
-        width: 100%;
-        height: 240px;
-    }
-
-}
-/* =========================================
-   DESKTOP HEADER
-========================================= */
-
-@media (min-width: 701px) {
-
-    .header-inner {
-        min-height: 82px;
-        gap: 35px;
-    }
-
-    .logo {
-        font-size: 25px;
-    }
-
-    .logo-icon {
-        font-size: 27px;
-    }
-
-    .navbar {
-        gap: 38px;
-    }
-
-    .nav-link {
-        font-size: 15px;
-    }
-
-    .header-actions {
-        gap: 12px;
-    }
-
-    .theme-button,
-    .menu-button {
-        width: 44px;
-        height: 44px;
-        border-radius: 14px;
-    }
-
-}
-/* =========================================
-   DESKTOP MANGA CARD
-========================================= */
-
-@media (min-width: 701px) {
-
-    .manga-grid {
-        gap: 26px;
-    }
-
-    .manga-card {
-        border-radius: 20px;
-    }
-
-    .manga-cover {
-        height: 250px;
-    }
-
-    .cover-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .manga-info {
-        padding: 18px;
-    }
-
-    .manga-info h3 {
-        font-size: 16px;
-        line-height: 1.5;
-        margin-bottom: 7px;
-    }
-
-    .manga-info p {
-        font-size: 13px;
-    }
-
-    .manga-meta {
-        margin-top: 15px;
-        gap: 8px;
-    }
-
-    .genre {
-        font-size: 11px;
-        padding: 5px 11px;
-    }
-
-    .rating {
-        font-size: 13px;
-    }
-
-}
-/* =========================================
-   DESKTOP HERO BANNER
-========================================= */
-
-@media (min-width: 701px) {
-
-    .hero {
-        min-height: 420px;
-        padding: 65px 8%;
-        margin: 50px auto;
-        border-radius: 30px;
-    }
-
-    .hero-content {
-        max-width: 650px;
-    }
-
-    .hero h1 {
-        font-size: clamp(38px, 4vw, 52px);
-        line-height: 1.4;
-        margin: 20px 0;
-    }
-
-    .hero p {
-        max-width: 520px;
-        font-size: 16px;
-        line-height: 1.9;
-        margin-bottom: 30px;
-    }
-
-    .primary-button {
-        padding: 15px 28px;
-        font-size: 15px;
-    }
-
-}
-/* =========================================
-   DESKTOP SEARCH
-========================================= */
-
-@media (min-width: 701px) {
-    .search-section {
-        width: min(900px, 90%);
-        margin: 0 auto 65px;
-    }
-
-    .search-box {
-        gap: 15px;
-        padding: 12px 15px;
-        border-radius: 20px;
-    }
-
-    .search-icon {
-        font-size: 27px;
-    }
-
-    .search-box input {
-        font-size: 15px;
-        padding: 5px;
-    }
-
-    .search-box button {
-        padding: 12px 26px;
-        border-radius: 14px;
-        font-size: 14px;
-    }
-}
-/* =========================================
-   DESKTOP SECTION HEADINGS
-========================================= */
-
-@media (min-width: 701px) {
-    .section-title {
-        font-size: 28px;
-        margin-bottom: 10px;
-    }
-
-    .section-subtitle {
-        font-size: 14px;
-        margin-bottom: 28px;
-    }
-
-    .section-header {
-        margin-bottom: 30px;
-    }
-}
-/* =========================================
-   DESKTOP FOOTER
-========================================= */
-
-@media (min-width: 701px) {
-    .footer {
-        padding: 45px 0 30px;
-        margin-top: 80px;
-    }
-
-    .footer-inner {
-        width: min(1200px, 92%);
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 30px;
-    }
-
-    .footer p {
-        font-size: 14px;
-        line-height: 1.8;
-    }
-}
-/* =========================================
-   DESKTOP HOVER EFFECTS
-========================================= */
-
-@media (min-width: 701px) and (hover: hover) {
-    .manga-card {
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
-    }
-
-    .manga-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 14px 35px rgba(217, 91, 152, 0.16);
-    }
-
-    .nav-link {
-        transition: color 0.25s ease;
-    }
-
-    .nav-link:hover {
-        color: var(--pink-dark);
-    }
-
-    .primary-button,
-    .search-box button {
-        transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease;
-    }
-
-    .primary-button:hover,
-    .search-box button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 7px 18px rgba(217, 91, 152, 0.2);
-    }
 }
