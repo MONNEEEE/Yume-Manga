@@ -898,578 +898,759 @@
 
     <script src="script.js"></script>
 
-    <script>
-        /* =================================
-           FIND MANGA
-        ================================= */
+    
+<script>
+/* =================================
+   YUME MANGA - DETAIL LANGUAGE SYSTEM
+================================= */
 
-        const params = new URLSearchParams(window.location.search);
-        const mangaId = params.get("id");
+const params = new URLSearchParams(window.location.search);
+const mangaId = params.get("id");
 
-        const manga = window.mangaData?.find(
-            item => String(item.id) === String(mangaId)
+const manga = window.mangaData?.find(
+    item => String(item.id) === String(mangaId)
+);
+
+const detailContent = document.getElementById("detail-content");
+
+const supportedLanguages = ["th", "ja", "en"];
+
+let currentLanguage = localStorage.getItem("yumeLanguage") || "th";
+
+if (!supportedLanguages.includes(currentLanguage)) {
+    currentLanguage = "th";
+}
+
+/* =================================
+   TRANSLATIONS
+================================= */
+
+const detailTranslations = {
+    th: {
+        back: "← กลับหน้าแรก",
+        recommended: "แนะนำ",
+        new: "ใหม่",
+        manga: "มังงะ",
+        author: "ผู้แต่ง",
+        genre: "แนว",
+        rating: "คะแนน",
+        noAuthor: "ไม่ระบุ",
+        noGenre: "ไม่ระบุ",
+        noRating: "ยังไม่มีคะแนน",
+        synopsisHint: "แตะเพื่ออ่านเรื่องย่อฉบับเต็ม ✨",
+        synopsisTitle: "🌸 เรื่องย่อฉบับเต็ม",
+        synopsisAria: "แตะเพื่ออ่านเรื่องย่อฉบับเต็ม",
+        close: "ปิดหน้าต่าง",
+        synopsisFooter: "Yume Manga · อ่านเรื่องย่อ",
+        chapters: "📖 รายชื่อตอน",
+        readNow: "อ่านตอนนี้ →",
+        readFirst: "📖 อ่านตอนแรก",
+        continue: "📖 อ่านต่อ",
+        favorite: "♡ เพิ่มรายการโปรด",
+        favorited: "♥ อยู่ในรายการโปรด",
+        lastRead: " (อ่านล่าสุด)",
+        emptyChapters: "ยังไม่มีตอนให้อ่านในขณะนี้ 🌸",
+        notFound: "ไม่พบมังงะเรื่องนี้",
+        notFoundMessage: "ลองกลับไปเลือกเรื่องอื่นดูนะ",
+        synopsisDefault: "เรื่องราวการผจญภัยที่รอให้คุณค้นพบ 🌸"
+    },
+
+    ja: {
+        back: "← ホームに戻る",
+        recommended: "おすすめ",
+        new: "新作",
+        manga: "マンガ",
+        author: "作者",
+        genre: "ジャンル",
+        rating: "評価",
+        noAuthor: "不明",
+        noGenre: "不明",
+        noRating: "評価なし",
+        synopsisHint: "タップしてあらすじ全文を読む ✨",
+        synopsisTitle: "🌸 あらすじ全文",
+        synopsisAria: "タップしてあらすじ全文を読む",
+        close: "閉じる",
+        synopsisFooter: "Yume Manga · あらすじ",
+        chapters: "📖 エピソード一覧",
+        readNow: "読む →",
+        readFirst: "📖 第1話を読む",
+        continue: "📖 続きを読む",
+        favorite: "♡ お気に入りに追加",
+        favorited: "♥ お気に入り登録済み",
+        lastRead: " (最後に読んだ話)",
+        emptyChapters: "現在、エピソードはありません 🌸",
+        notFound: "マンガが見つかりません",
+        notFoundMessage: "ホームに戻って別の作品を選んでください",
+        synopsisDefault: "新しい冒険の物語があなたを待っています 🌸"
+    },
+
+    en: {
+        back: "← Back to Home",
+        recommended: "Recommended",
+        new: "New",
+        manga: "Manga",
+        author: "Author",
+        genre: "Genre",
+        rating: "Rating",
+        noAuthor: "Unknown",
+        noGenre: "Unknown",
+        noRating: "No rating yet",
+        synopsisHint: "Tap to read the full synopsis ✨",
+        synopsisTitle: "🌸 Full Synopsis",
+        synopsisAria: "Tap to read the full synopsis",
+        close: "Close window",
+        synopsisFooter: "Yume Manga · Synopsis",
+        chapters: "📖 Chapter List",
+        readNow: "Read Now →",
+        readFirst: "📖 Read First Chapter",
+        continue: "📖 Continue Reading",
+        favorite: "♡ Add to Favorites",
+        favorited: "♥ Added to Favorites",
+        lastRead: " (Last Read)",
+        emptyChapters: "No chapters available yet 🌸",
+        notFound: "Manga not found",
+        notFoundMessage: "Go back and choose another manga",
+        synopsisDefault: "An adventure waiting for you to discover 🌸"
+    }
+};
+
+/* =================================
+   MANGA TRANSLATIONS
+================================= */
+
+const mangaLanguageData = {
+
+    1: {
+        ja: {
+            synopsis: "ミナト・セノの高校生活が始まったばかりの頃、担任の先生から、いつも眠そうにしている猫のような少女、ネコセネの世話を頼まれる。内気で人と話すのが苦手なミナトは、彼女とほとんど話したこともなく、顔もよく見たことがなかった。しかし、勇気を出して彼女を起こすと、突然抱きつかれてしまう！",
+            genre: "ラブコメ / 恋愛",
+            status: "おすすめ"
+        },
+
+        en: {
+            synopsis: "Minato Seno's high school life has just begun when his homeroom teacher asks him to look after Nekosene, a cat-like girl who is always sleeping. Minato is shy and struggles to stand up for himself. He has barely spoken to her and has hardly ever seen her face clearly. But when he finally gathers the courage to wake her up, she suddenly hugs him!",
+            genre: "Romantic Comedy / Romance",
+            status: "Recommended"
+        }
+    }
+};
+
+/* =================================
+   LANGUAGE HELPERS
+================================= */
+
+function getText(key) {
+    return detailTranslations[currentLanguage][key]
+        || detailTranslations.th[key]
+        || key;
+}
+
+function getLocalizedManga(key, fallback) {
+
+    const translated =
+        mangaLanguageData[manga?.id]?.[currentLanguage]?.[key];
+
+    return translated || fallback || "";
+}
+
+function getChapterTitle(index) {
+
+    if (currentLanguage === "ja") {
+        return `第${index + 1}話`;
+    }
+
+    if (currentLanguage === "en") {
+        return `Chapter ${index + 1}`;
+    }
+
+    return `ตอนที่ ${index + 1}`;
+}
+
+function getStatus(status) {
+
+    if (!status) return getText("manga");
+
+    if (status === "แนะนำ") {
+        return getLocalizedManga("status", getText("recommended"));
+    }
+
+    if (status === "ใหม่") {
+        return getText("new");
+    }
+
+    return status;
+}
+
+/* =================================
+   STORAGE
+================================= */
+
+function getReadingHistory() {
+
+    try {
+
+        const history = JSON.parse(
+            localStorage.getItem("yumeReadingHistory") || "{}"
         );
 
-        const detailContent = document.getElementById("detail-content");
+        return history && typeof history === "object"
+            ? history
+            : {};
 
+    } catch (error) {
+        return {};
+    }
 
-        /* =================================
-           READING HISTORY SYSTEM
-        ================================= */
+}
 
-        function getReadingHistory() {
-            try {
-                const history = JSON.parse(
-                    localStorage.getItem("yumeReadingHistory") || "{}"
-                );
+function getFavoriteIds() {
 
-                return history && typeof history === "object"
-                    ? history
-                    : {};
+    try {
 
-            } catch (error) {
-                return {};
-            }
-        }
+        const saved = JSON.parse(
+            localStorage.getItem("yumeFavorites") || "[]"
+        );
 
+        return Array.isArray(saved) ? saved.map(Number) : [];
 
-        /* =================================
-           PAGE TRANSITION
-        ================================= */
+    } catch (error) {
+        return [];
+    }
 
-        function navigateWithFade(url) {
-            if (
-                window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                ).matches
-            ) {
-                window.location.href = url;
-                return;
-            }
+}
 
-            document.body.classList.remove("page-ready");
-            document.body.classList.add("page-leaving");
+/* =================================
+   PAGE TRANSITION
+================================= */
 
-            setTimeout(() => {
-                window.location.href = url;
-            }, 500);
-        }
+function navigateWithFade(url) {
 
+    if (
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches
+    ) {
+        window.location.href = url;
+        return;
+    }
 
-        /* =================================
-           FAVORITES SYSTEM
-        ================================= */
+    document.body.classList.remove("page-ready");
+    document.body.classList.add("page-leaving");
 
-        function getFavoriteIds() {
-            try {
-                const saved = JSON.parse(
-                    localStorage.getItem("yumeFavorites") || "[]"
-                );
+    setTimeout(() => {
+        window.location.href = url;
+    }, 500);
 
-                return Array.isArray(saved) ? saved : [];
+}
 
-            } catch (error) {
-                return [];
-            }
-        }
+/* =================================
+   SYNOPSIS MODAL
+================================= */
 
+function openSynopsis() {
 
-        function updateFavoriteButton() {
-            const button = document.getElementById("detail-favorite");
+    const modal = document.getElementById("synopsis-modal");
 
-            if (!button || !manga) return;
+    if (!modal) return;
 
-            const favoriteIds = getFavoriteIds();
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
 
-            const isFavorite = favoriteIds.includes(Number(manga.id));
+    document.getElementById("synopsis-close")?.focus();
 
-            button.classList.toggle("selected", isFavorite);
+}
 
-            button.setAttribute(
-                "aria-pressed",
-                String(isFavorite)
-            );
+function closeSynopsis() {
 
-            button.textContent = isFavorite
-                ? "♥ อยู่ในรายการโปรด"
-                : "♡ เพิ่มรายการโปรด";
-        }
+    const modal = document.getElementById("synopsis-modal");
 
+    if (!modal) return;
 
-        function toggleDetailFavorite() {
-            if (!manga) return;
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
 
-            const favoriteIds = getFavoriteIds();
-            const id = Number(manga.id);
-            const index = favoriteIds.indexOf(id);
+}
 
-            if (index === -1) {
-                favoriteIds.push(id);
-            } else {
-                favoriteIds.splice(index, 1);
-            }
+/* =================================
+   FAVORITES
+================================= */
 
-            localStorage.setItem(
-                "yumeFavorites",
-                JSON.stringify(favoriteIds)
-            );
+function updateFavoriteButton() {
 
-            updateFavoriteButton();
-        }
+    const button = document.getElementById("detail-favorite");
 
+    if (!button || !manga) return;
 
-        /* =================================
-           SYNOPSIS MODAL
-        ================================= */
+    const isFavorite = getFavoriteIds().includes(Number(manga.id));
 
-        function openSynopsis() {
-            const modal = document.getElementById("synopsis-modal");
+    button.classList.toggle("selected", isFavorite);
 
-            if (!modal) return;
+    button.setAttribute(
+        "aria-pressed",
+        String(isFavorite)
+    );
 
-            modal.classList.add("open");
-            document.body.style.overflow = "hidden";
+    button.textContent = isFavorite
+        ? getText("favorited")
+        : getText("favorite");
 
-            document.getElementById("synopsis-close")?.focus();
-        }
+}
 
+function toggleDetailFavorite() {
 
-        function closeSynopsis() {
-            const modal = document.getElementById("synopsis-modal");
+    if (!manga) return;
 
-            if (!modal) return;
+    const favoriteIds = getFavoriteIds();
+    const id = Number(manga.id);
 
-            modal.classList.remove("open");
-            document.body.style.overflow = "";
-        }
+    const index = favoriteIds.indexOf(id);
 
+    if (index === -1) {
+        favoriteIds.push(id);
+    } else {
+        favoriteIds.splice(index, 1);
+    }
 
-        /* =================================
-           RENDER DETAIL
-        ================================= */
+    localStorage.setItem(
+        "yumeFavorites",
+        JSON.stringify(favoriteIds)
+    );
 
-        if (manga) {
+    updateFavoriteButton();
 
-            const isImage =
-                typeof manga.cover === "string" &&
-                /^https?:\/\//i.test(manga.cover);
+}
 
-            const cover = isImage
+/* =================================
+   RENDER DETAIL
+================================= */
 
-                ? `
-                    <img
-                        class="detail-cover"
-                        src="${manga.cover}"
-                        alt="${manga.title}"
-                    >
-                `
+function renderDetail() {
 
-                : `
-                    <div class="detail-cover-emoji">
-                        ${manga.cover || "🌸"}
-                    </div>
-                `;
+    if (!manga) {
 
+        detailContent.innerHTML = `
+            <div class="not-found">
+                <h2>${getText("notFound")}</h2>
+                <p>${getText("notFoundMessage")}</p>
+            </div>
+        `;
 
-            const chapters = Array.isArray(manga.chapters)
-                ? manga.chapters
-                : [];
+        return;
+    }
 
-            const synopsisText = manga.synopsis ||
-                "เรื่องราวการผจญภัยที่รอให้คุณค้นพบ 🌸";
+    const isImage =
+        typeof manga.cover === "string" &&
+        /^https?:\/\//i.test(manga.cover);
 
+    const cover = isImage
 
-            /* =================================
-               RESUME READING
-            ================================= */
+        ? `
+            <img
+                class="detail-cover"
+                src="${manga.cover}"
+                alt="${manga.title}"
+            >
+        `
 
-            const readingHistory = getReadingHistory();
+        : `
+            <div class="detail-cover-emoji">
+                ${manga.cover || "🌸"}
+            </div>
+        `;
 
-            const savedProgress =
-                readingHistory[String(manga.id)];
+    const chapters = Array.isArray(manga.chapters)
+        ? manga.chapters
+        : [];
 
-            const hasReadingHistory =
-                savedProgress &&
-                Number.isInteger(savedProgress.chapter) &&
-                savedProgress.chapter >= 0 &&
-                savedProgress.chapter < chapters.length;
+    const synopsisText = getLocalizedManga(
+        "synopsis",
+        manga.synopsis || getText("synopsisDefault")
+    );
 
-            const resumeChapter = hasReadingHistory
-                ? savedProgress.chapter
-                : 0;
+    /* =================================
+       READING HISTORY
+    ================================= */
 
-            const continueChapterLink = chapters.length > 0
+    const readingHistory = getReadingHistory();
 
-                ? `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${resumeChapter}`
+    const savedProgress = readingHistory[String(manga.id)];
 
-                : "#";
+    const hasReadingHistory =
+        savedProgress &&
+        Number.isInteger(savedProgress.chapter) &&
+        savedProgress.chapter >= 0 &&
+        savedProgress.chapter < chapters.length;
 
-            const continueButtonText = hasReadingHistory
+    const resumeChapter = hasReadingHistory
+        ? savedProgress.chapter
+        : 0;
 
-                ? `📖 อ่านต่อ ${savedProgress.title || `ตอนที่ ${resumeChapter + 1}`}`
+    const continueChapterLink = chapters.length > 0
 
-                : "📖 อ่านตอนแรก";
+        ? `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${resumeChapter}`
 
+        : "#";
 
-            /* =================================
-               CHAPTER LIST
-            ================================= */
+    const continueButtonText = hasReadingHistory
 
-            const chaptersHTML = chapters.length > 0
+        ? `${getText("continue")} ${getChapterTitle(resumeChapter)}`
+        
+        : getText("readFirst");
 
-                ? chapters.map((chapter, index) => {
+    /* =================================
+       CHAPTER LIST
+    ================================= */
 
-                    const isLastRead =
-                        hasReadingHistory &&
-                        index === resumeChapter;
+    const chaptersHTML = chapters.length > 0
 
-                    return `
-                        <a
-                            class="chapter-item"
-                            href="reader.html?id=${encodeURIComponent(manga.id)}&chapter=${index}"
-                        >
-                            <span>
-                                ${isLastRead ? "📌 " : "📖 "}
-                                ${chapter.title || `ตอนที่ ${index + 1}`}
-                                ${isLastRead ? " (อ่านล่าสุด)" : ""}
-                            </span>
+        ? chapters.map((chapter, index) => {
 
-                            <span>อ่านตอนนี้ →</span>
-                        </a>
-                    `;
+            const isLastRead =
+                hasReadingHistory &&
+                index === resumeChapter;
 
-                }).join("")
-
-                : `
-                    <p>ยังไม่มีตอนให้อ่านในขณะนี้ 🌸</p>
-                `;
-
-
-            /* =================================
-               DETAIL HTML
-            ================================= */
-
-            detailContent.innerHTML = `
-
-                <div class="detail-layout">
-
-                    <!-- LEFT: COVER -->
-
-                    <section class="detail-box">
-                        ${cover}
-                    </section>
-
-
-                    <!-- CENTER: INFORMATION -->
-
-                    <section class="detail-info">
-
-                        <span class="detail-tag">
-                            ${manga.status || "มังงะ"}
-                        </span>
-
-                        <h1>${manga.title}</h1>
-
-                        <div class="detail-meta">
-
-                            <span class="detail-meta-item">
-                                ✍️ ${manga.author || "ไม่ระบุ"}
-                            </span>
-
-                            <span class="detail-meta-item">
-                                📚 ${manga.genre || "ไม่ระบุ"}
-                            </span>
-
-                            <span class="detail-meta-item">
-                                ⭐ ${manga.rating || "ยังไม่มีคะแนน"}
-                            </span>
-
-                        </div>
-
-                        <p
-                            class="detail-synopsis"
-                            id="detail-synopsis"
-                            role="button"
-                            tabindex="0"
-                            aria-label="แตะเพื่ออ่านเรื่องย่อฉบับเต็ม"
-                        >
-                            ${synopsisText}
-                        </p>
-
-                        <span class="synopsis-hint">
-                            แตะเพื่ออ่านเรื่องย่อฉบับเต็ม ✨
-                        </span>
-
-                        <div class="detail-actions">
-
-                            <a
-                                class="detail-action detail-primary-action ${chapters.length === 0 ? "disabled" : ""}"
-                                href="${continueChapterLink}"
-                                ${chapters.length === 0 ? 'aria-disabled="true"' : ""}
-                            >
-                                ${continueButtonText}
-                            </a>
-
-                            <button
-                                type="button"
-                                class="detail-action detail-favorite-action"
-                                id="detail-favorite"
-                                aria-pressed="false"
-                            >
-                                ♡ เพิ่มรายการโปรด
-                            </button>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- RIGHT: CHAPTER LIST -->
-
-                    <section class="detail-section">
-
-                        <h2>📖 รายชื่อตอน</h2>
-
-                        <div class="chapter-list">
-                            ${chaptersHTML}
-                        </div>
-
-                    </section>
-
-                </div>
-
-
-                <!-- FULL SYNOPSIS MODAL -->
-
-                <div
-                    class="synopsis-modal"
-                    id="synopsis-modal"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="synopsis-modal-title"
+            return `
+                <a
+                    class="chapter-item"
+                    href="reader.html?id=${encodeURIComponent(manga.id)}&chapter=${index}"
                 >
+                    <span>
+                        ${isLastRead ? "📌 " : "📖 "}
+                        ${getChapterTitle(index)}
+                        ${isLastRead ? getText("lastRead") : ""}
+                    </span>
 
-                    <div class="synopsis-modal-content">
+                    <span>${getText("readNow")}</span>
+                </a>
+            `;
 
-                        <div class="synopsis-modal-header">
+        }).join("")
 
-                            <h2 id="synopsis-modal-title">
-                                🌸 เรื่องย่อฉบับเต็ม
-                            </h2>
+        : `
+            <p>${getText("emptyChapters")}</p>
+        `;
 
-                            <button
-                                type="button"
-                                class="synopsis-close"
-                                id="synopsis-close"
-                                aria-label="ปิดหน้าต่าง"
-                            >
-                                ×
-                            </button>
+    /* =================================
+       DETAIL HTML
+    ================================= */
 
-                        </div>
+    detailContent.innerHTML = `
 
-                        <p class="synopsis-full-text">
-                            ${synopsisText}
-                        </p>
+        <div class="detail-layout">
 
-                        <div class="synopsis-modal-footer">
-                            Yume Manga · อ่านเรื่องย่อ
-                        </div>
+            <section class="detail-box">
+                ${cover}
+            </section>
 
-                    </div>
+            <section class="detail-info">
+
+                <span class="detail-tag">
+                    ${getStatus(manga.status)}
+                </span>
+
+                <h1>${manga.title}</h1>
+
+                <div class="detail-meta">
+
+                    <span class="detail-meta-item">
+                        ✍️ ${getText("author")}:
+                        ${manga.author || getText("noAuthor")}
+                    </span>
+
+                    <span class="detail-meta-item">
+                        📚 ${getText("genre")}:
+                        ${getLocalizedManga("genre", manga.genre || getText("noGenre"))}
+                    </span>
+
+                    <span class="detail-meta-item">
+                        ⭐ ${getText("rating")}:
+                        ${manga.rating || getText("noRating")}
+                    </span>
 
                 </div>
 
-            `;
+                <p
+                    class="detail-synopsis"
+                    id="detail-synopsis"
+                    role="button"
+                    tabindex="0"
+                    aria-label="${getText("synopsisAria")}"
+                >
+                    ${synopsisText}
+                </p>
 
+                <span class="synopsis-hint">
+                    ${getText("synopsisHint")}
+                </span>
 
-            /* =================================
-               SYNOPSIS EVENTS
-            ================================= */
+                <div class="detail-actions">
 
-            const synopsisButton = document.getElementById(
-                "detail-synopsis"
-            );
+                    <a
+                        class="detail-action detail-primary-action ${chapters.length === 0 ? "disabled" : ""}"
+                        href="${continueChapterLink}"
+                        ${chapters.length === 0 ? 'aria-disabled="true"' : ""}
+                    >
+                        ${continueButtonText}
+                    </a>
 
-            const synopsisModal = document.getElementById(
-                "synopsis-modal"
-            );
-
-            const synopsisClose = document.getElementById(
-                "synopsis-close"
-            );
-
-            synopsisButton.addEventListener("click", openSynopsis);
-
-            synopsisButton.addEventListener("keydown", event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-                    event.preventDefault();
-                    openSynopsis();
-                }
-
-            });
-
-            synopsisClose.addEventListener("click", closeSynopsis);
-
-            synopsisModal.addEventListener("click", event => {
-
-                if (event.target === synopsisModal) {
-                    closeSynopsis();
-                }
-
-            });
-
-            document.addEventListener("keydown", event => {
-
-                if (
-                    event.key === "Escape" &&
-                    synopsisModal.classList.contains("open")
-                ) {
-                    closeSynopsis();
-                }
-
-            });
-
-
-            /* =================================
-               FAVORITE EVENT
-            ================================= */
-
-            updateFavoriteButton();
-
-            document
-                .getElementById("detail-favorite")
-                .addEventListener("click", toggleDetailFavorite);
-
-
-            /* =================================
-               SCROLL REVEAL
-            ================================= */
-
-            const revealSections = document.querySelectorAll(
-                ".detail-section"
-            );
-
-            if ("IntersectionObserver" in window) {
-
-                const revealObserver = new IntersectionObserver(
-                    entries => {
-
-                        entries.forEach(entry => {
-
-                            if (entry.isIntersecting) {
-
-                                entry.target.classList.add(
-                                    "reveal-visible"
-                                );
-
-                                revealObserver.unobserve(entry.target);
-                            }
-
-                        });
-
-                    },
-                    {
-                        threshold: 0.05
-                    }
-                );
-
-                revealSections.forEach(section => {
-                    revealObserver.observe(section);
-                });
-
-            } else {
-
-                revealSections.forEach(section => {
-                    section.classList.add("reveal-visible");
-                });
-
-            }
-
-        } else {
-
-            detailContent.innerHTML = `
-
-                <div class="not-found">
-
-                    <h2>ไม่พบมังงะเรื่องนี้</h2>
-
-                    <p>ลองกลับไปเลือกเรื่องอื่นดูนะ</p>
+                    <button
+                        type="button"
+                        class="detail-action detail-favorite-action"
+                        id="detail-favorite"
+                        aria-pressed="false"
+                    >
+                        ${getText("favorite")}
+                    </button>
 
                 </div>
 
-            `;
+            </section>
 
+            <section class="detail-section">
+
+                <h2>${getText("chapters")}</h2>
+
+                <div class="chapter-list">
+                    ${chaptersHTML}
+                </div>
+
+            </section>
+
+        </div>
+
+        <div
+            class="synopsis-modal"
+            id="synopsis-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="synopsis-modal-title"
+        >
+
+            <div class="synopsis-modal-content">
+
+                <div class="synopsis-modal-header">
+
+                    <h2 id="synopsis-modal-title">
+                        ${getText("synopsisTitle")}
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="synopsis-close"
+                        id="synopsis-close"
+                        aria-label="${getText("close")}"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+                <p class="synopsis-full-text">
+                    ${synopsisText}
+                </p>
+
+                <div class="synopsis-modal-footer">
+                    ${getText("synopsisFooter")}
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    /* =================================
+       SYNOPSIS EVENTS
+    ================================= */
+
+    const synopsisButton = document.getElementById("detail-synopsis");
+    const synopsisModal = document.getElementById("synopsis-modal");
+    const synopsisClose = document.getElementById("synopsis-close");
+
+    synopsisButton?.addEventListener("click", openSynopsis);
+
+    synopsisButton?.addEventListener("keydown", event => {
+
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openSynopsis();
         }
 
+    });
 
-        /* =================================
-           CHAPTER CLICK TRANSITION
-        ================================= */
+    synopsisClose?.addEventListener("click", closeSynopsis);
 
-        detailContent.addEventListener("click", event => {
+    synopsisModal?.addEventListener("click", event => {
 
-            const link = event.target.closest(
-                ".chapter-item, .detail-primary-action"
-            );
+        if (event.target === synopsisModal) {
+            closeSynopsis();
+        }
 
-            if (!link) return;
+    });
 
-            if (link.classList.contains("disabled")) {
-                event.preventDefault();
-                return;
+    /* =================================
+       FAVORITE EVENT
+    ================================= */
+
+    updateFavoriteButton();
+
+    document
+        .getElementById("detail-favorite")
+        ?.addEventListener("click", toggleDetailFavorite);
+
+    /* =================================
+       SCROLL REVEAL
+    ================================= */
+
+    const revealSections = document.querySelectorAll(
+        ".detail-section"
+    );
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("reveal-visible");
+
+                        revealObserver.unobserve(entry.target);
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.05
             }
+        );
 
-            if (
-                !link.href ||
-                link.getAttribute("href") === "#"
-            ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            navigateWithFade(link.href);
-
+        revealSections.forEach(section => {
+            revealObserver.observe(section);
         });
 
+    } else {
 
-        /* =================================
-           PAGE TRANSITION
-        ================================= */
-
-        window.addEventListener("pageshow", () => {
-
-            requestAnimationFrame(() => {
-
-                document.body.classList.add("page-ready");
-
-                document.body.classList.remove("page-leaving");
-
-            });
-
+        revealSections.forEach(section => {
+            section.classList.add("reveal-visible");
         });
 
+    }
 
-        /* =================================
-           BACK TO HOME
-        ================================= */
+}
 
-        document
-            .getElementById("back-home")
-            .addEventListener("click", event => {
+/* =================================
+   EVENTS
+================================= */
 
-                event.preventDefault();
+document.addEventListener("keydown", event => {
 
-                navigateWithFade("index.html");
+    const modal = document.getElementById("synopsis-modal");
 
-            });
+    if (
+        event.key === "Escape" &&
+        modal?.classList.contains("open")
+    ) {
+        closeSynopsis();
+    }
 
-    </script>
+});
+
+detailContent.addEventListener("click", event => {
+
+    const link = event.target.closest(
+        ".chapter-item, .detail-primary-action"
+    );
+
+    if (!link) return;
+
+    if (link.classList.contains("disabled")) {
+        event.preventDefault();
+        return;
+    }
+
+    if (
+        !link.href ||
+        link.getAttribute("href") === "#"
+    ) {
+        return;
+    }
+
+    event.preventDefault();
+
+    navigateWithFade(link.href);
+
+});
+
+/* =================================
+   BACK TO HOME
+================================= */
+
+document
+    .getElementById("back-home")
+    .addEventListener("click", event => {
+
+        event.preventDefault();
+
+        navigateWithFade("index.html");
+
+    });
+
+/* =================================
+   LANGUAGE CHANGE
+================================= */
+
+function applyDetailLanguage(language) {
+
+    if (!supportedLanguages.includes(language)) {
+        return;
+    }
+
+    currentLanguage = language;
+
+    document.documentElement.lang = language;
+
+    document.getElementById("back-home").textContent =
+        getText("back");
+
+    renderDetail();
+
+}
+
+window.addEventListener("yume-language-change", event => {
+
+    applyDetailLanguage(event.detail.language);
+
+});
+
+/* =================================
+   INITIALIZE
+================================= */
+
+document.documentElement.lang = currentLanguage;
+
+document.getElementById("back-home").textContent =
+    getText("back");
+
+renderDetail();
+
+window.addEventListener("pageshow", () => {
+
+    requestAnimationFrame(() => {
+
+        document.body.classList.add("page-ready");
+
+        document.body.classList.remove("page-leaving");
+
+    });
+
+});
+
+</script>
+
 
 </body>
 </html>
