@@ -1586,7 +1586,7 @@ detailContent.addEventListener("click", event => {
 });
 
 /* =================================
-   BACK TO HOME
+   BACK TO HOME - PRESERVE LANGUAGE
 ================================= */
 
 document
@@ -1595,7 +1595,17 @@ document
 
         event.preventDefault();
 
-        navigateWithFade("index.html");
+        // บันทึกภาษาปัจจุบันก่อนกลับหน้าแรก
+        localStorage.setItem(
+            "yumeLanguage",
+            currentLanguage
+        );
+
+        // บันทึกภาษาไว้ใน URL ด้วย
+        const homeURL = `index.html?lang=${currentLanguage}`;
+
+        // กลับหน้าแรก
+        navigateWithFade(homeURL);
 
     });
 
