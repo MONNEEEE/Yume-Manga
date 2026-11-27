@@ -247,6 +247,11 @@
             </nav>
 
             <div class="header-actions">
+<div class="language-switcher" id="language-switcher">
+    <button type="button" data-lang="th">TH</button>
+    <button type="button" data-lang="ja">JA</button>
+    <button type="button" data-lang="en">EN</button>
+</div>
 
                 <button
                     class="theme-button"
@@ -468,6 +473,705 @@
 
     <!-- NOTIFICATION -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* =========================================
+   YUME MANGA - HOMEPAGE LANGUAGE SYSTEM
+   TH / JA / EN
+========================================= */
 
+(function () {
+
+    const supported = ["th", "ja", "en"];
+
+    let lang = localStorage.getItem("yumeLanguage") || "th";
+
+    if (!supported.includes(lang)) {
+        lang = "th";
+    }
+
+    const translations = {
+
+        th: {
+            home: "หน้าแรก",
+            mangaList: "มังงะทั้งหมด",
+            favorites: "รายการโปรด",
+
+            heroLabel: "✨ WELCOME TO YUME MANGA",
+            heroTitle: "โลกแห่งมังงะ<br>ที่คุณจะตกหลุมรัก",
+            heroDescription:
+                "ค้นพบเรื่องราวใหม่ ๆ และออกเดินทางไปกับโลกแห่งจินตนาการ ได้ที่ Yume Manga",
+
+            startReading: "เริ่มอ่านมังงะ",
+
+            discover: "DISCOVER YOUR STORY",
+            searchTitle: "ค้นหามังงะ",
+            searchPlaceholder:
+                "ค้นหาชื่อมังงะ ผู้แต่ง หรือแนวเรื่อง...",
+            searchButton: "ค้นหา",
+
+            genre: "📚 แนวเรื่อง",
+            allGenres: "ทุกแนวเรื่อง",
+
+            status: "🌸 สถานะ",
+            allStatus: "ทุกสถานะ",
+            recommended: "แนะนำ",
+            new: "ใหม่",
+
+            sort: "✨ เรียงลำดับ",
+            defaultSort: "ค่าเริ่มต้น",
+            ratingSort: "คะแนนสูงสุด",
+            nameSort: "ชื่อ A–Z",
+
+            showingAll: "กำลังแสดงมังงะทั้งหมด",
+            clearFilters: "↻ ล้างตัวกรอง",
+
+            collection: "OUR COLLECTION",
+            recommendedManga: "มังงะแนะนำ",
+            stories: "เรื่อง",
+
+            notFound: "ไม่พบมังงะที่ค้นหา ♡",
+
+            favoriteCollection: "YOUR COLLECTION",
+            favoriteTitle: "รายการโปรด",
+            noFavorites: "ยังไม่มีมังงะในรายการโปรดเลย 🌷",
+
+            footerDescription:
+                "A little world full of wonderful stories.",
+            footerCopyright:
+                "© 𝟮𝟬𝟮𝟲 𝗬𝘂𝗺𝗲 𝗠𝗮𝗻𝗴𝗮. 𝗠𝗮𝗱𝗲 𝘄𝗶𝘁𝗵 ♡",
+
+            searchResult: "พบมังงะ {n} เรื่องจากการค้นหา",
+            allResult: "กำลังแสดงมังงะทั้งหมด {n} เรื่อง",
+
+            clearToast: "ล้างตัวกรองแล้ว 🌸",
+            favoriteAdded: "เพิ่มลงรายการโปรดแล้ว ♥",
+            favoriteRemoved: "นำออกจากรายการโปรดแล้ว ♡",
+            searchDone: "ค้นหามังงะเรียบร้อยแล้ว 🔎",
+            searchCleared: "ล้างคำค้นหาแล้ว 🌷",
+
+            darkMode: "เปลี่ยนเป็นโหมดมืด",
+            lightMode: "เปลี่ยนเป็นโหมดสว่าง",
+            darkOn: "เปิด Dark Mode แล้ว 🌙",
+            lightOn: "กลับสู่โหมดสว่างแล้ว ☀️",
+
+            addFavorite: "เพิ่มในรายการโปรด",
+            removeFavorite: "นำออกจากรายการโปรด",
+            openManga: "เปิดเรื่อง",
+
+            genreRomance: "Romance",
+            genreRomanticComedy: "Romantic Comedy",
+            genreAdventure: "Adventure",
+            genreSlice: "Slice of Life",
+
+            menuOpen: "เปิดเมนู",
+            menuClose: "ปิดเมนู"
+        },
+
+        ja: {
+            home: "ホーム",
+            mangaList: "すべての漫画",
+            favorites: "お気に入り",
+
+            heroLabel: "✨ WELCOME TO YUME MANGA",
+            heroTitle: "大好きな物語に<br>出会える漫画の世界",
+            heroDescription:
+                "新しい物語を見つけて、想像の世界への旅をYume Mangaで楽しもう。",
+
+            startReading: "漫画を読む",
+
+            discover: "DISCOVER YOUR STORY",
+            searchTitle: "漫画を検索",
+            searchPlaceholder:
+                "作品名、作者、ジャンルで検索...",
+            searchButton: "検索",
+
+            genre: "📚 ジャンル",
+            allGenres: "すべてのジャンル",
+
+            status: "🌸 ステータス",
+            allStatus: "すべて",
+            recommended: "おすすめ",
+            new: "新作",
+
+            sort: "✨ 並び替え",
+            defaultSort: "デフォルト",
+            ratingSort: "評価順",
+            nameSort: "名前順 A–Z",
+
+            showingAll: "すべての漫画を表示中",
+            clearFilters: "↻ フィルターをリセット",
+
+            collection: "OUR COLLECTION",
+            recommendedManga: "おすすめ漫画",
+            stories: "作品",
+
+            notFound: "漫画が見つかりません ♡",
+
+            favoriteCollection: "YOUR COLLECTION",
+            favoriteTitle: "お気に入り",
+            noFavorites: "お気に入りはまだありません 🌷",
+
+            footerDescription:
+                "A little world full of wonderful stories.",
+            footerCopyright:
+                "© 𝟮𝟬𝟮𝟲 𝗬𝘂𝗺𝗲 𝗠𝗮𝗻𝗴𝗮. 𝗠𝗮𝗱𝗲 𝘄𝗶𝘁𝗵 ♡",
+
+            searchResult: "検索結果：{n}作品",
+            allResult: "全{n}作品を表示中",
+
+            clearToast: "フィルターをリセットしました 🌸",
+            favoriteAdded: "お気に入りに追加しました ♥",
+            favoriteRemoved: "お気に入りから削除しました ♡",
+            searchDone: "検索しました 🔎",
+            searchCleared: "検索をクリアしました 🌷",
+
+            darkMode: "ダークモードに切り替え",
+            lightMode: "ライトモードに切り替え",
+            darkOn: "ダークモードにしました 🌙",
+            lightOn: "ライトモードにしました ☀️",
+
+            addFavorite: "お気に入りに追加",
+            removeFavorite: "お気に入りから削除",
+            openManga: "作品を開く",
+
+            genreRomance: "Romance",
+            genreRomanticComedy: "Romantic Comedy",
+            genreAdventure: "Adventure",
+            genreSlice: "Slice of Life",
+
+            menuOpen: "メニューを開く",
+            menuClose: "メニューを閉じる"
+        },
+
+        en: {
+            home: "Home",
+            mangaList: "All Manga",
+            favorites: "Favorites",
+
+            heroLabel: "✨ WELCOME TO YUME MANGA",
+            heroTitle: "A World of Manga<br>You'll Fall in Love With",
+            heroDescription:
+                "Discover new stories and explore a world of imagination with Yume Manga.",
+
+            startReading: "Start Reading",
+
+            discover: "DISCOVER YOUR STORY",
+            searchTitle: "Discover Manga",
+            searchPlaceholder:
+                "Search manga, author or genre...",
+            searchButton: "Search",
+
+            genre: "📚 Genre",
+            allGenres: "All Genres",
+
+            status: "🌸 Status",
+            allStatus: "All Status",
+            recommended: "Recommended",
+            new: "New",
+
+            sort: "✨ Sort By",
+            defaultSort: "Default",
+            ratingSort: "Highest Rated",
+            nameSort: "Name A–Z",
+
+            showingAll: "Showing all manga",
+            clearFilters: "↻ Clear Filters",
+
+            collection: "OUR COLLECTION",
+            recommendedManga: "Recommended Manga",
+            stories: "titles",
+
+            notFound: "No manga found ♡",
+
+            favoriteCollection: "YOUR COLLECTION",
+            favoriteTitle: "Favorites",
+            noFavorites: "No favorites yet 🌷",
+
+            footerDescription:
+                "A little world full of wonderful stories.",
+            footerCopyright:
+                "© 𝟮𝟬𝟮𝟲 𝗬𝘂𝗺𝗲 𝗠𝗮𝗻𝗴𝗮. 𝗠𝗮𝗱𝗲 𝘄𝗶𝘁𝗵 ♡",
+
+            searchResult: "{n} manga found",
+            allResult: "Showing all {n} manga",
+
+            clearToast: "Filters cleared 🌸",
+            favoriteAdded: "Added to favorites ♥",
+            favoriteRemoved: "Removed from favorites ♡",
+            searchDone: "Search completed 🔎",
+            searchCleared: "Search cleared 🌷",
+
+            darkMode: "Switch to dark mode",
+            lightMode: "Switch to light mode",
+            darkOn: "Dark Mode enabled 🌙",
+            lightOn: "Light Mode enabled ☀️",
+
+            addFavorite: "Add to favorites",
+            removeFavorite: "Remove from favorites",
+            openManga: "Open manga",
+
+            genreRomance: "Romance",
+            genreRomanticComedy: "Romantic Comedy",
+            genreAdventure: "Adventure",
+            genreSlice: "Slice of Life",
+
+            menuOpen: "Open menu",
+            menuClose: "Close menu"
+        }
+
+    };
+
+
+    /* =================================
+       TRANSLATE STATIC ELEMENTS
+    ================================= */
+
+    function setText(selector, value) {
+
+        const element = document.querySelector(selector);
+
+        if (element) {
+            element.textContent = value;
+        }
+
+    }
+
+    function setHTML(selector, value) {
+
+        const element = document.querySelector(selector);
+
+        if (element) {
+            element.innerHTML = value;
+        }
+
+    }
+
+    function setPlaceholder(selector, value) {
+
+        const element = document.querySelector(selector);
+
+        if (element) {
+            element.placeholder = value;
+        }
+
+    }
+
+
+    function translateStatic() {
+
+        const t = translations[lang];
+
+        document.documentElement.lang = lang;
+
+        // Navigation
+
+        setText('.nav-link[href="#home"]', t.home);
+        setText('.nav-link[href="#manga-list"]', t.mangaList);
+        setText('.nav-link[href="#favorites"]', t.favorites);
+
+        // Hero
+
+        setText(".hero-label", t.heroLabel);
+        setHTML(".hero-content h1", t.heroTitle);
+        setText(".hero-content p", t.heroDescription);
+
+        const heroButton = document.querySelector(".primary-button");
+
+        if (heroButton) {
+            heroButton.innerHTML =
+                `${t.startReading} <span>♡</span>`;
+        }
+
+        // Search
+
+        setText(".search-section .small-label", t.discover);
+        setText(".search-section h2", t.searchTitle);
+
+        setPlaceholder("#manga-search", t.searchPlaceholder);
+        setText("#search-button", t.searchButton);
+
+        // Genre
+
+        const genreLabel = document.querySelector(
+            'label[for="genre-filter"]'
+        );
+
+        if (genreLabel) genreLabel.textContent = t.genre;
+
+        const genreOptions = document.querySelectorAll(
+            "#genre-filter option"
+        );
+
+        if (genreOptions.length >= 5) {
+
+            genreOptions[0].textContent = t.allGenres;
+            genreOptions[1].textContent = t.genreRomance;
+            genreOptions[2].textContent = t.genreRomanticComedy;
+            genreOptions[3].textContent = t.genreAdventure;
+            genreOptions[4].textContent = t.genreSlice;
+
+        }
+
+        // Status
+
+        const statusLabel = document.querySelector(
+            'label[for="status-filter"]'
+        );
+
+        if (statusLabel) statusLabel.textContent = t.status;
+
+        const statusOptions = document.querySelectorAll(
+            "#status-filter option"
+        );
+
+        if (statusOptions.length >= 3) {
+
+            statusOptions[0].textContent = t.allStatus;
+            statusOptions[1].textContent = t.recommended;
+            statusOptions[2].textContent = t.new;
+
+        }
+
+        // Sort
+
+        const sortLabel = document.querySelector(
+            'label[for="sort-filter"]'
+        );
+
+        if (sortLabel) sortLabel.textContent = t.sort;
+
+        const sortOptions = document.querySelectorAll(
+            "#sort-filter option"
+        );
+
+        if (sortOptions.length >= 3) {
+
+            sortOptions[0].textContent = t.defaultSort;
+            sortOptions[1].textContent = t.ratingSort;
+            sortOptions[2].textContent = t.nameSort;
+
+        }
+
+        // Filter buttons
+
+        setText("#clear-filters", t.clearFilters);
+
+        // Manga collection
+
+        setText(".manga-section .small-label", t.collection);
+        setText(".manga-section h2", t.recommendedManga + " ✧");
+
+        // Favorites
+
+        setText(".favorites-section .small-label", t.favoriteCollection);
+        setText(".favorites-section h2", t.favoriteTitle + " ♡");
+
+        // Empty messages
+
+        setText("#empty-message", t.notFound);
+        setText("#favorites-empty", t.noFavorites);
+
+        // Footer
+
+        setText(".footer > p:first-of-type", t.footerDescription);
+        setText(".copyright", t.footerCopyright);
+
+        // Menu
+
+        if (menuButton) {
+
+            const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? t.menuClose : t.menuOpen
+            );
+
+        }
+
+        // Theme button
+
+        if (themeButton) {
+
+            const isDark = document.body.classList.contains("dark");
+
+            themeButton.setAttribute(
+                "aria-label",
+                isDark ? t.lightMode : t.darkMode
+            );
+
+        }
+
+    }
+
+
+    /* =================================
+       TRANSLATE DYNAMIC ELEMENTS
+    ================================= */
+
+    function translateDynamic() {
+
+        const t = translations[lang];
+
+        // Manga status
+
+        document.querySelectorAll(".manga-status").forEach(element => {
+
+            const value = element.textContent.trim();
+
+            if (value === "แนะนำ" || value === "Recommended" || value === "おすすめ") {
+                element.textContent = t.recommended;
+            }
+
+            if (value === "ใหม่" || value === "New" || value === "新作") {
+                element.textContent = t.new;
+            }
+
+        });
+
+
+        // Genre tags
+
+        document.querySelectorAll(".genre").forEach(element => {
+
+            const value = element.textContent.trim();
+
+            if (value === "Romance") {
+                element.textContent = t.genreRomance;
+            }
+
+            if (value === "Adventure") {
+                element.textContent = t.genreAdventure;
+            }
+
+            if (value === "Slice of Life") {
+                element.textContent = t.genreSlice;
+            }
+
+            if (value === "Romantic Comedy / Romance") {
+                element.textContent =
+                    lang === "th"
+                        ? "Romantic Comedy / Romance"
+                        : lang === "ja"
+                            ? "ラブコメ / ロマンス"
+                            : "Romantic Comedy / Romance";
+            }
+
+        });
+
+
+        // Favorite buttons
+
+        document.querySelectorAll("[data-favorite]").forEach(button => {
+
+            const id = Number(button.dataset.favorite);
+
+            const isFavorite = button.classList.contains("selected");
+
+            const manga = mangaData.find(item => Number(item.id) === id);
+
+            if (!manga) return;
+
+            const title = manga.title || "";
+
+            button.setAttribute(
+                "aria-label",
+                `${isFavorite ? t.removeFavorite : t.addFavorite} ${title}`
+            );
+
+        });
+
+
+        // Manga card accessible labels
+
+        document.querySelectorAll("[data-manga]").forEach(card => {
+
+            const id = Number(card.dataset.manga);
+
+            const manga = mangaData.find(item => Number(item.id) === id);
+
+            if (!manga) return;
+
+            card.setAttribute(
+                "aria-label",
+                `${t.openManga} ${manga.title}`
+            );
+
+        });
+
+
+        // Result count
+
+        if (resultCount) {
+
+            const number = resultCount.textContent.match(/\d+/);
+
+            if (number) {
+
+                resultCount.textContent =
+                    `${number[0]} ${t.stories}`;
+
+            }
+
+        }
+
+
+        // Filter summary
+
+        if (filterSummary) {
+
+            const text = filterSummary.textContent;
+
+            const number = text.match(/\d+/);
+
+            if (number) {
+
+                const hasFilter =
+                    (searchInput?.value || "").trim() ||
+                    genreFilter?.value ||
+                    statusFilter?.value ||
+                    (sortFilter?.value && sortFilter.value !== "default");
+
+                filterSummary.textContent = hasFilter
+                    ? t.searchResult.replace("{n}", number[0])
+                    : t.allResult.replace("{n}", number[0]);
+
+            } else {
+
+                filterSummary.textContent = t.showingAll;
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       TRANSLATE TOAST
+    ================================= */
+
+    function translateToast() {
+
+        if (!toast) return;
+
+        const t = translations[lang];
+
+        const messages = {
+
+            "ล้างตัวกรองแล้ว 🌸": t.clearToast,
+            "เพิ่มลงรายการโปรดแล้ว ♥": t.favoriteAdded,
+            "นำออกจากรายการโปรดแล้ว ♡": t.favoriteRemoved,
+            "ค้นหามังงะเรียบร้อยแล้ว 🔎": t.searchDone,
+            "ล้างคำค้นหาแล้ว 🌷": t.searchCleared,
+            "เปิด Dark Mode แล้ว 🌙": t.darkOn,
+            "กลับสู่โหมดสว่างแล้ว ☀️": t.lightOn
+
+        };
+
+        const current = toast.textContent.trim();
+
+        if (messages[current]) {
+            toast.textContent = messages[current];
+        }
+
+    }
+
+
+    /* =================================
+       APPLY LANGUAGE
+    ================================= */
+
+    function applyLanguage() {
+
+        lang = localStorage.getItem("yumeLanguage") || "th";
+
+        if (!supported.includes(lang)) {
+            lang = "th";
+        }
+
+        document.documentElement.lang = lang;
+
+        translateStatic();
+        translateDynamic();
+        translateToast();
+
+    }
+
+
+    /* =================================
+       LANGUAGE CHANGE EVENT
+    ================================= */
+
+    window.addEventListener("yume-language-change", event => {
+
+        if (event.detail && event.detail.language) {
+
+            lang = event.detail.language;
+
+        }
+
+        applyLanguage();
+
+    });
+
+
+    /* =================================
+       OBSERVE DYNAMIC CONTENT
+    ================================= */
+
+    const observer = new MutationObserver(() => {
+
+        translateDynamic();
+        translateToast();
+
+    });
+
+    if (mangaGrid) {
+        observer.observe(mangaGrid, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    if (favoritesGrid) {
+        observer.observe(favoritesGrid, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    if (filterSummary) {
+        observer.observe(filterSummary, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    }
+
+    if (resultCount) {
+        observer.observe(resultCount, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    }
+
+    if (toast) {
+        observer.observe(toast, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    }
+
+
+    /* =================================
+       INITIAL
+    ================================= */
+
+    applyLanguage();
+
+})();
+</script>
 </body>
-</html>
