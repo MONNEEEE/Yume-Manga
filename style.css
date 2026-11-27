@@ -1844,3 +1844,67 @@ select:focus-visible {
     }
 
 }
+/* =================================
+   YUME MANGA LANGUAGE SWITCHER
+================================= */
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 14px;
+    background: #fff0f6;
+    border: 1px solid #f5d5e5;
+}
+
+.language-switcher button {
+    min-width: 36px;
+    padding: 8px 7px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #b66b91;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.language-switcher button.active {
+    background: #e879ad;
+    color: white;
+    box-shadow: 0 3px 8px rgba(232, 121, 173, .25);
+}
+
+.language-switcher button:active {
+    transform: scale(.95);
+}
+
+body.dark .language-switcher {
+    background: #382735;
+    border-color: rgba(255,255,255,.1);
+}
+
+body.dark .language-switcher button {
+    color: #ffc2dc;
+}
+
+body.dark .language-switcher button.active {
+    background: #d95b98;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .language-switcher {
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .language-switcher button {
+        min-width: 32px;
+        padding: 8px 5px;
+        font-size: 11px;
+    }
+}
