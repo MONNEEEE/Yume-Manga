@@ -1157,3 +1157,457 @@ console.log("🌸 Yume Manga Pink Dream Interactive Edition Loaded");
     });
 
 })();
+/* =========================================
+   YUME MANGA
+   MANGA DATA LANGUAGE EXTENSION
+   TH / JA / EN
+========================================= */
+
+(function () {
+
+    // =================================
+    // LANGUAGE DATA
+    // =================================
+
+    const mangaTranslations = {
+
+        1: {
+            th: {
+                title: "Tonari No Neko To Koi Shirazu",
+                author: "Akinoko",
+                genre: "Romantic Comedy / Romance",
+                status: "แนะนำ",
+                synopsis: "ชีวิตมัธยมปลายของ มินาโตะ เซโน่ เพิ่งจะเริ่มต้นขึ้น ครูประจำชั้นก็ขอให้เขาช่วยดูแล เนะโกะเซเนะ สาวน้อยที่ดูเหมือนแมว ชอบหลับตลอดเวลา ซึ่งนั่งอยู่แถวถัดไปในห้องเรียน มินาโตะเป็นเด็กขี้อายและไม่กล้าสู้คน เขาไม่เคยคุยกับเธอเลย แถมแทบไม่เคยเห็นหน้าเธอชัดๆ ด้วยซ้ำ แต่เมื่อเขาสะดุ้งกล้าพอที่จะไปปลุกเนะโกะเซเนะ เธอกลับกอดเขาไว้ทันทีโดยที่เขาไม่ได้ตั้งตัว!"
+            },
+
+            ja: {
+                title: "Tonari No Neko To Koi Shirazu",
+                author: "Akinoko",
+                genre: "ラブコメ / 恋愛",
+                status: "おすすめ",
+                synopsis: "湊瀬乃の高校生活が始まったばかりの頃、担任の先生から隣の席に座る猫のような少女、猫瀬音の世話を頼まれる。彼女はいつも眠そうで、湊は今までほとんど話したこともなかった。ある日、勇気を出して彼女を起こそうとすると、思いがけず彼女に抱きつかれてしまう。"
+            },
+
+            en: {
+                title: "Tonari No Neko To Koi Shirazu",
+                author: "Akinoko",
+                genre: "Romantic Comedy / Romance",
+                status: "Recommended",
+                synopsis: "Minato Zeno's high school life has just begun when his homeroom teacher asks him to look after Nekosene, a cat-like girl who is always sleeping in the seat next to him. Minato is shy and rarely speaks to others. He has barely ever talked to her, or even seen her face clearly. But when he finally gathers the courage to wake her up, she suddenly hugs him, catching him completely off guard."
+            }
+        },
+
+        2: {
+            th: {
+                title: "Moonlight Story",
+                author: "Hana Studio",
+                genre: "Romance",
+                status: "ใหม่"
+            },
+
+            ja: {
+                title: "Moonlight Story",
+                author: "Hana Studio",
+                genre: "恋愛",
+                status: "新作"
+            },
+
+            en: {
+                title: "Moonlight Story",
+                author: "Hana Studio",
+                genre: "Romance",
+                status: "New"
+            }
+        },
+
+        3: {
+            th: {
+                title: "Sweet Adventure",
+                author: "Momo Studio",
+                genre: "Adventure",
+                status: "แนะนำ"
+            },
+
+            ja: {
+                title: "Sweet Adventure",
+                author: "Momo Studio",
+                genre: "冒険",
+                status: "おすすめ"
+            },
+
+            en: {
+                title: "Sweet Adventure",
+                author: "Momo Studio",
+                genre: "Adventure",
+                status: "Recommended"
+            }
+        },
+
+        4: {
+            th: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "Slice of Life",
+                status: "ใหม่"
+            },
+
+            ja: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "日常",
+                status: "新作"
+            },
+
+            en: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "Slice of Life",
+                status: "New"
+            }
+        },
+
+        5: {
+            th: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "Slice of Life",
+                status: "ใหม่"
+            },
+
+            ja: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "日常",
+                status: "新作"
+            },
+
+            en: {
+                title: "Little Garden",
+                author: "Sora Studio",
+                genre: "Slice of Life",
+                status: "New"
+            }
+        }
+
+    };
+
+
+    // =================================
+    // GET CURRENT LANGUAGE
+    // =================================
+
+    function getCurrentLanguage() {
+
+        let language = "th";
+
+        try {
+            language = localStorage.getItem("yumeLanguage") || "th";
+        } catch (error) {}
+
+        if (!["th", "ja", "en"].includes(language)) {
+            language = "th";
+        }
+
+        return language;
+
+    }
+
+
+    // =================================
+    // GET TRANSLATED MANGA DATA
+    // =================================
+
+    function getLocalizedManga(manga) {
+
+        const language = getCurrentLanguage();
+
+        const translation =
+            mangaTranslations[manga.id]?.[language] || {};
+
+        return {
+            ...manga,
+            ...translation
+        };
+
+    }
+
+
+    // =================================
+    // REPLACE CREATE MANGA CARD
+    // =================================
+
+    window.createMangaCard = function (manga) {
+
+        manga = getLocalizedManga(manga);
+
+        const mangaId = Number(manga.id);
+        const isFavorite = favorites.includes(mangaId);
+        const hasImage = isImageURL(manga.cover);
+
+        const title = escapeHTML(manga.title || "Untitled");
+        const author = escapeHTML(manga.author || "");
+        const genre = escapeHTML(manga.genre || "");
+        const status = escapeHTML(manga.status || "");
+        const rating = escapeHTML(manga.rating || "");
+        const coverClass = escapeHTML(manga.coverClass || "");
+
+        const language = getCurrentLanguage();
+
+        const labels = {
+
+            th: {
+                open: "เปิดเรื่อง",
+                add: "เพิ่มรายการโปรด",
+                remove: "นำออกจากรายการโปรด"
+            },
+
+            ja: {
+                open: "作品を開く",
+                add: "お気に入りに追加",
+                remove: "お気に入りから削除"
+            },
+
+            en: {
+                open: "Open manga",
+                add: "Add to favorites",
+                remove: "Remove from favorites"
+            }
+
+        };
+
+        const text = labels[language];
+
+        const coverContent = hasImage
+            ? `
+                <img
+                    class="cover-image"
+                    src="${escapeHTML(manga.cover)}"
+                    alt="${escapeHTML(title)}"
+                    loading="lazy"
+                    decoding="async"
+                >
+            `
+            : `
+                <span class="cover-art" aria-hidden="true">
+                    ${escapeHTML(manga.cover || "🌸")}
+                </span>
+            `;
+
+        return `
+            <article
+                class="manga-card"
+                data-manga="${escapeHTML(mangaId)}"
+                role="link"
+                tabindex="0"
+                aria-label="${text.open} ${title}"
+            >
+                <div class="manga-cover ${coverClass}">
+                    ${coverContent}
+
+                    <span class="manga-status">${status}</span>
+
+                    <button
+                        class="favorite-button ${isFavorite ? "selected" : ""}"
+                        data-favorite="${escapeHTML(mangaId)}"
+                        aria-label="${isFavorite ? text.remove : text.add} ${title}"
+                        aria-pressed="${isFavorite}"
+                        type="button"
+                    >
+                        <span aria-hidden="true">
+                            ${isFavorite ? "♥" : "♡"}
+                        </span>
+                    </button>
+                </div>
+
+                <div class="manga-info">
+                    <h3>${title}</h3>
+                    <p>${author}</p>
+
+                    <div class="manga-meta">
+                        <span class="genre">${genre}</span>
+                        <span class="rating">${rating}</span>
+                    </div>
+                </div>
+            </article>
+        `;
+
+    };
+
+
+    // =================================
+    // REPLACE SEARCH SYSTEM
+    // =================================
+
+    window.searchManga = function () {
+
+        if (!mangaGrid) return;
+
+        const language = getCurrentLanguage();
+
+        const keyword = (searchInput?.value || "")
+            .trim()
+            .toLowerCase();
+
+        const selectedGenre = (genreFilter?.value || "")
+            .trim()
+            .toLowerCase();
+
+        const selectedStatus = (statusFilter?.value || "")
+            .trim()
+            .toLowerCase();
+
+        const selectedSort = sortFilter?.value || "default";
+
+
+        // FILTER
+
+        let results = mangaData.filter(originalManga => {
+
+            const manga = getLocalizedManga(originalManga);
+
+            const title = String(manga.title || "").toLowerCase();
+
+            const author = String(manga.author || "").toLowerCase();
+
+            const genre = String(manga.genre || "").toLowerCase();
+
+            const synopsis = String(manga.synopsis || "").toLowerCase();
+
+            const originalTitle =
+                String(originalManga.title || "").toLowerCase();
+
+            const originalGenre =
+                String(originalManga.genre || "").toLowerCase();
+
+            const originalStatus =
+                String(originalManga.status || "").toLowerCase();
+
+            const localizedStatus =
+                String(manga.status || "").toLowerCase();
+
+
+            // SEARCH
+
+            const matchesKeyword =
+                !keyword ||
+                title.includes(keyword) ||
+                author.includes(keyword) ||
+                genre.includes(keyword) ||
+                synopsis.includes(keyword) ||
+                originalTitle.includes(keyword) ||
+                originalGenre.includes(keyword);
+
+
+            // GENRE
+
+            const matchesGenre =
+                !selectedGenre ||
+                genre.includes(selectedGenre) ||
+                originalGenre.includes(selectedGenre);
+
+
+            // STATUS
+
+            const matchesStatus =
+                !selectedStatus ||
+                localizedStatus === selectedStatus ||
+                originalStatus === selectedStatus;
+
+
+            return (
+                matchesKeyword &&
+                matchesGenre &&
+                matchesStatus
+            );
+
+        });
+
+
+        // SORT
+
+        if (selectedSort === "rating") {
+
+            results.sort((a, b) =>
+                getRatingNumber(b) - getRatingNumber(a)
+            );
+
+        } else if (selectedSort === "name") {
+
+            results.sort((a, b) => {
+
+                const titleA =
+                    getLocalizedManga(a).title || "";
+
+                const titleB =
+                    getLocalizedManga(b).title || "";
+
+                return titleA.localeCompare(
+                    titleB,
+                    language === "ja" ? "ja" : language === "th" ? "th" : "en"
+                );
+
+            });
+
+        }
+
+
+        // DISPLAY
+
+        renderManga(results);
+
+
+        // FILTER SUMMARY
+
+        if (filterSummary) {
+
+            const hasFilter =
+                keyword ||
+                selectedGenre ||
+                selectedStatus ||
+                selectedSort !== "default";
+
+            const messages = {
+
+                th: hasFilter
+                    ? `พบมังงะ ${results.length} เรื่องจากการค้นหา`
+                    : `กำลังแสดงมังงะทั้งหมด ${results.length} เรื่อง`,
+
+                ja: hasFilter
+                    ? `検索結果：${results.length}作品`
+                    : `全${results.length}作品を表示`,
+
+                en: hasFilter
+                    ? `${results.length} manga found`
+                    : `Showing ${results.length} manga`
+
+            };
+
+            filterSummary.textContent = messages[language];
+
+        }
+
+    };
+
+
+    // =================================
+    // LANGUAGE CHANGE
+    // =================================
+
+    window.addEventListener("yume-language-change", function () {
+
+        searchManga();
+
+        renderFavorites();
+
+    });
+
+
+    // =================================
+    // INITIAL REFRESH
+    // =================================
+
+    searchManga();
+
+    renderFavorites();
+
+})();
