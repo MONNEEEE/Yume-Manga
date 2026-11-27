@@ -17,75 +17,88 @@ const mangaData = [
         cover: "https://i.ibb.co/wNn40xKn/IMG-0654.jpg",
         coverClass: "cover-1",
 
+        
         chapters: [
             {
                 title: "ตอนที่ 1",
-                pages: [
-                    "https://cdn.rapidfile.cc/mLy06hOYK1/IMG_0654.jpeg",
-                    "https://cdn.rapidfile.cc/yS0TsQdx1n/IMG_0656.jpeg",
-                    "https://cdn.rapidfile.cc/ohxqbGyFfb/IMG_0657.jpeg",
-                    "https://cdn.rapidfile.cc/3MzPB7iiVK/IMG_0658.jpeg",
-                    "https://cdn.rapidfile.cc/xI4EBJ5DFv/IMG_0659.jpeg",
-                    "https://cdn.rapidfile.cc/hsLfxq50Wr/IMG_0660.jpeg",
-                    "https://cdn.rapidfile.cc/s4HtSXJ60N/IMG_0692.jpeg",
-                    "https://cdn.rapidfile.cc/YdxpkOSrNz/IMG_0693.jpeg",
-                    "https://cdn.rapidfile.cc/99pBcD1lBZ/IMG_0694.jpeg",
-                    "https://cdn.rapidfile.cc/0XoDh57NKx/IMG_0696.jpeg",
-                    "https://cdn.rapidfile.cc/k7EdoXAvVU/IMG_0697.jpeg",
-                    "https://cdn.rapidfile.cc/VJq6FcyUWR/IMG_0698.jpeg",
-                    "https://cdn.rapidfile.cc/UtzGFmLYmY/IMG_0699.jpeg",
-                    "https://cdn.rapidfile.cc/AF6mXaEmyT/IMG_0700.jpeg",
-                    "https://cdn.rapidfile.cc/UvXrc3q27A/IMG_0701.jpeg",
-                    "https://cdn.rapidfile.cc/q01TeXDHQ6/IMG_0702.jpeg",
-                    "https://cdn.rapidfile.cc/qQVhAWU6gG/IMG_0703.jpeg",
-                    "https://cdn.rapidfile.cc/FhuF9JRvkw/IMG_0704.jpeg",
-                    "https://cdn.rapidfile.cc/sQ7JiNUowK/IMG_0705.jpeg",
-                    "https://cdn.rapidfile.cc/tp8iwVl5Ip/IMG_0706.jpeg",
-                    "https://cdn.rapidfile.cc/YZu2BgIi9u/IMG_0707.jpeg",
-                    "https://cdn.rapidfile.cc/1wlc2I1fgO/IMG_0708.jpeg",
-                    "https://cdn.rapidfile.cc/JNfympHIq8/IMG_0709.jpeg",
-                    "https://cdn.rapidfile.cc/fJXoqwmuVn/IMG_0710.jpeg",
-                    "https://cdn.rapidfile.cc/EYvstRmcHF/IMG_0711.jpeg",
-                    "https://cdn.rapidfile.cc/elcqvfMPjE/IMG_0712.jpeg",
-                    "https://cdn.rapidfile.cc/Bp7emPtGi1/IMG_0713.jpeg",
-                    "https://cdn.rapidfile.cc/tXdE7HLc7p/IMG_0714.jpeg",
-                    "https://cdn.rapidfile.cc/ZsJVE5KE7d/IMG_0715.jpeg",
-                    "https://cdn.rapidfile.cc/jizfyOfMZK/IMG_0716.jpeg",
-                    "https://cdn.rapidfile.cc/6rytmWsIuG/IMG_0717.jpeg",
-                    "https://cdn.rapidfile.cc/c37yvxj8tY/IMG_0718.jpeg",
-                    "https://cdn.rapidfile.cc/ZTKkE5yKsL/IMG_0719.jpeg",
-                    "https://cdn.rapidfile.cc/FK17bsSFHm/IMG_0720.jpeg",
-                    "https://cdn.rapidfile.cc/rWD7Trtz2N/IMG_0721.jpeg",
-                    "https://cdn.rapidfile.cc/coCqAZUDQC/IMG_0722.jpeg",
-                    "https://cdn.rapidfile.cc/FnFB00McWm/IMG_0723.jpeg",
-                    "https://cdn.rapidfile.cc/JcyqZ95vvd/IMG_0724.jpeg",
-                    "https://cdn.rapidfile.cc/3w5b6msgXW/IMG_0725.jpeg",
-                    "https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png"
-                ]
+                pages: {
+                    th: [
+                        "https://cdn.rapidfile.cc/mLy06hOYK1/IMG_0654.jpeg",
+                        "https://cdn.rapidfile.cc/yS0TsQdx1n/IMG_0656.jpeg",
+                        "https://cdn.rapidfile.cc/ohxqbGyFfb/IMG_0657.jpeg",
+                        "https://cdn.rapidfile.cc/3MzPB7iiVK/IMG_0658.jpeg",
+                        "https://cdn.rapidfile.cc/xI4EBJ5DFv/IMG_0659.jpeg",
+                        "https://cdn.rapidfile.cc/hsLfxq50Wr/IMG_0660.jpeg",
+                        "https://cdn.rapidfile.cc/s4HtSXJ60N/IMG_0692.jpeg",
+                        "https://cdn.rapidfile.cc/YdxpkOSrNz/IMG_0693.jpeg",
+                        "https://cdn.rapidfile.cc/99pBcD1lBZ/IMG_0694.jpeg",
+                        "https://cdn.rapidfile.cc/0XoDh57NKx/IMG_0696.jpeg",
+                        "https://cdn.rapidfile.cc/k7EdoXAvVU/IMG_0697.jpeg",
+                        "https://cdn.rapidfile.cc/VJq6FcyUWR/IMG_0698.jpeg",
+                        "https://cdn.rapidfile.cc/UtzGFmLYmY/IMG_0699.jpeg",
+                        "https://cdn.rapidfile.cc/AF6mXaEmyT/IMG_0700.jpeg",
+                        "https://cdn.rapidfile.cc/UvXrc3q27A/IMG_0701.jpeg",
+                        "https://cdn.rapidfile.cc/q01TeXDHQ6/IMG_0702.jpeg",
+                        "https://cdn.rapidfile.cc/qQVhAWU6gG/IMG_0703.jpeg",
+                        "https://cdn.rapidfile.cc/FhuF9JRvkw/IMG_0704.jpeg",
+                        "https://cdn.rapidfile.cc/sQ7JiNUowK/IMG_0705.jpeg",
+                        "https://cdn.rapidfile.cc/tp8iwVl5Ip/IMG_0706.jpeg",
+                        "https://cdn.rapidfile.cc/YZu2BgIi9u/IMG_0707.jpeg",
+                        "https://cdn.rapidfile.cc/1wlc2I1fgO/IMG_0708.jpeg",
+                        "https://cdn.rapidfile.cc/JNfympHIq8/IMG_0709.jpeg",
+                        "https://cdn.rapidfile.cc/fJXoqwmuVn/IMG_0710.jpeg",
+                        "https://cdn.rapidfile.cc/EYvstRmcHF/IMG_0711.jpeg",
+                        "https://cdn.rapidfile.cc/elcqvfMPjE/IMG_0712.jpeg",
+                        "https://cdn.rapidfile.cc/Bp7emPtGi1/IMG_0713.jpeg",
+                        "https://cdn.rapidfile.cc/tXdE7HLc7p/IMG_0714.jpeg",
+                        "https://cdn.rapidfile.cc/ZsJVE5KE7d/IMG_0715.jpeg",
+                        "https://cdn.rapidfile.cc/jizfyOfMZK/IMG_0716.jpeg",
+                        "https://cdn.rapidfile.cc/6rytmWsIuG/IMG_0717.jpeg",
+                        "https://cdn.rapidfile.cc/c37yvxj8tY/IMG_0718.jpeg",
+                        "https://cdn.rapidfile.cc/ZTKkE5yKsL/IMG_0719.jpeg",
+                        "https://cdn.rapidfile.cc/FK17bsSFHm/IMG_0720.jpeg",
+                        "https://cdn.rapidfile.cc/rWD7Trtz2N/IMG_0721.jpeg",
+                        "https://cdn.rapidfile.cc/coCqAZUDQC/IMG_0722.jpeg",
+                        "https://cdn.rapidfile.cc/FnFB00McWm/IMG_0723.jpeg",
+                        "https://cdn.rapidfile.cc/JcyqZ95vvd/IMG_0724.jpeg",
+                        "https://cdn.rapidfile.cc/3w5b6msgXW/IMG_0725.jpeg",
+                        "https://cdn.rapidfile.cc/fn59eCLsG6/%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%94...%E0%B8%88%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A3%E0%B8%B6%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2.png"
+                    ],
+                    ja: [
+										  "https://files.catbox.moe/31ifmp.jpeg"
+										],
+                    en: [
+										  "https://files.catbox.moe/5m7d3v.jpeg"
+										]
+                }
             },
             {
                 title: "ตอนที่ 2",
-                pages: [
-                    "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
-                    "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
-                    "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
-                    "https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
-                    "https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
-                    "https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
-                    "https://cdn.rapidfile.cc/7v1tjHRuvl/IMG_0741.jpeg",
-                    "https://cdn.rapidfile.cc/M8fiSItVjh/IMG_0742.jpeg",
-                    "https://cdn.rapidfile.cc/idTsxRmIEY/IMG_0743.jpeg",
-                    "https://cdn.rapidfile.cc/EORIpHQuKw/IMG_0744.jpeg",
-                    "https://cdn.rapidfile.cc/zatx3TYx63/IMG_0745.jpeg",
-                    "https://cdn.rapidfile.cc/BRHbEHkILm/IMG_0746.jpeg",
-                    "https://cdn.rapidfile.cc/HXzmgn2uuh/IMG_0747.jpeg",
-                    "https://cdn.rapidfile.cc/pSvZsX2DzW/IMG_0748.jpeg",
-                    "https://cdn.rapidfile.cc/LHseLzdZV5/IMG_0749.jpeg",
-                    "https://cdn.rapidfile.cc/5m8kuqQX7f/IMG_0750.jpeg",
-                    "https://cdn.rapidfile.cc/EHyL5aeBGT/IMG_0751.jpeg",
-                    "https://cdn.rapidfile.cc/Sk0PAt5LmW/IMG_0752.jpeg",
-                    "https://cdn.rapidfile.cc/EIylQew94b/Untitled%20design.png"
-                ]
+                pages: {
+                    th: [
+                        "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
+                        "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
+                        "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
+                        "https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
+                        "https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
+                        "https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
+                        "https://cdn.rapidfile.cc/7v1tjHRuvl/IMG_0741.jpeg",
+                        "https://cdn.rapidfile.cc/M8fiSItVjh/IMG_0742.jpeg",
+                        "https://cdn.rapidfile.cc/idTsxRmIEY/IMG_0743.jpeg",
+                        "https://cdn.rapidfile.cc/EORIpHQuKw/IMG_0744.jpeg",
+                        "https://cdn.rapidfile.cc/zatx3TYx63/IMG_0745.jpeg",
+                        "https://cdn.rapidfile.cc/BRHbEHkILm/IMG_0746.jpeg",
+                        "https://cdn.rapidfile.cc/HXzmgn2uuh/IMG_0747.jpeg",
+                        "https://cdn.rapidfile.cc/pSvZsX2DzW/IMG_0748.jpeg",
+                        "https://cdn.rapidfile.cc/LHseLzdZV5/IMG_0749.jpeg",
+                        "https://cdn.rapidfile.cc/5m8kuqQX7f/IMG_0750.jpeg",
+                        "https://cdn.rapidfile.cc/EHyL5aeBGT/IMG_0751.jpeg",
+                        "https://cdn.rapidfile.cc/Sk0PAt5LmW/IMG_0752.jpeg",
+                        "https://cdn.rapidfile.cc/EIylQew94b/Untitled%20design.png"
+                    ],
+                    ja: [],
+                    en: []
+                }
             },
             {
                 title: "ตอนที่ 3",
@@ -95,6 +108,7 @@ const mangaData = [
                 ]
             }
         ]
+
     },
 
     {
@@ -1063,4 +1077,83 @@ window.addEventListener("storage", event => {
 searchManga();
 renderFavorites();
 
-console.log("🌸 Yume Manga Pink Dream Interaction Edition Ready!");
+console.log("🌸 Yume Manga Pink Dream Interactive Edition Loaded");
+/* =================================
+   YUME MANGA LANGUAGE SYSTEM
+   LANGUAGE SELECTION
+================================= */
+
+(function () {
+
+    const languageButtons = document.querySelectorAll(
+        "#language-switcher [data-lang]"
+    );
+
+    if (!languageButtons.length) return;
+
+    const supportedLanguages = ["th", "ja", "en"];
+
+    let currentLanguage = localStorage.getItem("yumeLanguage") || "th";
+
+    if (!supportedLanguages.includes(currentLanguage)) {
+        currentLanguage = "th";
+    }
+
+    function updateLanguageButtons() {
+
+        languageButtons.forEach(button => {
+
+            const isActive =
+                button.dataset.lang === currentLanguage;
+
+            button.classList.toggle("active", isActive);
+
+            button.setAttribute(
+                "aria-pressed",
+                String(isActive)
+            );
+
+        });
+
+    }
+
+    function selectLanguage(language) {
+
+        if (!supportedLanguages.includes(language)) return;
+
+        currentLanguage = language;
+
+        localStorage.setItem(
+            "yumeLanguage",
+            currentLanguage
+        );
+
+        document.documentElement.lang = language;
+
+        updateLanguageButtons();
+
+        window.dispatchEvent(
+            new CustomEvent("yume-language-change", {
+                detail: {
+                    language: currentLanguage
+                }
+            })
+        );
+
+    }
+
+    document.documentElement.lang = currentLanguage;
+
+    updateLanguageButtons();
+
+    languageButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            selectLanguage(button.dataset.lang);
+
+        });
+
+    });
+
+})();
