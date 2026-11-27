@@ -1171,586 +1171,1046 @@ body.controls-hidden .reader-chapter-panel {
 
     <script>
 
-        /* =================================
-           GET MANGA DATA
-        ================================= */
-
-        const params = new URLSearchParams(
-            window.location.search
-        );
-
-        const mangaId = params.get("id");
-
-        const chapterIndex = Number(
-            params.get("chapter") || 0
-        );
-
-        const manga = window.mangaData?.find(
-            item => String(item.id) === String(mangaId)
-        );
+/* =========================================
+   YUME MANGA READER
+   PINK DREAM - FIXED EDITION
+   TH / JA / EN
+========================================= */
 
 
-        /* =================================
-           ELEMENTS
-        ================================= */
+/* =========================================
+   GET MANGA DATA
+========================================= */
 
-        const readerContainer =
-            document.querySelector(".reader-container");
+const params = new URLSearchParams(window.location.search);
 
-        const readerPages =
-            document.getElementById("reader-pages");
+const mangaId = params.get("id");
 
-        const mangaTitle =
-            document.getElementById("manga-title");
+const chapterIndex = Number(params.get("chapter") || 0);
 
-        const chapterTitle =
-            document.getElementById("chapter-title");
-
-        const readerCover =
-            document.getElementById("reader-cover");
-
-        const previousButton =
-            document.getElementById("previous-chapter");
-
-        const nextButton =
-            document.getElementById("next-chapter");
-
-        const brightnessButton =
-            document.getElementById("brightness-button");
-
-        const settingsButton =
-            document.getElementById("settings-button");
-
-        const chapterListButton =
-            document.getElementById("chapter-list-button");
-
-        const settingsPanel =
-            document.getElementById("reader-settings");
-
-        const chapterPanel =
-            document.getElementById("reader-chapter-panel");
-
-        const chapterListContent =
-            document.getElementById("chapter-list-content");
+const manga = window.mangaData?.find(
+    item => String(item.id) === String(mangaId)
+);
 
 
-        /* =================================
-           PAGE TRANSITION
-        ================================= */
+/* =========================================
+   ELEMENTS
+========================================= */
 
-        function navigateWithFade(url) {
+const readerContainer = document.querySelector(".reader-container");
+const readerPages = document.getElementById("reader-pages");
 
-            document.body.classList.remove(
-                "page-ready"
-            );
+const mangaTitle = document.getElementById("manga-title");
+const chapterTitle = document.getElementById("chapter-title");
+const readerCover = document.getElementById("reader-cover");
 
-            document.body.classList.add(
-                "page-leaving"
-            );
+const previousButton = document.getElementById("previous-chapter");
+const nextButton = document.getElementById("next-chapter");
 
-            setTimeout(() => {
-                window.location.href = url;
-            }, 500);
+const brightnessButton = document.getElementById("brightness-button");
+const settingsButton = document.getElementById("settings-button");
+const chapterListButton = document.getElementById("chapter-list-button");
+
+const settingsPanel = document.getElementById("reader-settings");
+const chapterPanel = document.getElementById("reader-chapter-panel");
+const chapterListContent = document.getElementById("chapter-list-content");
+
+const widthFullButton = document.getElementById("width-full");
+const widthNarrowButton = document.getElementById("width-narrow");
+
+const backDetail = document.getElementById("back-detail");
+
+
+/* =========================================
+   LANGUAGE
+========================================= */
+
+let currentLanguage = localStorage.getItem("yumeLanguage") || "th";
+
+if (!["th", "ja", "en"].includes(currentLanguage)) {
+    currentLanguage = "th";
+}
+
+
+/* =========================================
+   TRANSLATIONS
+========================================= */
+
+const readerTranslations = {
+
+    th: {
+        brightness: "ปรับความสว่าง",
+        settings: "ตั้งค่า",
+        previous: "ตอนก่อนหน้า",
+        next: "ตอนถัดไป",
+        chapterList: "รายการตอน",
+        readingSettings: "ตั้งค่าการอ่าน 🌸",
+        fullWidth: "แสดงภาพเต็มความกว้าง",
+        narrowWidth: "แสดงภาพแบบกึ่งกลาง",
+        chapterPanel: "รายการตอนมังงะ",
+        missing: "ไม่พบตอนที่ต้องการ 🌸",
+        missingMessage: "ลองกลับไปยังหน้ารายละเอียดมังงะอีกครั้ง",
+        home: "กลับหน้าแรก",
+        noImages: "🌸 ยังไม่มีภาพมังงะในตอนนี้",
+        noImagesMessage: "ยังไม่มีภาพในภาษาที่เลือก หรือภาพไม่สามารถโหลดได้",
+        imageAlt: "หน้ามังงะ",
+        watermark: "Yume Manga",
+        imageError: "ไม่สามารถโหลดภาพหน้านี้ได้",
+        chapterError: "ไม่พบตอนที่ต้องการ"
+    },
+
+    ja: {
+        brightness: "明るさ",
+        settings: "設定",
+        previous: "前の話",
+        next: "次の話",
+        chapterList: "話一覧",
+        readingSettings: "読書設定 🌸",
+        fullWidth: "全幅表示",
+        narrowWidth: "中央表示",
+        chapterPanel: "話一覧",
+        missing: "話が見つかりません 🌸",
+        missingMessage: "作品詳細ページに戻ってください。",
+        home: "ホームに戻る",
+        noImages: "🌸 この話の画像はまだありません",
+        noImagesMessage: "選択した言語の画像がないか、画像を読み込めませんでした。",
+        imageAlt: "漫画ページ",
+        watermark: "Yume Manga",
+        imageError: "このページを読み込めませんでした",
+        chapterError: "話が見つかりません"
+    },
+
+    en: {
+        brightness: "Brightness",
+        settings: "Settings",
+        previous: "Previous Chapter",
+        next: "Next Chapter",
+        chapterList: "Chapter List",
+        readingSettings: "Reading Settings 🌸",
+        fullWidth: "Full Width",
+        narrowWidth: "Centered Width",
+        chapterPanel: "Manga Chapters",
+        missing: "Chapter not found 🌸",
+        missingMessage: "Please return to the manga details page.",
+        home: "Back to Home",
+        noImages: "🌸 No manga images available yet",
+        noImagesMessage: "Images for this language are unavailable or could not be loaded.",
+        imageAlt: "Manga page",
+        watermark: "Yume Manga",
+        imageError: "Unable to load this page",
+        chapterError: "Chapter not found"
+    }
+
+};
+
+
+/* =========================================
+   CURRENT CHAPTER
+========================================= */
+
+const chapters = manga?.chapters || [];
+
+const currentChapter = chapters[chapterIndex] || null;
+
+
+/* =========================================
+   TRANSLATION HELPERS
+========================================= */
+
+function getTranslation(key) {
+
+    return readerTranslations[currentLanguage]?.[key]
+        || readerTranslations.th[key]
+        || key;
+
+}
+
+
+function getChapterName(index) {
+
+    if (currentLanguage === "ja") {
+        return `第${index + 1}話`;
+    }
+
+    if (currentLanguage === "en") {
+        return `Chapter ${index + 1}`;
+    }
+
+    return `ตอนที่ ${index + 1}`;
+
+}
+
+
+function getLocalizedChapterTitle(chapter, index) {
+
+    if (
+        chapter?.title &&
+        typeof chapter.title === "object"
+    ) {
+
+        return chapter.title[currentLanguage]
+            || chapter.title.th
+            || chapter.title.en
+            || chapter.title.ja
+            || getChapterName(index);
+
+    }
+
+    if (
+        typeof chapter?.title === "string" &&
+        chapter.title.trim() !== ""
+    ) {
+
+        const standardTitle =
+            /^(ตอนที่\s*\d+|chapter\s*\d+|第\s*\d+\s*話)$/i;
+
+        if (!standardTitle.test(chapter.title.trim())) {
+            return chapter.title;
+        }
+
+    }
+
+    return getChapterName(index);
+
+}
+
+
+function getLocalizedMangaTitle(item) {
+
+    if (!item) return "";
+
+    if (
+        item.title &&
+        typeof item.title === "object"
+    ) {
+
+        return item.title[currentLanguage]
+            || item.title.th
+            || item.title.en
+            || item.title.ja
+            || "";
+
+    }
+
+    return item.title || "";
+
+}
+
+
+function getLocalizedCover(item) {
+
+    if (!item) return "";
+
+    if (
+        item.cover &&
+        typeof item.cover === "object"
+    ) {
+
+        return item.cover[currentLanguage]
+            || item.cover.th
+            || item.cover.en
+            || item.cover.ja
+            || "";
+
+    }
+
+    return item.cover || "";
+
+}
+
+
+/* =========================================
+   SAFE HTML
+========================================= */
+
+function escapeReaderHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+
+}
+
+
+/* =========================================
+   PAGE TRANSITION
+========================================= */
+
+function navigateWithFade(url) {
+
+    document.body.classList.remove("page-ready");
+    document.body.classList.add("page-leaving");
+
+    setTimeout(() => {
+        window.location.href = url;
+    }, 350);
+
+}
+
+
+/* =========================================
+   GET PAGES BY LANGUAGE
+========================================= */
+
+function getPagesByLanguage(chapter) {
+
+    const pageData = chapter?.pages;
+
+    if (!pageData) {
+        return [];
+    }
+
+    // รองรับ Array แบบเดิม
+
+    if (Array.isArray(pageData)) {
+        return pageData;
+    }
+
+    // รองรับ Object แยกภาษา
+
+    if (typeof pageData === "object") {
+
+        const languageOrder = [
+            currentLanguage,
+            "th",
+            "en",
+            "ja"
+        ];
+
+        for (const language of languageOrder) {
+
+            const selectedPages = pageData[language];
+
+            if (
+                Array.isArray(selectedPages) &&
+                selectedPages.length > 0
+            ) {
+
+                return selectedPages;
+
+            }
 
         }
 
+    }
 
-        /* =================================
-           CHECK DATA
-        ================================= */
+    return [];
+
+}
+
+
+/* =========================================
+   RENDER PAGES
+========================================= */
+
+function renderPages() {
+
+    if (!readerPages || !currentChapter) {
+        return;
+    }
+
+    const pages = getPagesByLanguage(currentChapter);
+
+    const validPages = pages.filter(page => {
+
+        return typeof page === "string"
+            && /^https?:\/\//i.test(page);
+
+    });
+
+
+    if (!validPages.length) {
+
+        readerPages.innerHTML = `
+
+            <div class="reader-placeholder">
+
+                <h2>${getTranslation("noImages")}</h2>
+
+                <p>${getTranslation("noImagesMessage")}</p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    readerPages.innerHTML = validPages.map(
+        (page, index) => {
+
+            const safeURL = escapeReaderHTML(page);
+
+            return `
+
+                <div class="reader-page">
+
+                    <img
+                        src="${safeURL}"
+                        alt="${escapeReaderHTML(getTranslation("imageAlt"))} ${index + 1}"
+                        loading="${index === 0 ? "eager" : "lazy"}"
+                        decoding="async"
+                        draggable="false"
+                    >
+
+                    <span class="reader-watermark">
+                        ${escapeReaderHTML(getTranslation("watermark"))}
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+    ).join("");
+
+
+    // ตรวจสอบภาพที่โหลดไม่สำเร็จ
+
+    readerPages.querySelectorAll(".reader-page img")
+    .forEach(img => {
+
+        img.addEventListener("error", function () {
+
+            if (this.dataset.failed === "true") {
+                return;
+            }
+
+            this.dataset.failed = "true";
+
+            const pageContainer = this.closest(".reader-page");
+
+            if (!pageContainer) {
+                return;
+            }
+
+            pageContainer.style.minHeight = "150px";
+            pageContainer.style.display = "flex";
+            pageContainer.style.alignItems = "center";
+            pageContainer.style.justifyContent = "center";
+            pageContainer.style.background = "#241b22";
+            pageContainer.style.lineHeight = "1.6";
+
+            this.style.display = "none";
+
+            const errorMessage = document.createElement("p");
+
+            errorMessage.textContent = getTranslation("imageError");
+
+            errorMessage.style.color = "#f4c8dc";
+            errorMessage.style.padding = "20px";
+            errorMessage.style.textAlign = "center";
+
+            pageContainer.appendChild(errorMessage);
+
+        });
+
+    });
+
+}
+
+
+/* =========================================
+   RENDER CHAPTER LIST
+========================================= */
+
+function renderChapterList() {
+
+    if (!chapterListContent || !chapters.length) {
+        return;
+    }
+
+    chapterListContent.innerHTML = chapters.map(
+        (chapter, index) => {
+
+            const title = escapeReaderHTML(
+                getLocalizedChapterTitle(chapter, index)
+            );
+
+            const isCurrent = index === chapterIndex;
+
+            return `
+
+                <a
+
+                    class="chapter-list-item ${isCurrent ? "current" : ""}"
+
+                    href="reader.html?id=${encodeURIComponent(manga.id)}&chapter=${index}"
+
+                >
+
+                    ${title}
+
+                    ${isCurrent ? " ✓" : ""}
+
+                </a>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =========================================
+   UPDATE LANGUAGE UI
+========================================= */
+
+function updateReaderLanguage() {
+
+    if (!manga || !currentChapter) {
+        return;
+    }
+
+    document.documentElement.lang = currentLanguage;
+
+    mangaTitle.textContent =
+        getLocalizedMangaTitle(manga);
+
+    chapterTitle.textContent =
+        getLocalizedChapterTitle(
+            currentChapter,
+            chapterIndex
+        );
+
+
+    brightnessButton?.setAttribute(
+        "aria-label",
+        getTranslation("brightness")
+    );
+
+    settingsButton?.setAttribute(
+        "aria-label",
+        getTranslation("settings")
+    );
+
+    previousButton?.setAttribute(
+        "aria-label",
+        getTranslation("previous")
+    );
+
+    nextButton?.setAttribute(
+        "aria-label",
+        getTranslation("next")
+    );
+
+    chapterListButton?.setAttribute(
+        "aria-label",
+        getTranslation("chapterList")
+    );
+
+
+    const settingsHeading =
+        settingsPanel?.querySelector("h3");
+
+    if (settingsHeading) {
+
+        settingsHeading.textContent =
+            getTranslation("readingSettings");
+
+    }
+
+
+    if (widthFullButton) {
+
+        widthFullButton.textContent =
+            getTranslation("fullWidth");
+
+    }
+
+
+    if (widthNarrowButton) {
+
+        widthNarrowButton.textContent =
+            getTranslation("narrowWidth");
+
+    }
+
+
+    const chapterHeading =
+        chapterPanel?.querySelector("h3");
+
+    if (chapterHeading) {
+
+        chapterHeading.textContent =
+            getTranslation("chapterPanel");
+
+    }
+
+
+    renderPages();
+    renderChapterList();
+
+}
+
+
+/* =========================================
+   SAVE READING HISTORY
+========================================= */
+
+function saveReadingHistory() {
+
+    if (!manga || !currentChapter) {
+        return;
+    }
+
+    try {
+
+        const history = JSON.parse(
+            localStorage.getItem("yumeReadingHistory") || "{}"
+        );
+
+        history[String(manga.id)] = {
+
+            chapter: chapterIndex,
+
+            title: getLocalizedChapterTitle(
+                currentChapter,
+                chapterIndex
+            ),
+
+            updatedAt: Date.now()
+
+        };
+
+        localStorage.setItem(
+            "yumeReadingHistory",
+            JSON.stringify(history)
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Reading history could not be saved.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+function renderCover() {
+
+    if (!readerCover || !manga) {
+        return;
+    }
+
+    const coverURL = getLocalizedCover(manga);
+
+    if (
+        typeof coverURL === "string" &&
+        /^https?:\/\//i.test(coverURL)
+    ) {
+
+        readerCover.src = coverURL;
+        readerCover.style.display = "";
+
+        readerCover.onerror = function () {
+            this.style.display = "none";
+        };
+
+    } else {
+
+        readerCover.style.display = "none";
+
+    }
+
+}
+
+
+/* =========================================
+   CHAPTER BUTTONS
+========================================= */
+
+function setupChapterNavigation() {
+
+    if (!manga || !chapters.length) {
+        return;
+    }
+
+
+    // Previous
+
+    if (chapterIndex > 0) {
+
+        previousButton.href =
+            `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${chapterIndex - 1}`;
+
+        previousButton.classList.remove("disabled");
+        previousButton.removeAttribute("aria-disabled");
+
+    } else {
+
+        previousButton.href = "#";
+
+        previousButton.classList.add("disabled");
+
+        previousButton.setAttribute(
+            "aria-disabled",
+            "true"
+        );
+
+    }
+
+
+    // Next
+
+    if (chapterIndex < chapters.length - 1) {
+
+        nextButton.href =
+            `reader.html?id=${encodeURIComponent(manga.id)}&chapter=${chapterIndex + 1}`;
+
+        nextButton.classList.remove("disabled");
+        nextButton.removeAttribute("aria-disabled");
+
+    } else {
+
+        nextButton.href = "#";
+
+        nextButton.classList.add("disabled");
+
+        nextButton.setAttribute(
+            "aria-disabled",
+            "true"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CHAPTER BUTTON EVENTS
+========================================= */
+
+function setupChapterButton(button) {
+
+    if (!button) {
+        return;
+    }
+
+    button.addEventListener("click", event => {
+
+        event.preventDefault();
 
         if (
-            !manga ||
-            !Array.isArray(manga.chapters) ||
-            !Number.isInteger(chapterIndex) ||
-            !manga.chapters[chapterIndex]
+            button.classList.contains("disabled") ||
+            button.getAttribute("aria-disabled") === "true"
         ) {
+            return;
+        }
+
+        if (button.href && button.href !== "#") {
+
+            navigateWithFade(button.href);
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   BACK TO DETAIL
+========================================= */
+
+function setupBackDetail() {
+
+    if (!backDetail || !manga) {
+        return;
+    }
+
+    backDetail.href =
+        `detail.html?id=${encodeURIComponent(manga.id)}`;
+
+    backDetail.addEventListener("click", event => {
+
+        event.preventDefault();
+
+        navigateWithFade(backDetail.href);
+
+    });
+
+}
+
+
+/* =========================================
+   BRIGHTNESS
+========================================= */
+
+let brightnessLevel = 100;
+
+const brightnessLevels = [100, 85, 70];
+
+function applyBrightness() {
+
+    document.querySelectorAll(".reader-page img")
+    .forEach(img => {
+
+        img.style.filter =
+            `brightness(${brightnessLevel}%)`;
+
+    });
+
+}
+
+
+brightnessButton?.addEventListener("click", () => {
+
+    const currentIndex =
+        brightnessLevels.indexOf(brightnessLevel);
+
+    brightnessLevel =
+        brightnessLevels[
+            (currentIndex + 1) % brightnessLevels.length
+        ];
+
+    applyBrightness();
+
+    brightnessButton.style.background =
+        brightnessLevel === 100
+        ? "rgba(255,255,255,0.55)"
+        : "#f9d5e5";
+
+});
+
+
+/* =========================================
+   SETTINGS PANEL
+========================================= */
+
+settingsButton?.addEventListener("click", () => {
+
+    settingsPanel?.classList.toggle("active");
+
+    chapterPanel?.classList.remove("active");
+
+});
+
+
+widthFullButton?.addEventListener("click", () => {
+
+    readerContainer?.classList.remove("reader-narrow");
+
+    settingsPanel?.classList.remove("active");
+
+});
+
+
+widthNarrowButton?.addEventListener("click", () => {
+
+    readerContainer?.classList.add("reader-narrow");
+
+    settingsPanel?.classList.remove("active");
+
+});
+
+
+/* =========================================
+   CHAPTER LIST PANEL
+========================================= */
+
+chapterListButton?.addEventListener("click", () => {
+
+    chapterPanel?.classList.toggle("active");
+
+    settingsPanel?.classList.remove("active");
+
+});
+
+
+/* =========================================
+   TAP TO HIDE CONTROLS
+========================================= */
+
+document.addEventListener("click", event => {
+
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+        return;
+    }
+
+    if (
+        target.closest(
+            ".reader-header, .reader-settings, .reader-chapter-panel"
+        )
+    ) {
+        return;
+    }
+
+    if (target.closest("a, button")) {
+        return;
+    }
+
+    settingsPanel?.classList.remove("active");
+    chapterPanel?.classList.remove("active");
+
+    document.body.classList.toggle("controls-hidden");
+
+});
+
+
+/* =========================================
+   IMAGE PROTECTION
+========================================= */
+
+document.addEventListener("contextmenu", event => {
+
+    if (event.target instanceof Element &&
+        event.target.closest(".reader-page")) {
+
+        event.preventDefault();
+
+    }
+
+});
+
+
+document.addEventListener("dragstart", event => {
+
+    if (event.target instanceof Element &&
+        event.target.closest(".reader-page")) {
+
+        event.preventDefault();
+
+    }
+
+});
+
+
+document.addEventListener("selectstart", event => {
+
+    if (event.target instanceof Element &&
+        event.target.closest(".reader-page")) {
+
+        event.preventDefault();
+
+    }
+
+});
+
+
+/* =========================================
+   LANGUAGE CHANGE EVENT
+========================================= */
+
+window.addEventListener(
+    "yume-language-change",
+    event => {
+
+        const newLanguage = event.detail?.language;
+
+        if (!["th", "ja", "en"].includes(newLanguage)) {
+            return;
+        }
+
+        currentLanguage = newLanguage;
+
+        localStorage.setItem(
+            "yumeLanguage",
+            currentLanguage
+        );
+
+        updateReaderLanguage();
+
+    }
+);
+
+
+/* =========================================
+   INITIALIZATION
+========================================= */
+
+function initializeReader() {
+
+    if (
+        !manga ||
+        !Array.isArray(manga.chapters) ||
+        !Number.isInteger(chapterIndex) ||
+        !currentChapter
+    ) {
+
+        if (readerContainer) {
 
             readerContainer.innerHTML = `
 
                 <div class="reader-error">
 
-                    <h2>ไม่พบตอนที่ต้องการ 🌸</h2>
+                    <h2>${getTranslation("missing")}</h2>
 
-                    <p>
-                        ลองกลับไปยังหน้ารายละเอียดมังงะอีกครั้ง
-                    </p>
+                    <p>${getTranslation("missingMessage")}</p>
 
                     <br>
 
                     <a href="index.html">
-                        กลับหน้าแรก
+                        ${getTranslation("home")}
                     </a>
 
                 </div>
 
             `;
 
-        } else {
-
-            /* CURRENT CHAPTER */
-
-            const chapters = manga.chapters;
-
-            const currentChapter =
-                chapters[chapterIndex];
-
-
-            /* =================================
-               SAVE READING HISTORY
-            ================================= */
-
-            try {
-
-                const history = JSON.parse(
-                    localStorage.getItem(
-                        "yumeReadingHistory"
-                    ) || "{}"
-                );
-
-                history[String(manga.id)] = {
-
-                    chapter: chapterIndex,
-
-                    title: currentChapter.title ||
-                        `ตอนที่ ${chapterIndex + 1}`,
-
-                    updatedAt: Date.now()
-
-                };
-
-                localStorage.setItem(
-                    "yumeReadingHistory",
-                    JSON.stringify(history)
-                );
-
-            } catch (error) {
-
-                console.warn(
-                    "ไม่สามารถบันทึกประวัติการอ่านได้",
-                    error
-                );
-
-            }
-
-
-            /* =================================
-               SHOW MANGA INFO
-            ================================= */
-
-            mangaTitle.textContent = manga.title;
-
-            chapterTitle.textContent =
-                currentChapter.title ||
-                `ตอนที่ ${chapterIndex + 1}`;
-
-            /* โหลดรูปปกจากข้อมูล manga.cover */
-
-            if (
-                typeof manga.cover === "string" &&
-                /^https?:\/\//i.test(manga.cover)
-            ) {
-
-                readerCover.src = manga.cover;
-
-                readerCover.onerror = () => {
-                    readerCover.style.display = "none";
-                };
-
-            } else {
-
-                readerCover.style.display = "none";
-
-            }
-
-
-            /* =================================
-               LOAD MANGA PAGES
-            ================================= */
-
-            const pages = Array.isArray(
-                currentChapter.pages
-            )
-                ? currentChapter.pages
-                : [];
-
-            const validPages = pages.filter(page =>
-
-                typeof page === "string" &&
-                /^https?:\/\//i.test(page)
-
-            );
-
-
-            if (validPages.length > 0) {
-
-                readerPages.innerHTML =
-
-                    validPages.map((page, index) => `
-
-                        <div class="reader-page">
-
-                            <img
-                                src="${page}"
-                                alt="หน้ามังงะ ${index + 1}"
-
-                                loading="${
-                                    index === 0
-                                    ? "eager"
-                                    : "lazy"
-                                }"
-
-                                draggable="false"
-                                decoding="async"
-                            >
-
-                            <span class="reader-watermark"></span>
-
-                        </div>
-
-                    `).join("");
-
-
-            } else {
-
-                readerPages.innerHTML = `
-
-                    <div class="reader-placeholder">
-
-                        <h2>
-                            🌸 ยังไม่มีภาพมังงะในตอนนี้
-                        </h2>
-
-                        <p>
-                            ตอนนี้มีรายชื่อตอนแล้ว
-                            แต่ยังไม่ได้เพิ่ม URL รูปภาพของแต่ละหน้า
-                        </p>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /* =================================
-               PREVIOUS CHAPTER
-            ================================= */
-
-            if (chapterIndex > 0) {
-
-                previousButton.href =
-                    `reader.html?id=${
-                        encodeURIComponent(manga.id)
-                    }&chapter=${chapterIndex - 1}`;
-
-            } else {
-
-                previousButton.classList.add("disabled");
-
-                previousButton.setAttribute(
-                    "aria-disabled",
-                    "true"
-                );
-
-            }
-
-
-            /* =================================
-               NEXT CHAPTER
-            ================================= */
-
-            if (chapterIndex < chapters.length - 1) {
-
-                nextButton.href =
-                    `reader.html?id=${
-                        encodeURIComponent(manga.id)
-                    }&chapter=${chapterIndex + 1}`;
-
-            } else {
-
-                nextButton.classList.add("disabled");
-
-                nextButton.setAttribute(
-                    "aria-disabled",
-                    "true"
-                );
-
-            }
-
-
-            /* =================================
-               CHAPTER LIST
-            ================================= */
-
-            chapterListContent.innerHTML =
-
-                chapters.map((chapter, index) => `
-
-                    <a
-                        class="chapter-list-item ${
-                            index === chapterIndex
-                            ? "current"
-                            : ""
-                        }"
-
-                        href="reader.html?id=${
-                            encodeURIComponent(manga.id)
-                        }&chapter=${index}"
-                    >
-                        ${
-                            chapter.title ||
-                            `ตอนที่ ${index + 1}`
-                        }
-
-                        ${
-                            index === chapterIndex
-                            ? " ✓"
-                            : ""
-                        }
-
-                    </a>
-
-                `).join("");
-
-
-            /* =================================
-               CHAPTER NAVIGATION EVENTS
-            ================================= */
-
-            function setupChapterButton(button, isNext) {
-
-                button.addEventListener("click", event => {
-
-                    event.preventDefault();
-
-                    if (button.classList.contains("disabled")) {
-                        return;
-                    }
-
-                    navigateWithFade(button.href);
-
-                });
-
-            }
-
-            setupChapterButton(previousButton, false);
-            setupChapterButton(nextButton, true);
-
-
-            /* =================================
-               BACK TO DETAIL
-            ================================= */
-
-            const backDetail =
-                document.getElementById("back-detail");
-
-            backDetail.href =
-                `detail.html?id=${
-                    encodeURIComponent(manga.id)
-                }`;
-
-            backDetail.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    navigateWithFade(
-                        backDetail.href
-                    );
-
-                }
-            );
-
         }
 
+        return;
 
-        /* =================================
-           BRIGHTNESS CONTROL
-        ================================= */
-
-        let brightnessLevel = 100;
-
-        const brightnessLevels = [100, 85, 70];
-
-        brightnessButton.addEventListener("click", () => {
-
-            const currentIndex =
-                brightnessLevels.indexOf(brightnessLevel);
-
-            brightnessLevel =
-                brightnessLevels[
-                    (currentIndex + 1) % brightnessLevels.length
-                ];
-
-            document.querySelectorAll(
-                ".reader-page img"
-            ).forEach(img => {
-
-                img.style.filter =
-                    `brightness(${brightnessLevel}%)`;
-
-            });
-
-            brightnessButton.style.background =
-                brightnessLevel === 100
-                ? "rgba(255,255,255,0.55)"
-                : "#f9d5e5";
-
-        });
+    }
 
 
-        /* =================================
-           SETTINGS PANEL
-        ================================= */
+    renderCover();
 
-        settingsButton.addEventListener("click", () => {
+    updateReaderLanguage();
 
-            settingsPanel.classList.toggle("active");
+    saveReadingHistory();
 
-            chapterPanel.classList.remove("active");
+    setupChapterNavigation();
 
-        });
+    setupChapterButton(previousButton);
 
+    setupChapterButton(nextButton);
 
-        document.getElementById("width-full")
-            .addEventListener("click", () => {
+    setupBackDetail();
 
-                readerContainer.classList.remove(
-                    "reader-narrow"
-                );
-
-                settingsPanel.classList.remove("active");
-
-            });
+}
 
 
-        document.getElementById("width-narrow")
-            .addEventListener("click", () => {
-
-                readerContainer.classList.add(
-                    "reader-narrow"
-                );
-
-                settingsPanel.classList.remove("active");
-
-            });
+initializeReader();
 
 
-        /* =================================
-           CHAPTER LIST PANEL
-        ================================= */
+/* =========================================
+   PAGE READY
+========================================= */
 
-        chapterListButton.addEventListener("click", () => {
+window.addEventListener("pageshow", () => {
 
-            chapterPanel.classList.toggle("active");
+    requestAnimationFrame(() => {
 
-            settingsPanel.classList.remove("active");
+        document.body.classList.add("page-ready");
 
-        });
+        document.body.classList.remove("page-leaving");
 
+    });
 
-        /* =================================
-           TAP TO HIDE / SHOW CONTROLS
-        ================================= */
-
-        document.addEventListener("click", event => {
-
-            if (
-                event.target.closest(
-                    ".reader-header, .reader-settings, .reader-chapter-panel"
-                )
-            ) {
-                return;
-            }
-
-            if (
-                event.target.closest("a, button")
-            ) {
-                return;
-            }
-
-            settingsPanel.classList.remove("active");
-            chapterPanel.classList.remove("active");
-
-            document.body.classList.toggle(
-                "controls-hidden"
-            );
-
-        });
+});
 
 
-        /* =================================
-           IMAGE PROTECTION
-        ================================= */
+console.log("🌸 Yume Manga Reader Loaded");
 
-        document.addEventListener(
-            "contextmenu",
-            event => {
-
-                if (
-                    event.target.closest(".reader-page")
-                ) {
-                    event.preventDefault();
-                }
-
-            }
-        );
-
-
-        document.addEventListener(
-            "dragstart",
-            event => {
-
-                if (
-                    event.target.closest(".reader-page")
-                ) {
-                    event.preventDefault();
-                }
-
-            }
-        );
-
-
-        document.addEventListener(
-            "selectstart",
-            event => {
-
-                if (
-                    event.target.closest(".reader-page")
-                ) {
-                    event.preventDefault();
-                }
-
-            }
-        );
-
-
-        /* =================================
-           PAGE READY
-        ================================= */
-
-        window.addEventListener(
-            "pageshow",
-            () => {
-
-                requestAnimationFrame(() => {
-
-                    document.body.classList.add(
-                        "page-ready"
-                    );
-
-                    document.body.classList.remove(
-                        "page-leaving"
-                    );
-
-                });
-
-            }
-        );
-
-    </script>
+</script>
 
 </body>
 </html>
