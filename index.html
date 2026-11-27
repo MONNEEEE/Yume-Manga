@@ -1166,12 +1166,46 @@
     }
 
 
-    /* =================================
-       INITIAL
-    ================================= */
+    // =================================
+// INITIAL
+// =================================
 
+applyLanguage();
+
+window.addEventListener("pageshow", function () {
     applyLanguage();
+});
 
 })();
 </script>
+<!-- สคริปต์เปลี่ยนภาษาเดิม -->
+</script>
+
+<!-- โค้ด RESTORE LANGUAGE FROM URL ที่เพิ่ม -->
+<script>
+(function () {
+    const urlParams = new URLSearchParams(
+        window.location.search
+    );
+
+    const urlLanguage = urlParams.get("lang");
+    const supportedLanguages = ["th", "ja", "en"];
+
+    if (!supportedLanguages.includes(urlLanguage)) {
+        return;
+    }
+
+    localStorage.setItem("yumeLanguage", urlLanguage);
+
+    window.dispatchEvent(
+        new CustomEvent("yume-language-change", {
+            detail: {
+                language: urlLanguage
+            }
+        })
+    );
+})();
+</script>
+
 </body>
+</html>
