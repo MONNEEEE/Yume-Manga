@@ -78,7 +78,6 @@ const mangaData = [
                     th: [
                         "https://cdn.rapidfile.cc/bV9v6sKknA/IMG_0812.jpeg",
                         "https://cdn.rapidfile.cc/MnYCdishgO/IMG_0736.jpeg",
-                        "https://cdn.rapidfile.cc/VMx8LyIMOv/IMG_0737.jpeg",
                         "https://cdn.rapidfile.cc/mqsC4zIuBh/IMG_0738.jpeg",
                         "https://cdn.rapidfile.cc/V1nfr612tl/IMG_0739.jpeg",
                         "https://cdn.rapidfile.cc/0tIbceCu7S/IMG_0740.jpeg",
